@@ -8,14 +8,14 @@ import java.lang.*;
 public class Table {
     private Cell[][] table;
 
-    public Table (String FEN){
+    public Table(String FEN) {
         table = new Cell[8][8];
         int w = 0;
         int j = 0;
-        while (FEN.charAt(w) != ' '){
+        while (w < FEN.length()) {
             int i = 0;
-            while(FEN.charAt(w) != '/'){
-                switch (FEN.charAt(w)){
+            while (FEN.charAt(w) != '/') {
+                switch (FEN.charAt(w)) {
                     case 'k':
                         King k = new King(true);
                         table[i][j].setpiece(k);
@@ -29,7 +29,7 @@ public class Table {
                         Bishop b = new Bishop(true);
                         table[i][j].setpiece(b);
                     case 'n':
-                         Knight n = new Knight(true);
+                        Knight n = new Knight(true);
                         table[i][j].setpiece(n);
                     case 'p':
                         Pawn p = new Pawn(true);
@@ -55,8 +55,8 @@ public class Table {
                         Pawn P = new Pawn(false);
                         table[i][j].setpiece(P);
                     default:
-                        int espace = Integer.parseInt(FEN.charAt(w));
-                        for (int k = 0; k<espace; ++k) ++i;
+                        int space = Character.getNumericValue(FEN.charAt(w));
+                        for (int t = 0; t < space; ++t) ++i;
                 }
                 ++i;
                 ++w;
@@ -65,4 +65,9 @@ public class Table {
             ++j;
         }
     }
+
+    public Cell[][] gettable() {
+        return table;
+    }
+
 }

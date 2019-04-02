@@ -15,43 +15,43 @@ public class Table {
             while(FEN[w] != '/'){
                 switch (FEN[w]){
                     case 'k':
-                        King k = new Knight(true);
-                        Cell[i][j].setpiece(k);
+                        King k = new Knight(true)
+                        table[i][j].setpiece(k);
                     case 'q':
                         Queen q = new Queen(true);
-                        Cell[i][j].setpiece(q);
+                        table[i][j].setpiece(q);
                     case 'r':
                         Rook r = new Rook(true);
-                        Cell[i][j].setpiece(r);
+                        table[i][j].setpiece(r);
                     case 'b':
                         Bishop b = new Bishop(true);
-                        Cell[i][j].setpiece(b);
+                        table[i][j].setpiece(b);
                     case 'n':
                          Knight n = new Knight(true);
-                        Cell[i][j].setpiece(n);
+                        table[i][j].setpiece(n);
                     case 'p':
                         Pawn p = new Pawn(true);
-                        Cell[i][j].setpiece(p);
+                        table[i][j].setpiece(p);
                     case 'K':
-                        King k = new Knight(false);
-                        Cell[i][j].setpiece(K);
+                        King K = new Knight(false);
+                        table[i][j].setpiece(K);
 
                     case 'Q':
                         Queen Q = new Queen(false);
-                        Cell[i][j].setpiece(Q);
+                        table[i][j].setpiece(Q);
                     case 'R':
                         Rook R = new Rook(false);
-                        Cell[i][j].setpiece(R);
+                        table[i][j].setpiece(R);
                     case 'B':
                         Bishop B = new Bishop(false);
-                        Cell[i][j].setpiece(B);
+                        table[i][j].setpiece(B);
 
                     case 'N':
                         Knight N = new Knight(false);
-                        Cell[i][j].setpiece(N);
+                        table[i][j].setpiece(N);
                     case 'P':
                         Pawn P = new Pawn(false);
-                        Cell[i][j].setpiece(P);
+                        table[i][j].setpiece(P);
                     default:
 
 

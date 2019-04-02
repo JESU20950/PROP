@@ -1,8 +1,7 @@
 package Data.Pieces;
 
-public abstract class Piece {
-    Piece (){
-
+public class Piece {
+    boolean color;// white == true
+    Piece(){
     }
-
 }

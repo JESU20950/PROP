@@ -1,21 +1,23 @@
 package Data;
 import Data.Pieces.*;
 
+
+import java.util.*;
 import java.lang.*;
 
 public class Table {
     private Cell[][] table;
 
-    Table (String FEN){
+    public Table (String FEN){
         table = new Cell[8][8];
         int w = 0;
         int j = 0;
-        while (FEN[w] != ' '){
+        while (FEN.charAt(w) != ' '){
             int i = 0;
-            while(FEN[w] != '/'){
-                switch (FEN[w]){
+            while(FEN.charAt(w) != '/'){
+                switch (FEN.charAt(w)){
                     case 'k':
-                        King k = new Knight(true)
+                        King k = new King(true);
                         table[i][j].setpiece(k);
                     case 'q':
                         Queen q = new Queen(true);
@@ -33,7 +35,7 @@ public class Table {
                         Pawn p = new Pawn(true);
                         table[i][j].setpiece(p);
                     case 'K':
-                        King K = new Knight(false);
+                        King K = new King(false);
                         table[i][j].setpiece(K);
 
                     case 'Q':

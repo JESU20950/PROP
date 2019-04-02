@@ -1,11 +1,12 @@
 package Data;
-import Data.Pieces.Piece;
+
+import Data.Pieces.*;
 
 public class Cell {
+
     Piece piece;
 
-
-    Cell(){
+    public Cell(){
         piece = null;
     }
 

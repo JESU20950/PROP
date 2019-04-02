@@ -55,11 +55,8 @@ public class Table {
                         Pawn P = new Pawn(false);
                         table[i][j].setpiece(P);
                     default:
-
-
-
-
-
+                        int espace = Integer.parseInt(FEN.charAt(w));
+                        for (int k = 0; k<espace; ++k) ++i;
                 }
                 ++i;
                 ++w;
@@ -68,6 +65,4 @@ public class Table {
             ++j;
         }
     }
-
-
 }

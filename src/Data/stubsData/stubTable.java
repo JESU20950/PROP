@@ -4,7 +4,7 @@ import Data.Cell;
 import Data.Table;
 
 public class stubTable {
-
+/*
     public static void main(String[] args){
         String = args[0];
         Table t = testConstructor(args);
@@ -17,4 +17,6 @@ public class stubTable {
     private static Cell[][] testgettable(Table t){
         return t.gettable();
     }
+
+ */
 }

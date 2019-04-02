@@ -4,7 +4,7 @@ import Data.Table;
 
 public class driverTable {
 
-
+/*
     public static void main(String[] args){
         String = args[0];
         Table t = testConstructor(args);
@@ -17,5 +17,7 @@ public class driverTable {
     private static Cell[][] testgettable(Table t){
         return t.gettable();
     }
+
+ */
 
 }

@@ -4,12 +4,15 @@ import Data.Pieces.*;
 
 public class Cell {
 
-    Piece piece;
+    private Piece piece;
+
+    private int i;
+
+    private int j;
 
     public Cell(){
         piece = null;
     }
-
 
     public boolean isCellOccupied()
     {
@@ -20,8 +23,9 @@ public class Cell {
         return piece;
     }
 
-    public void setpiece(Piece piece){
-        this.piece = piece;
+    public void setpiece(Piece p){
+        piece = p;
+        if (p != null) p.setCell(this);
     }
 
 

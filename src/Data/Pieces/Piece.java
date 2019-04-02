@@ -1,7 +1,10 @@
+import Data.Cell;
+
 package Data.Pieces;
 
 public class Piece {
-    boolean color;// white == true
-    Piece(){
+    private boolean color;// white == true
+    private Cell c;
+    public Piece() {
     }
 }

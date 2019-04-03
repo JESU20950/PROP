@@ -4,7 +4,7 @@ import Data.Cell;
 
 public abstract class Piece {
     protected boolean color;// white == true
-    char name;
+    String name;
 
     public Piece() {}
 
@@ -12,6 +12,6 @@ public abstract class Piece {
     abstract public boolean getColor();
     abstract public boolean correct_movement(Cell origen, Cell destino);
 
-    abstract public char getName();
+    abstract public String getName();
 
 }

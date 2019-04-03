@@ -5,8 +5,8 @@ import Data.Cell;
 public class Queen extends Piece {
     public Queen(boolean color){
         super.color = color;
-        if (color) super.name = 'Q';
-        else super.name = 'q';
+        if (color) super.name = "Q";
+        else super.name = "q";
     }
 
 
@@ -16,7 +16,7 @@ public class Queen extends Piece {
     public boolean correct_movement(Cell origen, Cell destino) {
         int i_destino = destino.getI();
         int j_destino = destino.getJ();
-        int i_origen = origen.getJ();
+        int i_origen = origen.getI();
         int j_origen = origen.getJ();
         boolean movimiento_ok = (Math.abs(i_origen - i_destino) == Math.abs(j_origen - j_destino) ||
                 (i_origen == i_destino || j_origen == j_destino));
@@ -28,7 +28,7 @@ public class Queen extends Piece {
     }
 
 
-    public char getName() {
+    public String getName() {
         return super.name;
     }
 }

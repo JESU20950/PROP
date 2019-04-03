@@ -1,11 +1,21 @@
 import Data.Cell;
 import Data.Table;
 
+import java.util.Scanner;
+
+
 public class Main {
     public static void main(String[] args){
-        String s = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR";
-        Table t = new Table(s);
+        Scanner input = new Scanner(System.in);
+        String s = "1N1b4/6nr/R5n1/2Ppk2r/K2p2qR/8/2N1PQ2/B6B";
+        Table t = testConstructor(s);
         Cell[][] t2 = testgettable(t);
+        print_table(t2);
+        System.out.println(" ");
+        boolean b = t.MovePiece(6,5,3,2);
+        if (b) System.out.println("bieeenn");
+        else System.out.println("ostia neeng");
+        t2 = testgettable(t);
         print_table(t2);
 
     }
@@ -20,11 +30,11 @@ public class Main {
     private static void print_table(Cell[][] table){
         for (int i = 0; i<8; ++i){
             for  (int j = 0; j<8; ++j){
-                if (table[i][j].getPiece() == null)System.out.println("X");
-                else System.out.println(table[i][j].getPiece().getName());
+                if (table[i][j].getPiece() == null)System.out.printf("X");
+                else System.out.printf(table[i][j].getPiece().getName());
 
             }
-            System.out.println(System.getProperty("line.separator"));
+            System.out.println(" ");
         }
     }
 }

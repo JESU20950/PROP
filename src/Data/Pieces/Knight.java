@@ -5,8 +5,8 @@ import Data.Cell;
 public class Knight extends Piece {
     public Knight(boolean color){
         super.color = color;
-        if (color) super.name = 'N';
-        else super.name = 'n';
+        if (color) super.name = "N";
+        else super.name = "n";
     }
 
 
@@ -19,15 +19,15 @@ public class Knight extends Piece {
     public boolean correct_movement(Cell origen, Cell destino) {
         int i_destino = destino.getI();
         int j_destino = destino.getJ();
-        int i_origen = origen.getJ();
+        int i_origen = origen.getI();
         int j_origen = origen.getJ();
-        boolean movimiento_ok = (Math.abs(i_origen - i_destino) == 1 || Math.abs(j_origen - j_destino) == 1);
-        return (movimiento_ok && destino.getPiece() == null) ||
-                movimiento_ok && destino.getPiece().getColor() != origen.getPiece().getColor();
+        boolean movimiento_ok = (Math.abs(i_destino-i_origen) == 2 && Math.abs(j_destino-j_origen) ==1) ||
+                (Math.abs(j_destino-j_origen) == 2 && Math.abs(i_destino-i_origen) == 1);
+        return movimiento_ok && ( destino.getPiece() == null ||origen.getPiece().getColor() != destino.getPiece().getColor());
 
     }
 
-    public char getName() {
+    public String getName() {
         return super.name;
     }
 }

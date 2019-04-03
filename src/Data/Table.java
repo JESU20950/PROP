@@ -12,7 +12,10 @@ public class Table {
         table = new Cell[8][8];
         for (int i = 0; i<8; ++i){
             for(int j = 0; j<8; ++j){
-             table[i][j] =new Cell();
+             Cell aux = new Cell();
+             table[i][j] = new Cell();
+             table[i][j].setJ(j);
+             table[i][j].setI(i);
             }
         }
         int w = 0;
@@ -72,7 +75,8 @@ public class Table {
                         break;
                     default:
                         int space = Character.getNumericValue(FEN.charAt(w));
-                        for (int t = 0; t < space; ++t) ++j;
+                        //System.out.println(space);
+                        for (int t = 0; t < space-1; ++t) ++j;
                         break;
                 }
                 ++j;
@@ -89,9 +93,30 @@ public class Table {
     }
 
 
-    void MovePiece(int i_origen, int j_origen, int i_destino, int j_destino) {
-
-
+    public boolean MovePiece(int i_origen, int j_origen, int i_destino, int j_destino) {
+        if (i_origen >= 8 || j_origen >= 8 || j_destino >= 8 || j_destino >= 8 || i_origen <= -1 || j_origen <= -1 || j_destino <= -1 || j_destino <= -1) return false;
+        if (table[i_origen][j_origen].getPiece() == null) return false;
+        if (!table[i_origen][j_origen].getPiece().correct_movement(table[i_origen][j_origen],table[i_destino][j_destino])) return false;
+        String pieza = table[i_origen][j_origen].getPiece().getName();
+        if (pieza != "n" && pieza !=  "N"){
+            int i = i_origen;
+            int j = j_origen;
+            int unit_vector_i = 0;
+            int unit_vector_j = 0;
+            if (Math.abs(i_destino - i_origen) != 0)unit_vector_i = (i_destino - i_origen)/Math.abs(i_origen-i_destino);
+            if (Math.abs(j_destino - j_origen) != 0) unit_vector_j = (j_destino - j_origen)/Math.abs(j_destino-j_origen);
+            i += unit_vector_i;
+            j += unit_vector_j;
+            while (i != i_destino || j != j_destino){
+             if (table[i][j].getPiece() != null) return false;
+                i += unit_vector_i;
+                j += unit_vector_j;
+            }
+        }
+        //operacio moure
+        table[i_destino][j_destino].setPiece(table[i_origen][j_origen].getPiece());
+        table[i_origen][j_origen].setPiece(null);
+        return true;
     }
 }
 

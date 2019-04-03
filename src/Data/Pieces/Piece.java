@@ -1,10 +1,13 @@
-import Data.Cell;
-
 package Data.Pieces;
 
-public class Piece {
-    private boolean color;// white == true
-    private Cell c;
-    public Piece() {
-    }
+import Data.Cell;
+
+public abstract class Piece {
+    protected boolean color;// white == true
+    protected Cell c;
+    public Piece() {}
+
+    abstract public Cell getCell();
+    abstract public void setCell(Cell c);
+    abstract public boolean getColor();
 }

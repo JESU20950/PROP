@@ -7,15 +7,19 @@ public class King extends Piece{
         super.color = color;
     }
 
-    public Cell getCell() {
-        return super.c;
-    }
-
-    public void setCell(Cell c) {
-        super.c = c;
-    }
 
     public boolean getColor() {
         return super.color;
+    }
+
+    public boolean correct_movement(Cell origen, Cell destino) {
+        int i_destino = destino.getI();
+        int j_destino = destino.getJ();
+        int i_origen = origen.getJ();
+        int j_origen = origen.getJ();
+        return (Math.abs(i_origen - i_destino) == 1 || Math.abs(j_origen - j_destino) == 1)
+                && destino.getPiece().getColor() != origen.getPiece().getColor();
+
+
     }
 }

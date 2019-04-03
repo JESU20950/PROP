@@ -24,7 +24,6 @@ public class Cell {
 
     public void setPiece(Piece p){
         piece = p;
-        if (p != null) p.setCell(this);
     }
 
     public void setI(int i) {

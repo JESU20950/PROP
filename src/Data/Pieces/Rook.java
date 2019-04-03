@@ -7,6 +7,8 @@ import javax.swing.text.StyledEditorKit;
 public class Rook extends Piece {
     public Rook(boolean color){
         super.color = color;
+        if (color) super.name = 'R';
+        else super.name = 'r';
     }
 
 
@@ -19,9 +21,14 @@ public class Rook extends Piece {
         int j_destino = destino.getJ();
         int i_origen = origen.getJ();
         int j_origen = origen.getJ();
-        return (i_origen == i_destino || j_origen == j_destino)
-                && destino.getPiece().getColor() != origen.getPiece().getColor();
+        boolean movimiento_ok = (i_origen == i_destino || j_origen == j_destino);
+        return (movimiento_ok && destino.getPiece() == null) ||
+                (movimiento_ok && destino.getPiece().getColor() != origen.getPiece().getColor());
 
 
+    }
+
+    public char getName() {
+        return super.name;
     }
 }

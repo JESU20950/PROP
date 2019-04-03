@@ -5,6 +5,8 @@ import Data.Cell;
 public class Pawn extends Piece {
     public Pawn(boolean color){
         super.color = color;
+        if (color) super.name = 'B';
+        else super.name = 'b';
     }
 
 
@@ -19,21 +21,13 @@ public class Pawn extends Piece {
         int j_destino = destino.getJ();
         int i_origen = origen.getJ();
         int j_origen = origen.getJ();
+        return true;
 
 
-        if (super.color){
-          if (i_origen==6){
-
-          }
-          else{
-              if (i_origen -i_destino == 1 && origen.getPiece() == null)
+    }
 
 
-          }
-
-        }
-
-
-
+    public char getName() {
+        return super.name;
     }
 }

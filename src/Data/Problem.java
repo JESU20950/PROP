@@ -126,7 +126,7 @@ public class Problem {
                     for (int ii = 0; ii<8; ++ii){
                         for (int jj = 0; jj<8; ++jj){
                          if (t.MovePiece(aux.getI(),aux.getJ(),ii,jj)){
-                         achieve_the_number_of_play(t,!player_who_plays,--depth,player_Max);
+                         if(achieve_the_number_of_play(t,!player_who_plays,--depth,player_Max)) return true;
                          t.undoMovePiece(ii,jj, aux.getI(),aux.getJ());
                          }
 

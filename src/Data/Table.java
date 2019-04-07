@@ -76,7 +76,7 @@ public class Table {
                         break;
                     default:
                         int space = Character.getNumericValue(FEN.charAt(w));
-                        //System.out.println(space);
+
                         for (int t = 0; t < space-1; ++t) ++j;
                         break;
                 }
@@ -132,7 +132,7 @@ public class Table {
     private Piece getPiece(String piece){
         for (int i = 0; i<8; ++i){
             for (int j = 0; j<8; ++j){
-                if (piece == table[i][j].getPiece().getName()) return  table[i][j].getPiece();
+                if (table[i][j].getPiece() != null && piece == table[i][j].getPiece().getName()) return table[i][j].getPiece();
             }
         }
         return null;
@@ -141,7 +141,7 @@ public class Table {
     public Cell getnextpieceofcolor(boolean player, int ii, int jj){
         for (int i = ii; i<8; ++i){
             for (int j = jj ; j< 8; ++j){
-                if (table[i][j].getPiece().getColor() == player) return table[i][j];
+                if (table[i][j].getPiece() != null && table[i][j].getPiece().getColor() == player) return table[i][j];
             }
         }
         return null;

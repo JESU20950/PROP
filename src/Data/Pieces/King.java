@@ -19,11 +19,11 @@ public class King extends Piece{
         int j_destino = destino.getJ();
         int i_origen = origen.getI();
         int j_origen = origen.getJ();
-        boolean movimiento_ok = (Math.abs(i_origen - i_destino) == 1 || Math.abs(j_origen - j_destino) == 1);
+        boolean movimiento_ok = (Math.abs(i_destino - i_origen) == 1 && Math.abs(j_destino - j_origen) == 1) ||
+                (Math.abs(i_destino - i_origen) == 1 && Math.abs(j_destino - j_origen) == 0)
+                || (Math.abs(i_destino - i_origen) == 0 && Math.abs(j_destino - j_origen) == 1);
         return (movimiento_ok && destino.getPiece() == null) ||
                 (movimiento_ok && destino.getPiece().getColor() != origen.getPiece().getColor());
-
-
     }
 
     public String getName() {

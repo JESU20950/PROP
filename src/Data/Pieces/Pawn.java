@@ -23,11 +23,19 @@ public class Pawn extends Piece {
         int j_origen = origen.getJ();
         if ( (i_origen == 6 || i_origen == 1)  &&  Math.abs(i_destino - i_origen) == 2 &&  destino.getPiece() == null) return true;
         if (origen.getPiece().getColor()){
-            if (destino.getPiece() == null && i_destino-i_origen == -1 && j_destino == 0) return true;
-            if (destino.getPiece() != null && (i_destino-i_origen == 1) && Math.abs(j_destino-j_origen) == 1 && destino.getPiece().getColor() != destino.getPiece().getColor()) return true;
+            if (destino.getPiece() == null && i_destino-i_origen == -1 && j_destino-j_origen == 0){
+                return true;
+            }
+            if (destino.getPiece() != null && (i_destino-i_origen == -1) && Math.abs(j_destino-j_origen) == 1 && destino.getPiece().getColor() != destino.getPiece().getColor()){
+                return true;
+            }
         }else{
-            if (destino.getPiece() == null && i_destino-i_origen == 1 && j_destino == 0) return true;
-            if (destino.getPiece() != null && (i_destino-i_origen == 1) && Math.abs(j_destino-j_origen) == 1 && destino.getPiece().getColor() != destino.getPiece().getColor()) return true;
+            if (destino.getPiece() == null && i_destino-i_origen == 1 && j_destino-j_origen == 0){
+                return true;
+            }
+            if (destino.getPiece() != null && (i_destino-i_origen == 1) && Math.abs(j_destino-j_origen) == 1 && destino.getPiece().getColor() != destino.getPiece().getColor()){
+                return true;
+            }
 
         }
         return false;

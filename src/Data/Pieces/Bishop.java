@@ -21,7 +21,7 @@ public class Bishop extends Piece {
         int j_destino = destino.getJ();
         int i_origen = origen.getI();
         int j_origen = origen.getJ();
-        boolean movimiento_ok = Math.abs(i_origen - i_destino) == Math.abs(j_origen - j_destino);
+        boolean movimiento_ok = Math.abs(i_destino - i_origen) == Math.abs(j_destino - j_origen);
         return (movimiento_ok && destino.getPiece() == null) || (movimiento_ok && destino.getPiece().getColor() != origen.getPiece().getColor());
 
 

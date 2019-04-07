@@ -1,11 +1,14 @@
 package Data;
 
+
 import java.util.Arrays;
+import Data.Table;
+import Data.Pieces.Piece;
 
 public class Problem {
 
 
-        static public boolean iscorrectFen(String FEN){
+        public static boolean iscorrectFen(String FEN){
             int n_K = 0;
             int n_k = 0;
             int n_Q = 0;
@@ -19,7 +22,6 @@ public class Problem {
             int n_N = 0;
             int n_n = 0;
             int w = 0;
-            while (FEN.charAt(w) == ' ') ++w;
             while (w < FEN.length()) {
                 int eight_elements = 0;
                 while (w < FEN.length() && FEN.charAt(w) != '/') {
@@ -84,6 +86,56 @@ public class Problem {
                 ++w;
             }
             return !(n_K > 2 || n_k > 2 || n_Q > 1 || n_q > 1 || n_R > 2 || n_r  > 2 || n_b > 2 || n_B > 2 || n_P > 8 || n_p > 8 || n_N > 2 || n_n > 2);
+        }
+
+
+        static private String ConvertInputtoFEN(String input){
+        String FEN = "";
+        int w = 0;
+        while (input.charAt(w) == ' ') ++w;
+        while (input.charAt(w) != ' '){
+         FEN = FEN + input.charAt(w);
+         ++w;
+            }
+        return FEN;
+        }
+        static private boolean ConvertInputtoplayer(String input){
+        int w = 0;
+        while (input.charAt(w) == ' ') ++w;
+        while (input.charAt(w) != ' ') ++w;
+        while (input.charAt(w) != ' ') ++w;
+        return input.charAt(w) == 'w';
+        }
+
+        static boolean isCorrectProblem(String input,int number_of_play, boolean player_who_has_to_win){
+            String FEN = ConvertInputtoFEN(input);
+            boolean player_who_start = ConvertInputtoplayer(input);
+            if (!iscorrectFen(FEN)) return false;
+            Table t = new Table(FEN);
+            return achieve_the_number_of_play(t,player_who_start, number_of_play*2, player_who_has_to_win);
+
+        }
+        static private boolean achieve_the_number_of_play(Table t, boolean player_who_plays, int depth, boolean player_Max){
+
+            if (depth >= 0 && t.getKing(!player_Max) == null) return true;
+            else if (depth == 0 && t.getKing(!player_Max) == null) return true;
+
+            for (int i = 0; i<8; ++i){
+                for (int j = 0; j<8; ++j){
+                    Cell aux = t.getnextpieceofcolor(player_who_plays, i,j);
+                    for (int ii = 0; ii<8; ++ii){
+                        for (int jj = 0; jj<8; ++jj){
+                         if (t.MovePiece(aux.getI(),aux.getJ(),ii,jj)){
+                         achieve_the_number_of_play(t,!player_who_plays,--depth,player_Max);
+                         t.undoMovePiece(ii,jj, aux.getI(),aux.getJ());
+                         }
+
+                        }
+                    }
+                }
+            }
+
+            return false;
         }
 
 

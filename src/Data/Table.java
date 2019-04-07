@@ -4,6 +4,7 @@ import Data.Pieces.*;
 
 
 import java.lang.*;
+import java.util.Arrays;
 
 public class Table {
     private Cell table[][];
@@ -118,6 +119,41 @@ public class Table {
         table[i_origen][j_origen].setPiece(null);
         return true;
     }
+
+    //only you can use it for backtracking
+    public void undoMovePiece(int i_origen,int j_origen, int i_destino, int j_destino){
+        table[i_destino][j_destino].setPiece(table[i_origen][j_origen].getPiece());
+        table[i_origen][j_origen].setPiece(null);
+    }
+
+
+
+
+    private Piece getPiece(String piece){
+        for (int i = 0; i<8; ++i){
+            for (int j = 0; j<8; ++j){
+                if (piece == table[i][j].getPiece().getName()) return  table[i][j].getPiece();
+            }
+        }
+        return null;
+    }
+
+    public Cell getnextpieceofcolor(boolean player, int ii, int jj){
+        for (int i = ii; i<8; ++i){
+            for (int j = jj ; j< 8; ++j){
+                if (table[i][j].getPiece().getColor() == player) return table[i][j];
+            }
+        }
+        return null;
+    }
+    public Piece getKing(boolean player){
+        if (player) return getPiece("K");
+        else return getPiece("k");
+    }
+
+
+
+
 }
 
 

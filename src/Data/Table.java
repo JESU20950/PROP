@@ -87,6 +87,7 @@ public class Table {
             ++w;
             ++i;
         }
+        update_all_pieces_movement();
     }
 
 
@@ -98,7 +99,7 @@ public class Table {
     public boolean MovePiece(int i_origen, int j_origen, int i_destino, int j_destino) {
         if (i_origen >= 8 || j_origen >= 8 || j_destino >= 8 || j_destino >= 8 || i_origen <= -1 || j_origen <= -1 || j_destino <= -1 || j_destino <= -1) return false;
         if (table[i_origen][j_origen].getPiece() == null) return false;
-        if (!table[i_origen][j_origen].getPiece().correct_movement(table[i_origen][j_origen],table[i_destino][j_destino])) return false;
+        if (!table[i_origen][j_origen].getPiece().correct_movement(table[i_destino][j_destino])) return false;
         String pieza = table[i_origen][j_origen].getPiece().getName();
         if (pieza != "n" && pieza !=  "N"){
             int i = i_origen;
@@ -118,7 +119,7 @@ public class Table {
         //operacio moure
         table[i_destino][j_destino].setPiece(table[i_origen][j_origen].getPiece());
         table[i_origen][j_origen].setPiece(null);
-        update_all_pieces();
+        update_all_pieces_movement();
         return true;
     }
 
@@ -126,12 +127,13 @@ public class Table {
     public void undoMovePiece(int i_origen,int j_origen, int i_destino, int j_destino){
         table[i_destino][j_destino].setPiece(table[i_origen][j_origen].getPiece());
         table[i_origen][j_origen].setPiece(null);
+        update_all_pieces_movement();
     }
 
-    void update_all_pieces(){
+    void update_all_pieces_movement(){
         for (int i = 0; i<8; ++i) {
             for (int j = 0; j<8; ++j){
-                if (table[i][j].getPiece() != null) table[i][j].getPiece().updateMovement(table, i,j);
+                if (table[i][j].getPiece() != null) table[i][j].getPiece().updateMovement(table, table[i][j]);
             }
         }
     }
@@ -155,6 +157,16 @@ public class Table {
      }
      return resultat;
     }
+    public boolean king_is_dead(boolean player){
+        for (int i = 0; i<8; ++i) {
+            for (int j = 0; j<8; ++j){
+                if (table[i][j].getPiece() != null && player == table[i][j].getPiece().getColor()
+                && (table[i][j].getPiece().getName() == "k" || table[i][j].getPiece().getName() == "K")) return false;
+            }
+        }
+        return true;
+    }
+
 }
 
 

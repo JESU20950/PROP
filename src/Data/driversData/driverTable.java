@@ -26,7 +26,7 @@ public class driverTable {
             return t.gettable();
         }
 
-        private static void print_table(Cell[][] table){
+        public static void print_table(Cell[][] table){
             for (int i = 0; i<8; ++i){
                 for  (int j = 0; j<8; ++j){
                     if (table[i][j].getPiece() == null)System.out.printf("X");

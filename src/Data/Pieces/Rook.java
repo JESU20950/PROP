@@ -19,6 +19,7 @@ public class Rook extends Piece {
         return super.color;
     }
 
+    /*
     public boolean correct_movement(Cell origen, Cell destino) {
         int i_destino = destino.getI();
         int j_destino = destino.getJ();
@@ -30,13 +31,24 @@ public class Rook extends Piece {
 
 
     }
+    */
+
+    public boolean correct_movement(Cell destino){
+        for(int i = 0; i<super.Movement.size(); ++i){
+            if (Movement.get(i) == destino) return true;
+        }
+        return false;
+    }
 
     public String getName() {
         return super.name;
     }
 
 
-    public void updateMovement(Cell[][] t, int i, int j) {
+    public void updateMovement(Cell[][] t, Cell origen) {
+        int i = origen.getI();
+        int j = origen.getJ();
+        super.position = origen;
         List<Cell> resultat = new ArrayList<Cell>();
 
         for (int vector = 0; vector<8; ++vector){

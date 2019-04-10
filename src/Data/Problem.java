@@ -2,8 +2,12 @@ package Data;
 
 
 import java.util.Arrays;
+import java.util.List;
+
 import Data.Table;
 import Data.Pieces.Piece;
+
+import static Data.driversData.driverTable.print_table;
 
 public class Problem {
 
@@ -112,8 +116,39 @@ public class Problem {
             boolean player_who_start = ConvertInputtoplayer(input);
             if (!iscorrectFen(FEN)) return false;
             Table t = new Table(FEN);
-            return true;
+            return achieve_the_goal(t,player_who_start ,2*number_of_play, player_who_has_to_win);
+        }
+        static public boolean achieve_the_goal(Table t, boolean player_who_start, int number_of_play, boolean player_who_has_to_win){
+            t.getPieces(player_who_start);
+            if (number_of_play == 0 && t.king_is_dead(!player_who_has_to_win)) return true;
+            else if (number_of_play == 0) return false;
+            List <Piece> l = t.getPieces(player_who_start);
 
+
+            System.out.println("");
+            for (int i = 0; i<l.size(); ++i){
+                List<Cell> movements = l.get(i).getMovement();
+                int origen_i = l.get(i).getPosition().getI();
+                int origen_j = l.get(i).getPosition().getJ();
+                for (int j = 0; j<movements.size(); ++j) {
+                    int destino_i = movements.get(j).getI();
+                    int destino_j = movements.get(j).getJ();
+
+                    System.out.println("antes");
+                    System.out.println(l.get(i).getName());
+                    print_table(t.gettable());
+                    if (t.MovePiece(origen_i, origen_j, destino_i, destino_j)) {
+                        System.out.println("despues");
+                        System.out.println(l.get(i).getName());
+                        print_table(t.gettable());
+                        System.out.println("");
+                        if (t.king_is_dead(!player_who_has_to_win)) return  true;
+                        if (achieve_the_goal(t,!player_who_start,number_of_play-1,player_who_has_to_win)) return true;
+                        t.undoMovePiece(destino_i,destino_j,origen_i,origen_j);
+                    }
+                }
+            }
+            return false;
         }
 
 

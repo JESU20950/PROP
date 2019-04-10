@@ -2,6 +2,11 @@ package Data.Pieces;
 
 import Data.Cell;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static java.lang.StrictMath.min;
+
 public class King extends Piece{
     public King(boolean color){
         super.color = color;
@@ -29,4 +34,17 @@ public class King extends Piece{
     public String getName() {
         return super.name;
     }
+
+    public void updateMovement(Cell[][] t, int i, int j) {
+        List<Cell> resultat = new ArrayList<Cell>();
+        int iaux = i-1;
+        int jaux = j-1;
+        for (int ii = 0; ii <3; ++ii ){
+            for (int jj = 0; jj <3; ++jj){
+                 if ((iaux + ii) < 8 && (iaux + ii) >= 0 && (jaux + jj) < 8 && (jaux + jj) >= 0 && ((iaux + ii) != i  || (jaux + jj) != j )) resultat.add(t[iaux + ii][jaux+jj] );
+            }
+        }
+        super.Movement = resultat;
+    }
+
 }

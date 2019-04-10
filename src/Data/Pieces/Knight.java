@@ -2,6 +2,10 @@ package Data.Pieces;
 
 import Data.Cell;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.CancellationException;
+
 public class Knight extends Piece {
     public Knight(boolean color){
         super.color = color;
@@ -30,4 +34,20 @@ public class Knight extends Piece {
     public String getName() {
         return super.name;
     }
+
+
+    public void updateMovement(Cell[][] t, int i, int j){
+        List<Cell> resultat = new ArrayList<Cell>();
+        if (i-2 < 8 && i-2 >= 0 && j-1 < 8 && j-1 >= 0) resultat.add(t[i-2][j-1]);
+        if (i-2 < 8 && i-2 >= 0 && j+1 < 8 && j+1 >= 0) resultat.add(t[i-2][j+1]);
+        if (i+2 < 8 && i+2 >= 0 && j-1 < 8 && j-1 >= 0) resultat.add(t[i+2][j-1]);
+        if (i+2 < 8 && i+2 >= 0 && j+1 < 8 && j+1 >= 0) resultat.add(t[i+2][j+1]);
+
+        if (i-1 < 8 && i-1 >= 0 && j-2 < 8 && j-2 >= 0) resultat.add(t[i-1][j-2]);
+        if (i+1 < 8 && i+1 >= 0 && j-2 < 8 && j-2 >= 0) resultat.add(t[i+1][j-2]);
+        if (i-1 < 8 && i-1 >= 0 && j+2 < 8 && j+2 >= 0) resultat.add(t[i-1][j+2]);
+        if (i+1 < 8 && i+1 >= 0 && j+2 < 8 && j+2 >= 0) resultat.add(t[i+1][j+2]);
+        super.Movement = resultat;
+    }
+
 }

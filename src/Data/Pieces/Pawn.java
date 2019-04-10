@@ -2,6 +2,9 @@ package Data.Pieces;
 
 import Data.Cell;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Pawn extends Piece {
     public Pawn(boolean color){
         super.color = color;
@@ -45,4 +48,29 @@ public class Pawn extends Piece {
     public String getName() {
         return super.name;
     }
+    public void updateMovement(Cell[][] t, int i, int j){
+        List<Cell> resultat = new ArrayList<Cell>();
+        if (super.color){
+            if ( i == 1 ) resultat.add(t[i+2][j]);
+            if ( i+1 < 8 && j+1< 8 && j-1 > 0){
+                resultat.add(t[i+1][j]);
+                resultat.add(t[i+1][j+1]);
+                resultat.add(t[i+1][j-1]);
+
+            }
+
+        }else{
+            if ( i == 6) resultat.add(t[i-2][j]);
+            if(i-1 >=0 && j+1< 8 && j-1 > 0){
+                resultat.add(t[i-1][j]);
+                resultat.add(t[i-1][j+1]);
+                resultat.add(t[i-1][j-1]);
+            }
+        }
+        super.Movement = resultat;
+    }
+
+
+
+
 }

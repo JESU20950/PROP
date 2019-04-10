@@ -4,7 +4,9 @@ import Data.Pieces.*;
 
 
 import java.lang.*;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class Table {
     private Cell table[][];
@@ -25,7 +27,6 @@ public class Table {
             int j = 0;
             while (w < FEN.length() && FEN.charAt(w) != '/' ) {
                 switch (FEN.charAt(w)) {
-
                     case 'k':
                         King k = new King(false);
                         table[i][j].setPiece(k);
@@ -117,6 +118,7 @@ public class Table {
         //operacio moure
         table[i_destino][j_destino].setPiece(table[i_origen][j_origen].getPiece());
         table[i_origen][j_origen].setPiece(null);
+        update_all_pieces();
         return true;
     }
 
@@ -126,7 +128,13 @@ public class Table {
         table[i_origen][j_origen].setPiece(null);
     }
 
-
+    void update_all_pieces(){
+        for (int i = 0; i<8; ++i) {
+            for (int j = 0; j<8; ++j){
+                if (table[i][j].getPiece() != null) table[i][j].getPiece().updateMovement(table, i,j);
+            }
+        }
+    }
 
 
     private Piece getPiece(String piece){
@@ -138,22 +146,15 @@ public class Table {
         return null;
     }
 
-    public Cell getnextpieceofcolor(boolean player, int ii, int jj){
-        for (int i = ii; i<8; ++i){
-            for (int j = jj ; j< 8; ++j){
-                if (table[i][j].getPiece() != null && table[i][j].getPiece().getColor() == player) return table[i][j];
+    public List<Piece> getPieces(boolean player){
+        List<Piece> resultat = new ArrayList<Piece> ();
+     for (int i = 0; i<8; ++i) {
+            for (int j = 0; j<8; ++j){
+                if (table[i][j].getPiece() != null && player == table[i][j].getPiece().getColor()) resultat.add(table[i][j].getPiece());
             }
-        }
-        return null;
+     }
+     return resultat;
     }
-    public Piece getKing(boolean player){
-        if (player) return getPiece("K");
-        else return getPiece("k");
-    }
-
-
-
-
 }
 
 

@@ -1,8 +1,11 @@
 package Data.Pieces;
 
 import Data.Cell;
+import Data.Table;
 
 import javax.swing.text.StyledEditorKit;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Rook extends Piece {
     public Rook(boolean color){
@@ -30,5 +33,16 @@ public class Rook extends Piece {
 
     public String getName() {
         return super.name;
+    }
+
+
+    public void updateMovement(Cell[][] t, int i, int j) {
+        List<Cell> resultat = new ArrayList<Cell>();
+
+        for (int vector = 0; vector<8; ++vector){
+            if (vector != j) resultat.add(t[i][vector]);
+            if (vector != i) resultat.add(t[vector][j]);
+        }
+        super.Movement = resultat;
     }
 }

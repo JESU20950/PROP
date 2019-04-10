@@ -112,41 +112,10 @@ public class Problem {
             boolean player_who_start = ConvertInputtoplayer(input);
             if (!iscorrectFen(FEN)) return false;
             Table t = new Table(FEN);
-            System.out.println(player_who_has_to_win);
-            return achieve_the_goal(t,player_who_start, number_of_play*2, player_who_has_to_win);
+            return true;
 
         }
 
-        static private boolean achieve_the_goal(Table t, boolean player_who_plays, int depth, boolean player_Max){
-            if (depth == 0 && t.getKing(!player_Max) == null) return true;
-            else if (depth <= 0) return false;
-            for (int i = 0; i<8; ++i){
-                for (int j = 0; j<8; ++j){
-                    Cell aux = t.getnextpieceofcolor(player_who_plays, i,j);
-                    if (aux == null){
-                        System.out.println("holasss" + depth );
-                        return false;
-                    }
-                    String s = aux.getPiece().getName();
-                    for (int ii = 0; ii<8; ++ii){
-                        for (int jj = 0; jj<8; ++jj){
-                         if (t.MovePiece(aux.getI(),aux.getJ(),ii,jj)){
-                         if (depth >= 0 && t.getKing(!player_Max) == null){
-                             System.out.println(s);
-                             System.out.println(ii);
-                             System.out.println(jj);
-                             return true;
-                         }
-                         if(achieve_the_goal(t,!player_who_plays,depth-1,player_Max)) return true;
-                         t.undoMovePiece(ii,jj, aux.getI(),aux.getJ());
-                         }
-                        }
-                    }
-                }
-            }
-            System.out.println("holasss2");
-            return false;
-        }
 
 
 

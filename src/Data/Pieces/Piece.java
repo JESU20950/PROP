@@ -5,7 +5,7 @@ import Data.Cell;
 import java.util.List;
 
 
-public abstract class Piece {
+public abstract class Piece implements Cloneable {
     protected boolean color;// white == true
     protected String name;
     protected List<Cell> Movement;
@@ -14,7 +14,7 @@ public abstract class Piece {
 
 
     abstract public boolean getColor();
-    abstract public boolean correct_movement(Cell destino);
+    abstract public boolean correct_movement(Cell origen, Cell destino);
 
     abstract public String getName();
     abstract public void updateMovement(Cell[][] t, Cell origen);
@@ -25,5 +25,10 @@ public abstract class Piece {
 
     public Cell getPosition() {
         return position;
+    }
+
+
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 }

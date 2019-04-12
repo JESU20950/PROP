@@ -18,7 +18,7 @@ public class Pawn extends Piece {
         return super.color;
     }
 
-    /*
+
     public boolean correct_movement(Cell origen, Cell destino) {
         int i_destino = destino.getI();
         int j_destino = destino.getJ();
@@ -43,13 +43,7 @@ public class Pawn extends Piece {
         }
         return false;
     }
-    */
-    public boolean correct_movement(Cell destino){
-        for(int i = 0; i<super.Movement.size(); ++i){
-            if (Movement.get(i) == destino) return true;
-        }
-        return false;
-    }
+
 
 
     public String getName() {
@@ -63,20 +57,20 @@ public class Pawn extends Piece {
 
         List<Cell> resultat = new ArrayList<Cell>();
         if (super.color){
-            if ( i == 1 ) resultat.add(t[i+2][j]);
-            if ( i+1 < 8 && j+1< 8 && j-1 > 0){
-                resultat.add(t[i+1][j]);
-                resultat.add(t[i+1][j+1]);
-                resultat.add(t[i+1][j-1]);
+            if ( i == 6) resultat.add(t[i-2][j]);
+            if (i-1 >=0 && j+1< 8 && j-1 >= 0){
+                resultat.add(t[i-1][j]);
+                resultat.add(t[i-1][j+1]);
+                resultat.add(t[i-1][j-1]);
 
             }
 
         }else{
-            if ( i == 6) resultat.add(t[i-2][j]);
-            if(i-1 >=0 && j+1< 8 && j-1 > 0){
-                resultat.add(t[i-1][j]);
-                resultat.add(t[i-1][j+1]);
-                resultat.add(t[i-1][j-1]);
+            if ( i == 1 ) resultat.add(t[i+2][j]);
+            if(i+1 < 8 && j+1< 8 && j-1 >= 0){
+                resultat.add(t[i+1][j]);
+                resultat.add(t[i+1][j+1]);
+                resultat.add(t[i+1][j-1]);
             }
         }
         super.Movement = resultat;

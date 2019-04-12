@@ -2,15 +2,14 @@ package Data;
 
 import Data.Pieces.*;
 
-public class Cell {
+public class Cell implements Cloneable{
 
     private Piece piece;
 
-    private int i; // Posicion i del tablero
+    private int i;
 
-    private int j; // Posicion j del tablero
-
-    public Cell() { // Constructora por defecto
+    private int j;
+    public Cell() {
         piece = null;
     }
 
@@ -22,8 +21,10 @@ public class Cell {
         return piece;
     }
 
-    public void setPiece(Piece p){
-        piece = p;
+    public void setPiece(Piece p) throws CloneNotSupportedException{
+        piece = new King(false);
+        piece =  (Piece) p.clone();
+
     }
 
     public void setI(int i) {
@@ -43,5 +44,7 @@ public class Cell {
     }
 
 
-
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
 }

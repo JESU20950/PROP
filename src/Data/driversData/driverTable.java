@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 import Data.*;
 public class driverTable {
-        public static void s(String[] args){
+        public static void s(String[] args) throws CloneNotSupportedException{
             Scanner input = new Scanner(System.in);
             String s = "1N1b4/6nr/R5n1/2Ppk2r/K2p2qR/8/2N1PQ2/B6B";
             Table t = testConstructor(s);
@@ -19,17 +19,17 @@ public class driverTable {
 
         }
 
-        private static Table testConstructor(String s){
+        private static Table testConstructor(String s) throws CloneNotSupportedException{
             return new Table(s);
         }
         private static Cell[][] testgettable(Table t){
-            return t.gettable();
+            return t.getTable();
         }
 
         public static void print_table(Cell[][] table){
             for (int i = 0; i<8; ++i){
                 for  (int j = 0; j<8; ++j){
-                    if (table[i][j].getPiece() == null)System.out.printf("X");
+                    if (table[i][j].getPiece() == null)System.out.printf(".");
                     else System.out.printf(table[i][j].getPiece().getName());
 
                 }

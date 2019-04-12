@@ -3,19 +3,18 @@ import Data.Pieces.*;
 
 
 
-import java.lang.*;
+
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Table {
     private Cell table[][];
 
-    public Table(String FEN) {
+    public Table(){};
+    public Table(String FEN) throws CloneNotSupportedException{
         table = new Cell[8][8];
         for (int i = 0; i<8; ++i){
             for(int j = 0; j<8; ++j){
-             Cell aux = new Cell();
              table[i][j] = new Cell();
              table[i][j].setJ(j);
              table[i][j].setI(i);
@@ -91,15 +90,27 @@ public class Table {
     }
 
 
-    public Cell[][] gettable() {
+
+    public Cell[][] getTable() {
         return table;
     }
 
+    public void setTable(Cell[][] table) throws CloneNotSupportedException{
+        this.table = new Cell[8][8];
+         for (int i = 0; i<8; ++i){
+             for(int j = 0; j<8; ++j){
+                 this.table[i][j] = new Cell();
+                 this.table[i][j].setI(i);
+                 this.table[i][j].setPiece(table[i][j].getPiece());
+                 this.table[i][j].setJ(j);
+             }
+         }
+    }
 
-    public boolean MovePiece(int i_origen, int j_origen, int i_destino, int j_destino) {
+    public boolean MovePiece(int i_origen, int j_origen, int i_destino, int j_destino) throws CloneNotSupportedException {
         if (i_origen >= 8 || j_origen >= 8 || j_destino >= 8 || j_destino >= 8 || i_origen <= -1 || j_origen <= -1 || j_destino <= -1 || j_destino <= -1) return false;
         if (table[i_origen][j_origen].getPiece() == null) return false;
-        if (!table[i_origen][j_origen].getPiece().correct_movement(table[i_destino][j_destino])) return false;
+        if (!table[i_origen][j_origen].getPiece().correct_movement(table[i_origen][j_origen],table[i_destino][j_destino])) return false;
         String pieza = table[i_origen][j_origen].getPiece().getName();
         if (pieza != "n" && pieza !=  "N"){
             int i = i_origen;
@@ -123,12 +134,7 @@ public class Table {
         return true;
     }
 
-    //only you can use it for backtracking
-    public void undoMovePiece(int i_origen,int j_origen, int i_destino, int j_destino){
-        table[i_destino][j_destino].setPiece(table[i_origen][j_origen].getPiece());
-        table[i_origen][j_origen].setPiece(null);
-        update_all_pieces_movement();
-    }
+
 
     void update_all_pieces_movement(){
         for (int i = 0; i<8; ++i) {
@@ -167,6 +173,9 @@ public class Table {
         return true;
     }
 
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
 }
 
 

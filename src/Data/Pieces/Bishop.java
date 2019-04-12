@@ -22,7 +22,7 @@ public class Bishop extends Piece {
     }
 
 
-    /*
+
     public boolean correct_movement(Cell origen, Cell destino) {
         int i_destino = destino.getI();
         int j_destino = destino.getJ();
@@ -32,13 +32,6 @@ public class Bishop extends Piece {
         return (movimiento_ok && destino.getPiece() == null) || (movimiento_ok && destino.getPiece().getColor() != origen.getPiece().getColor());
 
 
-    }
-    */
-    public boolean correct_movement(Cell destino){
-        for(int i = 0; i<super.Movement.size(); ++i){
-            if (Movement.get(i) == destino) return true;
-        }
-        return false;
     }
 
 

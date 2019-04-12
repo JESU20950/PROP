@@ -7,7 +7,7 @@ import Data.Pieces.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Table {
+public class Table implements Cloneable{
     private Cell table[][];
 
     public Table(){};
@@ -100,9 +100,8 @@ public class Table {
          for (int i = 0; i<8; ++i){
              for(int j = 0; j<8; ++j){
                  this.table[i][j] = new Cell();
-                 this.table[i][j].setI(i);
-                 this.table[i][j].setPiece(table[i][j].getPiece());
-                 this.table[i][j].setJ(j);
+                 this.table[i][j] = (Cell) table[i][j].clone();
+
              }
          }
     }

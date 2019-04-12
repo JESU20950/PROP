@@ -21,9 +21,8 @@ public class Cell implements Cloneable{
         return piece;
     }
 
-    public void setPiece(Piece p) throws CloneNotSupportedException{
-        piece = new King(false);
-        piece =  (Piece) p.clone();
+    public void setPiece(Piece p){
+        piece = p;
 
     }
 
@@ -42,7 +41,6 @@ public class Cell implements Cloneable{
     public int getJ() {
         return j;
     }
-
 
     public Object clone() throws CloneNotSupportedException {
         return super.clone();

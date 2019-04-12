@@ -149,9 +149,6 @@ public class Problem {
                         System.out.println("jugada maestra" + number_of_play);
                         System.out.println(l.get(i).getName());
                         print_table(auxiliar.getTable());
-                        System.out.println(" a");
-                        print_table(t.getTable());
-                        System.out.println(" b");
                         /*
                         if (achieve_the_goal(auxiliar,!player_who_start,number_of_play-1,player_who_has_to_win)){
                             System.out.println("jugada maestra" + number_of_play);

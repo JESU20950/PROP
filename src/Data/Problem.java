@@ -141,24 +141,19 @@ public class Problem {
                             System.out.println("jugada maestra" + number_of_play);
                             System.out.println(l.get(i).getName());
                             print_table(auxiliar.getTable());
-                            print_table(t.getTable());
                             System.out.println("");
                             return  true;
                         }
 
-                        System.out.println("jugada maestra" + number_of_play);
-                        System.out.println(l.get(i).getName());
-                        print_table(auxiliar.getTable());
-                        /*
                         if (achieve_the_goal(auxiliar,!player_who_start,number_of_play-1,player_who_has_to_win)){
                             System.out.println("jugada maestra" + number_of_play);
                             System.out.println(l.get(i).getName());
-                            print_table(auxiliar.gettable());
+                            print_table(auxiliar.getTable());
                             System.out.println("");
                             return true;
                         }
 
-                         */
+
                     }
                 }
             }

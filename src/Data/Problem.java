@@ -2,7 +2,9 @@ package Data;
 
 
 
+import java.io.*;
 import java.util.List;
+import java.util.Scanner;
 
 import Data.Pieces.Piece;
 
@@ -94,7 +96,7 @@ public class Problem {
         }
 
 
-        static private String ConvertInputtoFEN(String input){
+        static public String ConvertInputtoFEN(String input){
         String FEN = "";
         int w = 0;
         while (input.charAt(w) == ' ') ++w;
@@ -104,17 +106,43 @@ public class Problem {
             }
         return FEN;
         }
-        static private boolean ConvertInputtoplayer(String input){
+        static public boolean ConvertInputtoplayer_who_start(String input){
         int w = 0;
         while (input.charAt(w) == ' ') ++w;
         while (input.charAt(w) != ' ') ++w;
         while (input.charAt(w) == ' ') ++w;
         return input.charAt(w) == 'w';
         }
+        static public boolean ConvertInputtoplayer_who_has_to_win(String input){
+            int w = 0;
+            while (input.charAt(w) == ' ') ++w;
+            while (input.charAt(w) != ' ') ++w;
+            while (input.charAt(w) == ' ') ++w;
+            ++w;
+            while (input.charAt(w) == ' ') ++w;
+            return input.charAt(w) == 'w';
+        }
+        static public int ConvertInputtonumber_of_play(String s){
+            int w = 0;
+            String input = String.valueOf(s);
+            while (input.charAt(w) == ' ') ++w;
+            while (input.charAt(w) != ' ') ++w;
+            while (input.charAt(w) == ' ') ++w;
+            ++w;
+            while (input.charAt(w) == ' ') ++w;
+            ++w;
+            while (input.charAt(w) == ' ') ++w;
+            StringBuilder str = new StringBuilder(s);
+            str.delete(0,w);
+            input = str.toString();
+            return Integer.parseInt(input);
+        }
 
-        static public boolean isCorrectProblem(String input,int number_of_play, boolean player_who_has_to_win) throws CloneNotSupportedException{
+        static public boolean isCorrectProblem(String input) throws CloneNotSupportedException{
             String FEN = ConvertInputtoFEN(input);
-            boolean player_who_start = ConvertInputtoplayer(input);
+            boolean player_who_start = ConvertInputtoplayer_who_start(input);
+            boolean player_who_has_to_win = ConvertInputtoplayer_who_has_to_win(input);
+            int number_of_play = ConvertInputtonumber_of_play(input);
             if (!iscorrectFen(FEN)) return false;
             Table t = new Table(FEN);
             return achieve_the_goal(t,player_who_start ,2*number_of_play, player_who_has_to_win);
@@ -123,8 +151,6 @@ public class Problem {
             if (number_of_play == 1 &&  t.checkmate_to(!player_who_has_to_win)) return true;
             else if (number_of_play == 1) return false;
             List <Piece> l = t.getPieces(player_who_start);
-
-
             if (t.mate_from(player_who_has_to_win) && player_who_start == !player_who_has_to_win) {
                 for (int i = 0; i < l.size(); ++i) {
                     List<Cell> movements = l.get(i).getMovement();
@@ -178,8 +204,29 @@ public class Problem {
             }
             return false;
         }
+        static String load_problem_fromBD() throws FileNotFoundException, IOException {
+            File file = new File("BD");
+            FileReader fr = new FileReader(file);
+            BufferedReader br = new BufferedReader(fr);
+            String linea;
+            while ((linea = br.readLine()) != null) System.out.println(linea);
 
-
-
-
+            System.out.println("Introduce FEN next line:");
+            Scanner teclado = new Scanner (System.in);
+            String input = teclado.nextLine();
+            return input;
+        }
+        static String introduce_problem() throws CloneNotSupportedException,IOException {
+            System.out.println("Introduce FEN next line:");
+            Scanner teclado = new Scanner (System.in);
+            String input = teclado.nextLine();
+            while (!isCorrectProblem(input)) input = teclado.nextLine();
+            introduce_problem_toBD(input);
+            return input;
+        }
+        static void introduce_problem_toBD(String input) throws IOException{
+            FileWriter file = new FileWriter("BD",true);
+            PrintWriter pw = new PrintWriter(file);
+            pw.println(input);
+        }
 }

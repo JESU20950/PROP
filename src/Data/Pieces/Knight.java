@@ -20,7 +20,7 @@ public class Knight extends Piece {
     }
 
 
-    public boolean correct_movement(Cell origen, Cell destino) {
+    public boolean correct_movement(Cell [][] t, Cell origen, Cell destino){
         int i_destino = destino.getI();
         int j_destino = destino.getJ();
         int i_origen = origen.getI();
@@ -30,7 +30,6 @@ public class Knight extends Piece {
         return movimiento_ok && ( destino.getPiece() == null ||origen.getPiece().getColor() != destino.getPiece().getColor());
 
     }
-
 
 
 

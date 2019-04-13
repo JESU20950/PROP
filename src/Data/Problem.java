@@ -120,40 +120,59 @@ public class Problem {
             return achieve_the_goal(t,player_who_start ,2*number_of_play, player_who_has_to_win);
         }
         static public boolean achieve_the_goal(Table t, boolean player_who_start, int number_of_play, boolean player_who_has_to_win) throws CloneNotSupportedException{
-            if (number_of_play == 0 && t.king_is_dead(!player_who_has_to_win)) return true;
-            else if (number_of_play == 0) return false;
+            if (number_of_play == 1 &&  t.checkmate_to(!player_who_has_to_win)) return true;
+            else if (number_of_play == 1) return false;
             List <Piece> l = t.getPieces(player_who_start);
 
 
-
-
-            for (int i = 0; i<l.size(); ++i){
-                List<Cell> movements = l.get(i).getMovement();
-                int origen_i = l.get(i).getPosition().getI();
-                int origen_j = l.get(i).getPosition().getJ();
-                for (int j = 0; j<movements.size(); ++j) {
-                    int destino_i = movements.get(j).getI();
-                    int destino_j = movements.get(j).getJ();
-                    Table auxiliar = new Table();
-                    auxiliar.setTable(t.getTable());
-                    if (auxiliar.MovePiece(origen_i, origen_j, destino_i, destino_j)) {
-                        if (auxiliar.king_is_dead(!player_who_has_to_win)){
-                            System.out.println("jugada maestra" + number_of_play);
+            if (t.mate_from(player_who_has_to_win) && player_who_start == !player_who_has_to_win) {
+                for (int i = 0; i < l.size(); ++i) {
+                    List<Cell> movements = l.get(i).getMovement();
+                    int origen_i = l.get(i).getPosition().getI();
+                    int origen_j = l.get(i).getPosition().getJ();
+                    for (int j = 0; j < movements.size(); ++j) {
+                        int destino_i = movements.get(j).getI();
+                        int destino_j = movements.get(j).getJ();
+                        Table auxiliar = new Table();
+                        auxiliar.setTable(t.getTable());
+                        if (auxiliar.MovePiece(origen_i, origen_j, destino_i, destino_j) && !auxiliar.mate_from(player_who_has_to_win)){
+                            boolean b = achieve_the_goal(auxiliar, !player_who_start, number_of_play - 1, player_who_has_to_win);
+                            System.out.println("jugada salvacion " + number_of_play+ " " + l.get(i).getName());
+                            print_table(auxiliar.getTable());
+                            System.out.println(player_who_start);
+                            System.out.println("");
+                            return b;
+                        }
+                    }
+                }
+            }else {
+                for (int i = 0; i < l.size(); ++i) {
+                    List<Cell> movements = l.get(i).getMovement();
+                    int origen_i = l.get(i).getPosition().getI();
+                    int origen_j = l.get(i).getPosition().getJ();
+                    for (int j = 0; j < movements.size(); ++j) {
+                        int destino_i = movements.get(j).getI();
+                        int destino_j = movements.get(j).getJ();
+                        Table auxiliar = new Table();
+                        auxiliar.setTable(t.getTable());
+                        if (auxiliar.MovePiece(origen_i, origen_j, destino_i, destino_j)) {
+                            /*
+                        if (auxiliar.checkmate_to(!player_who_has_to_win)){
+                            System.out.println("jugada legendaria" + number_of_play);
                             System.out.println(l.get(i).getName());
                             print_table(auxiliar.getTable());
                             System.out.println("");
                             return  true;
                         }
-
-                        if (achieve_the_goal(auxiliar,!player_who_start,number_of_play-1,player_who_has_to_win)){
-                            System.out.println("jugada maestra" + number_of_play);
-                            System.out.println(l.get(i).getName());
-                            print_table(auxiliar.getTable());
-                            System.out.println("");
-                            return true;
+                            */
+                        if (achieve_the_goal(auxiliar, !player_who_start, number_of_play - 1, player_who_has_to_win)) {
+                                System.out.println("jugada maestra" + number_of_play);
+                                System.out.println(l.get(i).getName());
+                                print_table(auxiliar.getTable());
+                                System.out.println("");
+                                return true;
+                         }
                         }
-
-
                     }
                 }
             }

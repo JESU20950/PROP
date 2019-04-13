@@ -9,7 +9,10 @@ import static Data.Problem.iscorrectFen;
 
 public class Main {
     public static void main(String[] args) throws CloneNotSupportedException{
+        /*
         String s = "1N1b4/6nr/R5n1/2Ppk2r/K2p2qR/8/2N1PQ2/B6B w - - 0 1";
+        */
+        String s = "3r4/q3r3/1b6/2n2Rp1/2P2N2/QP2k1P1/4P3/BN2RnKB w - - 0 1";
         Table t = testConstructor(s);
         Cell[][] t2 = testgettable(t);
         print_table(t2);

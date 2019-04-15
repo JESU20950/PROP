@@ -2,23 +2,66 @@ import Data.Cell;
 import Data.Game;
 import Data.Table;
 import Interface.MainInterface;
-
 import javax.swing.*;
 import java.io.IOException;
 import java.util.Scanner;
-
 import static Data.Problem.isCorrectProblem;
 import static Data.Problem.iscorrectFen;
-
-
-
 import java.awt.*;
 import java.awt.event.*;
 
 public class Main {
-    public static void main(String args[]) {
-        //System.out.println("hola");
+    /*public static void main(String args[]) {
+        System.out.println("hola");
         MainInterface start = new MainInterface();
+    }*/
+
+    public static void main(String[] args) throws CloneNotSupportedException, IOException {
+        System.out.println("Select your option by writting the number");
+        System.out.println("1. Start a new game");
+        System.out.println("2. See the ranking table");
+        System.out.println("3. Quit");
+        Scanner sc = new Scanner(System.in);
+        int instr = sc.nextInt();
+        if (instr == 1) {
+            System.out.println("Select your option by writting the number");
+            System.out.println("1. Introduce your own FEN");
+            System.out.println("2. Select a FEN from the Database");
+            instr = sc.nextInt();
+            if (instr == 1) {
+                sc = new Scanner(System.in);
+                String s = sc.nextLine();
+                boolean b = iscorrectFen(s);
+                while (!b) {
+                    System.out.println("FEN is incorrect, introduce the correct FEN: ");
+                    s = sc.nextLine();
+                    b = iscorrectFen(s);
+                }
+                Table t = new Table(s);
+                t.print_table();
+            }
+            else if (instr == 2) {
+                System.out.println("Select your option by writting the number");
+                System.out.println("1. Easy Problems");
+                System.out.println("2. Hard Problems");
+
+            }
+            else {
+                System.out.println("Error, this option is not available");
+                System.exit(1);
+            }
+        }
+        else if (instr == 2) {
+            System.out.println("Feature not available yet");
+            System.exit(0);
+        }
+        else if (instr == 3) {
+            System.exit(0);
+        }
+        else {
+            System.out.println("Error, this option is not available");
+            System.exit(1);
+        }
     }
 
 }

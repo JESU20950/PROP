@@ -15,8 +15,6 @@ public class Table implements Cloneable {
     public Table() {
     }
 
-    ;
-
     public Table(String FEN) {
         table = new Cell[8][8];
         for (int i = 0; i < 8; ++i) {
@@ -95,6 +93,28 @@ public class Table implements Cloneable {
         update_all_pieces_movement();
     }
 
+    public void print_table() {
+        for (int i = 0; i < 8; ++i) {
+            for (int j = 0; j < 8; ++j) {
+                if (j == 0) System.out.print(8 - i + " ");
+                Cell c = this.table[i][j];
+                String s = "null";
+                if (c.getPiece() != null) s = c.getPiece().getName();
+                if (s == "null") {
+                    System.out.print("- ");
+                }
+                else {
+                    System.out.print(s + " ");
+                }
+            }
+            if (i == 7) {
+                System.out.println();
+                System.out.println("  A B C D E F G H");
+            }
+            System.out.println();
+        }
+        System.out.println();
+    }
 
     public Cell[][] getTable() {
         return table;

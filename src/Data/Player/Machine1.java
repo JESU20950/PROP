@@ -1,5 +1,7 @@
 package Data.Player;
 
 public class Machine1 extends Player{
-    Machine1(){};
+    public Machine1(){
+        super.name = "Machine1";
+    }
 }

@@ -1,6 +1,8 @@
 package Data.driversData.driverPieces;
 
 import Data.Pieces.Bishop;
+import Data.Cell;
+import Data.Table;
 import java.util.Scanner;
 
 public class driverBishop {
@@ -16,9 +18,22 @@ public class driverBishop {
         System.out.println(s);
     }
 
-    private static void test_correct_movement(Bishop p) {
-
-    }
+    /*private static void test_correct_movement(Bishop p) {
+        Scanner sc = new Scanner(System.in);
+        int posio = sc.nextInt();
+        int posjo = sc.nextInt();
+        Cell cO = new Cell();
+        cO.setI(posio);
+        cO.setJ(posjo);
+        int posid = sc.nextInt();
+        int posjd = sc.nextInt();
+        Cell cD = new Cell();
+        cD.setI(posid);
+        cD.setJ(posjd);
+        String s = sc.nextLine();
+        Table t = new Table(s);
+        System.out.println(p.correct_movement(t, cO, cD));
+    }*/
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -34,6 +49,7 @@ public class driverBishop {
             System.exit(1);
         }
         Bishop p = new Bishop(b);
+        test_getColor(p);
         test_getName(p);
     }
 }

@@ -1,5 +1,7 @@
 package Data.Player;
 
 public class Human extends Player{
-    Human(){};
+    public Human(String name){
+        super.name = name;
+    }
 }

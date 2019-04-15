@@ -2,6 +2,7 @@ package Data.Player;
 
 public abstract class Player {
     protected boolean color;
+    protected String name;
 
     Player(){};
     public boolean isColor() {

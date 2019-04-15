@@ -17,7 +17,7 @@ import java.awt.event.*;
 
 public class Main {
     public static void main(String args[]) {
-        System.out.println("hola");
+        //System.out.println("hola");
         MainInterface start = new MainInterface();
     }
 }

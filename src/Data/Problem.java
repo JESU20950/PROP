@@ -3,9 +3,7 @@ package Data;
 
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 import Data.Pieces.Piece;
 
@@ -15,8 +13,81 @@ import static Data.driversData.driverTable.print_table;
 
 public class Problem {
 
+    public static boolean iscorrectFen(String FEN) {
+        int K, k, Q, q, R, r, B, b, N, n, P, p, index;
+        K = k = Q = q = R = r = B = b = N = n = P = p = index = 0;
+        while (index < FEN.length() && FEN.charAt(index) == ' ') { //erase the spaces at the front
+            ++index;
+        }
+        int total_rows = 0;
+        while (index < FEN.length() && FEN.charAt(index) != ' ') {
+            int row = 0;
+            while (index < FEN.length() && FEN.charAt(index) != '/' && FEN.charAt(index) != ' ') {
+                if (FEN.charAt(index) == 'K') {
+                    ++K;
+                    ++row;
+                }
+                else if (FEN.charAt(index) == 'k') {
+                    ++k;
+                    ++row;
+                }
+                else if (FEN.charAt(index) == 'Q') {
+                    ++Q;
+                    ++row;
+                }
+                else if (FEN.charAt(index) == 'q') {
+                    ++q;
+                    ++row;
+                }
+                else if (FEN.charAt(index) == 'R') {
+                    ++R;
+                    ++row;
+                }
+                else if (FEN.charAt(index) == 'r') {
+                    ++r;
+                    ++row;
+                }
+                else if (FEN.charAt(index) == 'B') {
+                    ++B;
+                    ++row;
+                }
+                else if (FEN.charAt(index) == 'b') {
+                    ++b;
+                    ++row;
+                }
+                else if (FEN.charAt(index) == 'N') {
+                    ++N;
+                    ++row;
+                }
+                else if (FEN.charAt(index) == 'n') {
+                    ++n;
+                    ++row;
+                }
+                else if (FEN.charAt(index) == 'P') {
+                    ++P;
+                    ++row;
+                }
+                else if (FEN.charAt(index) == 'p') {
+                    ++p;
+                    ++row;
+                }
+                else if (Character.getNumericValue(FEN.charAt(index)) > 0 && Character.getNumericValue(FEN.charAt(index)) <= 8) {
+                    row += Character.getNumericValue(FEN.charAt(index));
+                }
+                else return false;
+                if (K > 1 || k > 1 || Q > 1 || q > 1 || R > 2 || r > 2 || B > 2 || b > 2 || N > 2 || n > 2 || P > 8 || p > 8) return false;
+                ++index;
+            }
+            ++total_rows;
+            if (row != 8) return false;
+            if (index < FEN.length() && FEN.charAt(index) == ' ') return (total_rows == 8);
+            if (index < FEN.length() && FEN.charAt(index) == '/') ++index;
+        }
+        return (total_rows == 8);
+    }
 
-        public static boolean iscorrectFen(String FEN){
+
+        /*public static boolean iscorrectFen(String FEN){
             int n_K = 0;
             int n_k = 0;
             int n_Q = 0;
@@ -94,7 +165,7 @@ public class Problem {
                 ++w;
             }
             return !(n_K > 2 || n_k > 2 || n_Q > 1 || n_q > 1 || n_R > 2 || n_r  > 2 || n_b > 2 || n_B > 2 || n_P > 8 || n_p > 8 || n_N > 2 || n_n > 2);
-        }
+        }*/
 
 
         static public String ConvertInputtoFEN(String input){
@@ -167,7 +238,7 @@ public class Problem {
                             System.out.println("jugada salvacion " + number_of_play+ " " + l.get(i).getName());
                             print_table(auxiliar.getTable());
                             System.out.println(player_who_start);
-                            System.out.println("");
+                            System.out.println();
                             return b;
                         }
                     }

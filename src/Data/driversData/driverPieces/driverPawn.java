@@ -1,4 +1,4 @@
 package Data.driversData.driverPieces;
 
-public class Pawn {
+public class driverPawn {
 }

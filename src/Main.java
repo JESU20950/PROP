@@ -20,7 +20,6 @@ public class Main {
         System.out.println("hola");
         MainInterface start = new MainInterface();
     }
-
 }
     /*
     public static void main(String[] args) throws CloneNotSupportedException, IOException {

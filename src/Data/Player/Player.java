@@ -4,7 +4,7 @@ public abstract class Player {
     protected boolean color;
     protected String name;
 
-    Player(){};
+    public Player(){};
     public boolean isColor() {
         return color;
     }

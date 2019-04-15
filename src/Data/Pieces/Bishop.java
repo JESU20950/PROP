@@ -4,6 +4,7 @@ import Data.Cell;
 import java.lang.Math;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 import java.util.concurrent.CancellationException;
 
 import static java.lang.StrictMath.min;
@@ -60,6 +61,4 @@ public class Bishop extends Piece {
         }
         super.Movement = resultat;
     }
-
-
 }

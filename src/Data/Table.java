@@ -1,9 +1,6 @@
 package Data;
 import Data.Pieces.*;
 
-
-
-
 import java.util.ArrayList;
 import java.util.List;
 

@@ -29,6 +29,10 @@ public abstract class Piece {
         return position;
     }
 
+    public void setPosition(Cell position) {
+        this.position = position;
+    }
+
     public boolean Nobody_in_trajectory(Cell [][] t, Cell origen, Cell destino){
         int i_origen = origen.getI();
         int j_origen = origen.getJ();
@@ -49,7 +53,4 @@ public abstract class Piece {
         }
         return true;
     }
-
-
-
 }

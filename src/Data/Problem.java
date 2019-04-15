@@ -3,6 +3,7 @@ package Data;
 
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -204,17 +205,29 @@ public class Problem {
             }
             return false;
         }
-        static String load_problem_fromBD() throws FileNotFoundException, IOException {
+        public static List<String> load_problem_fromBD_Easy_Mode() throws IOException {
             File file = new File("BD");
             FileReader fr = new FileReader(file);
             BufferedReader br = new BufferedReader(fr);
+            List <String> result = new ArrayList<String >();
             String linea;
-            while ((linea = br.readLine()) != null) System.out.println(linea);
-
-            System.out.println("Introduce FEN next line:");
-            Scanner teclado = new Scanner (System.in);
-            String input = teclado.nextLine();
-            return input;
+            linea = br.readLine();
+            while ((linea = br.readLine()).charAt(0) != 'H') {
+                result.add(linea);
+            }
+            return result;
+        }
+        public static List<String> load_problem_fromBD_Hard_Mode() throws IOException{
+            File file = new File("BD");
+            FileReader fr = new FileReader(file);
+            BufferedReader br = new BufferedReader(fr);
+            List <String> result = new ArrayList<String >();
+            String linea;
+            while ((linea = br.readLine()).charAt(0) != 'H');
+            while ((linea = br.readLine()) != null) {
+                result.add(linea);
+            }
+            return result;
         }
         static String introduce_problem() throws CloneNotSupportedException,IOException {
             System.out.println("Introduce FEN next line:");

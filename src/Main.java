@@ -1,7 +1,9 @@
 import Data.Cell;
 import Data.Game;
 import Data.Table;
+import Interface.Cover;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -9,9 +11,13 @@ import static Data.Problem.isCorrectProblem;
 import static Data.Problem.iscorrectFen;
 
 
+
+import java.awt.*;
+import java.awt.event.*;
+
 public class Main {
-    public static void main(String[] args) throws CloneNotSupportedException, IOException {
-        Game t = new Game();
+    public static void main(String args[]) {
+        Cover start = new Cover();
     }
 
 }

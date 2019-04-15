@@ -1,7 +1,7 @@
 import Data.Cell;
 import Data.Game;
 import Data.Table;
-import Interface.Cover;
+import Interface.MainInterface;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -17,7 +17,8 @@ import java.awt.event.*;
 
 public class Main {
     public static void main(String args[]) {
-        Cover start = new Cover();
+        System.out.println("hola");
+        MainInterface start = new MainInterface();
     }
 
 }

@@ -30,8 +30,6 @@ public class Bishop extends Piece {
         int j_origen = origen.getJ();
         boolean movimiento_ok = Math.abs(i_destino - i_origen) == Math.abs(j_destino - j_origen);
         return (movimiento_ok && destino.getPiece() == null) || (movimiento_ok && destino.getPiece().getColor() != origen.getPiece().getColor()) && Nobody_in_trajectory(t,origen,destino);
-
-
     }
 
 

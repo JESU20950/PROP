@@ -17,6 +17,8 @@ public class Cover extends JPanel {
     JButton botonRanking = new JButton("Ranking");
     botonPlayGame.setPreferredSize(new Dimension(400, 40));
     botonRanking.setPreferredSize(new Dimension(200, 40));
+    botonPlayGame.setFont(new Font("Serif", Font.PLAIN, 30));
+    botonRanking.setFont(new Font("Serif", Font.PLAIN, 30));
     GridBagConstraints c = new GridBagConstraints();
 
     c.anchor = GridBagConstraints.CENTER;

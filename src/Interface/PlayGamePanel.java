@@ -23,8 +23,10 @@ public class PlayGamePanel extends JPanel {
         JButton introduceButton = new JButton( "Introduce Problem");
         introduceButton.addActionListener(new introduceListener());
         loadButton.addActionListener(new loadListener());
-        loadButton.setPreferredSize(new Dimension(200, 40));
-        introduceButton.setPreferredSize(new Dimension(200, 40));
+        loadButton.setPreferredSize(new Dimension(400, 40));
+        introduceButton.setPreferredSize(new Dimension(400, 40));
+        loadButton.setFont(new Font("Serif", Font.PLAIN, 30));
+        introduceButton.setFont(new Font("Serif", Font.PLAIN, 30));
         this.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
         c.anchor = GridBagConstraints.CENTER;
@@ -38,7 +40,8 @@ public class PlayGamePanel extends JPanel {
     }
     public class introduceListener implements ActionListener {
         public void actionPerformed(ActionEvent evt) {
-            JPanel panel = new JPanel();
+            IntroduceFENPanel panel = new IntroduceFENPanel(main);
+            miFrame.getContentPane().removeAll();
             miFrame.setContentPane(panel);
             miFrame.revalidate();
         }
@@ -50,8 +53,10 @@ public class PlayGamePanel extends JPanel {
             JButton Easy_Problems = new JButton( "Easy Problems");
             Hard_Problems.addActionListener(new HardModeListener());
             Easy_Problems.addActionListener(new EasyModeListener());
-            Hard_Problems.setPreferredSize(new Dimension(200, 40));
-            Easy_Problems.setPreferredSize(new Dimension(200, 40));
+            Hard_Problems.setPreferredSize(new Dimension(300, 40));
+            Easy_Problems.setPreferredSize(new Dimension(300, 40));
+            Easy_Problems.setFont(new Font("Serif", Font.PLAIN, 30));
+            Hard_Problems.setFont(new Font("Serif", Font.PLAIN, 30));
             Dificulty.setLayout(new GridBagLayout());
             GridBagConstraints c = new GridBagConstraints();
             c.anchor = GridBagConstraints.CENTER;
@@ -114,7 +119,7 @@ public class PlayGamePanel extends JPanel {
             graphic_list.setMultipleMode(false);
             graphic_list.addMouseListener(new double_click());
             JLabel label = new JLabel();
-            label.setText("FEN + Player who start playing + Player who has to achive checkmate + number of plays");
+            label.setText("FEN + Player who starts playing + Player who has to achive checkmate + Number of plays");
             panel.add(label,BorderLayout.BEFORE_FIRST_LINE);
             JPanel panelgraphiclist = new JPanel();
             panelgraphiclist.setSize(400,400);
@@ -130,6 +135,7 @@ public class PlayGamePanel extends JPanel {
           public void mouseClicked(MouseEvent me) {
               if (me.getClickCount() == 2) {
                   PlayerPanel Panel = new PlayerPanel(main);
+                  main.getActual_game().prepareTable(graphic_list.getSelectedItem());
                   miFrame.getContentPane().removeAll();
                   miFrame.setContentPane(Panel);
                   miFrame.revalidate();

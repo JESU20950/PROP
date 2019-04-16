@@ -1,28 +1,29 @@
 package Interface;
 
+import Data.Problem;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
 
+import Data.Game;
 
 public class MainInterface extends JFrame {
     private JFrame miFrame;
-    private String Problem;
+    private Game actual_game;
 
 
-    public MainInterface() {
-        // Se instancian tres botones con textos indicando lo que
-        // hacen cuando se pulse sobre ellos
-
+    public MainInterface()throws CloneNotSupportedException, IOException {
+        actual_game = new Game();
         miFrame = new JFrame("ChessGameUPC");
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         miFrame.setSize((int) screenSize.getWidth() / 2, (int) screenSize.getHeight() / 2);
         miFrame.setVisible(true);
         miFrame.getContentPane().removeAll();
-        System.out.println("hoolla");
         miFrame.setContentPane(new Cover(this));
         miFrame.revalidate();
         // Instancia y registra un objeto WindowListener sobre el objeto
@@ -46,4 +47,9 @@ public class MainInterface extends JFrame {
     public void setMiFrame(JFrame miFrame) {
         this.miFrame = miFrame;
     }
+
+    public Game getActual_game() {
+        return actual_game;
+    }
+
 }

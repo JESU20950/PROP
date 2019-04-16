@@ -15,9 +15,13 @@ public class Game {
     private boolean player_who_has_to_win;
     private Player player1;
     private Player player2;
-
     public Game () throws CloneNotSupportedException, IOException {
-
+    }
+    public void prepareTable(String FEN){
+        number_of_play = ConvertInputtonumber_of_play(FEN);
+        player_who_plays = ConvertInputtoplayer_who_has_to_win(FEN);
+        table = new Table(FEN);
+        player_who_has_to_win = ConvertInputtoplayer_who_has_to_win(FEN);
     }
 
     public int getNumber_of_play() {

@@ -98,7 +98,6 @@ public class Main {
                         g.setPlayer1(p1);
                         g.setPlayer2(p2);
                         while (true) {
-
                         }
                     }
                     else if (instr == 2) {

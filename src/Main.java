@@ -16,11 +16,108 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class Main {
-    public static void main(String args[]) throws IOException, CloneNotSupportedException{
+    /*public static void main(String args[]) throws IOException, CloneNotSupportedException{
         System.out.println("hola");
         MainInterface start = new MainInterface();
-    }
+    }*/
 
+    public static void main(String[] args) throws CloneNotSupportedException, IOException {
+        System.out.println("Select your option by writting the number");
+        System.out.println("1. Start a new game");
+        System.out.println("2. See the ranking table");
+        System.out.println("3. Quit");
+        Scanner sc = new Scanner(System.in);
+        int instr = sc.nextInt();
+        if (instr == 1) {
+            System.out.println("Select your option by writting the number");
+            System.out.println("1. Introduce your own FEN");
+            System.out.println("2. Select a FEN from the Database");
+            instr = sc.nextInt();
+            sc.nextLine();
+            if (instr == 1) {
+                String s = sc.nextLine();
+                boolean b = iscorrectFen(s);
+                while (!b) {
+                    System.out.println("FEN is incorrect, introduce the correct FEN: ");
+                    s = sc.nextLine();
+                    b = iscorrectFen(s);
+                }
+                Game g = new Game();
+                g.setTable(new Table(s));
+                g.getTable().print_table();
+                System.out.println("Select your option by writting the number");
+                System.out.println("1. Player1 vs Player2");
+                System.out.println("2. Player vs CPU(Easy)");
+                System.out.println("3. Player vs CPU(Hard)");
+                System.out.println("4. CPU1(Easy) vs CPU2(Easy)");
+                System.out.println("5. CPU1(Easy) vs CPU2(Hard)");
+                System.out.println("6. CPU1(Hard) vs CPU2(Hard)");
+                instr = sc.nextInt();
+                sc.nextLine();
+                if (instr == 1) {
+                    System.out.println("Select your option by writting the number");
+                    System.out.print("Enter Player1's name: ");
+                    String name1 = sc.nextLine();
+                    System.out.print("Enter Player2's name: ");
+                    String name2 = sc.nextLine();
+                    System.out.println("1. " + name1 + " plays the White Team and " + name2 + " plays the Black Team");
+                    System.out.println("2. " + name1 + " plays the Black Team and " + name2 + " plays the White Team");
+                    instr = sc.nextInt();
+                    if (instr == 1) {
+
+                    }
+                    else if (instr == 2) {
+
+                    }
+                    else {
+                        System.out.println("Error, this option is not available");
+                        System.exit(1);
+                    }
+                }
+                else if (instr == 2) {
+
+                }
+                else if (instr == 3) {
+
+                }
+                else if (instr == 4) {
+
+                }
+                else if (instr == 5) {
+
+                }
+                else if (instr == 6) {
+
+                }
+                else {
+                    System.out.println("Error, this option is not available");
+                    System.exit(1);
+                }
+            }
+            else if (instr == 2) {
+                System.out.println("Select your option by writting the number");
+                System.out.println("1. Easy Problems");
+                System.out.println("2. Hard Problems");
+
+            }
+            else {
+                System.out.println("Error, this option is not available");
+                
+                System.exit(1);
+            }
+        }
+        else if (instr == 2) {
+            System.out.println("Feature not available yet");
+            System.exit(0);
+        }
+        else if (instr == 3) {
+            System.exit(0);
+        }
+        else {
+            System.out.println("Error, this option is not available");
+            System.exit(1);
+        }
+    }
 }
     /*
     public static void main(String[] args) throws CloneNotSupportedException, IOException {

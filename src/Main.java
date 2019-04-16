@@ -71,7 +71,6 @@ public class Main {
                 number_of_plays = sc.nextInt();
                 Game g = new Game();
                 g.prepareTablewithParameters(s, player_who_start, player_who_has_to_win, number_of_plays);
-                g.getTable().print_table();
                 System.out.println("Select your option by writting the number");
                 System.out.println("1. Player1 vs Player2");
                 System.out.println("2. Player vs CPU(Easy)");
@@ -97,7 +96,36 @@ public class Main {
                         p2.setColor(false);
                         g.setPlayer1(p1);
                         g.setPlayer2(p2);
-                        while (true) {
+                        sc.nextLine();
+                        String move;
+                        while (g.getNumber_of_play() > 0 && !(g.getTable().checkmate_to(false) || g.getTable().checkmate_to(true))) {
+                            boolean error = false;
+                            if (g.getPlayer_who_plays()) {
+                                g.getTable().print_table();
+                                System.out.println("White Team turn");
+                                System.out.print("Choose the piece to move: ");
+                                move = sc.nextLine();
+                                int index = 0;
+                                while (index < move.length() && move.charAt(index) == ' ') ++index;
+                                int i = move.charAt(index) - 'A';
+                                ++index;
+                                while (index < move.length() && move.charAt(index) == ' ') ++index;
+                                System.out.println(move.charAt(index));
+                                int j = Character.getNumericValue(move.charAt(index)) - 1;
+                                while (index < move.length() && move.charAt(index) == ' ') ++index;
+                                System.out.println(i + " " + j + " " + index);
+                            }
+                            else {
+                                g.getTable().print_table();
+                                System.out.println("Black Team turn");
+                                System.out.print("Choose the piece to move: ");
+                                move = sc.nextLine();
+                                System.out.println(move.charAt(0) + " " + move.charAt(2));
+                            }
+                            if (!error) {
+                                g.setPlayer_who_plays(!g.getPlayer_who_plays());
+                                g.setNumber_of_play(g.getNumber_of_play() - 1);
+                            }
                         }
                     }
                     else if (instr == 2) {

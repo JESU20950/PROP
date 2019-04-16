@@ -27,5 +27,6 @@ public class Human extends Player{
                 System.out.println("Movement is imposible");
             }
         }
+
     }
 }

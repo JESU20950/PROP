@@ -79,10 +79,14 @@ public class Problem {
             }
             ++total_rows;
             if (row != 8) return false;
-            if (index < FEN.length() && FEN.charAt(index) == ' ') return (total_rows == 8);
+            if (index < FEN.length() && FEN.charAt(index) == ' ' && total_rows != 8) return false;
             if (index < FEN.length() && FEN.charAt(index) == '/') ++index;
         }
-        return (total_rows == 8);
+        while (index < FEN.length()) {
+            if (FEN.charAt(index) != ' ') return false;
+            ++index;
+        }
+        return (total_rows == 8 && k == 1 && K == 1);
     }
 
 

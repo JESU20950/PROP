@@ -1,5 +1,6 @@
 import Data.Cell;
 import Data.Game;
+import Data.Player.*;
 import Data.Table;
 import Interface.MainInterface;
 
@@ -42,8 +43,34 @@ public class Main {
                     s = sc.nextLine();
                     b = iscorrectFen(s);
                 }
+                System.out.println("Select your option by writting the number");
+                System.out.println("1. White Team starts playing");
+                System.out.println("2. Black Team starts playing");
+                instr = sc.nextInt();
+                boolean player_who_start, player_who_has_to_win;
+                int number_of_plays;
+                number_of_plays = 0;
+                player_who_has_to_win = player_who_start = false;
+                if (instr == 1) player_who_start = true;
+                else if (instr == 2) player_who_start = false;
+                else {
+                    System.out.println("Error, this option is not available");
+                    System.exit(1);
+                }
+                System.out.println("Select your option by writting the number");
+                System.out.println("1. White Team wins the game");
+                System.out.println("2. Black Team wins the game");
+                instr = sc.nextInt();
+                if (instr == 1) player_who_has_to_win = true;
+                else if (instr == 2) player_who_has_to_win = false;
+                else {
+                    System.out.println("Error, this option is not available");
+                    System.exit(1);
+                }
+                System.out.print("Introduce the number of plays: ");
+                number_of_plays = sc.nextInt();
                 Game g = new Game();
-                g.setTable(new Table(s));
+                g.prepareTablewithParameters(s, player_who_start, player_who_has_to_win, number_of_plays);
                 g.getTable().print_table();
                 System.out.println("Select your option by writting the number");
                 System.out.println("1. Player1 vs Player2");
@@ -62,12 +89,21 @@ public class Main {
                     String name2 = sc.nextLine();
                     System.out.println("1. " + name1 + " plays the White Team and " + name2 + " plays the Black Team");
                     System.out.println("2. " + name1 + " plays the Black Team and " + name2 + " plays the White Team");
+                    Player p1 = new Human(name1);
+                    Player p2 = new Human(name2);
                     instr = sc.nextInt();
                     if (instr == 1) {
+                        p1.setColor(true);
+                        p2.setColor(false);
+                        g.setPlayer1(p1);
+                        g.setPlayer2(p2);
+                        while (true) {
 
+                        }
                     }
                     else if (instr == 2) {
-
+                        p1.setColor(false);
+                        p2.setColor(true);
                     }
                     else {
                         System.out.println("Error, this option is not available");
@@ -102,7 +138,6 @@ public class Main {
             }
             else {
                 System.out.println("Error, this option is not available");
-                
                 System.exit(1);
             }
         }

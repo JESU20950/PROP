@@ -29,6 +29,10 @@ public class Game {
         this.number_of_play = number_of_play;
     }
 
+    public boolean getPlayer_who_plays() {
+        return player_who_plays;
+    }
+
     public int getNumber_of_play() {
         return number_of_play;
     }

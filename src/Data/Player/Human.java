@@ -9,6 +9,11 @@ public class Human extends Player{
         super.name = name;
     }
 
+    public boolean movementCorrect(Table t, Piece p, Cell origen, Cell destino) {
+        if (super.color != p.getColor()) return false;
+        else return p.correct_movement(t.getTable(), origen, destino);
+    }
+
     public void movePiece(Table t, Piece p, Cell origen, Cell destino){
         if(super.color != p.getColor()){
             System.out.println("Not your piece");

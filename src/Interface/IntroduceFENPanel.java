@@ -109,12 +109,11 @@ public class IntroduceFENPanel extends JPanel {
                             JOptionPane.ERROR_MESSAGE);
                             return;
                 }
-                System.out.println("errorers");
+                main.getActual_game().prepareTablewithParameters(FENtext, player_who_start_bool, player_who_has_to_win, number_of_plays_int);
                 PlayerPanel Panel = new PlayerPanel(main);
                 main.getMiFrame().getContentPane().removeAll();
-                main.setContentPane(Panel);
-                main.revalidate();
-
+                main.getMiFrame().setContentPane(Panel);
+                main.getMiFrame().revalidate();
             }
         }
     }

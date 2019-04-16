@@ -3,7 +3,6 @@ package Data;
 import Data.Player.Player;
 
 import java.io.IOException;
-import java.util.Scanner;
 
 import static Data.Problem.*;
 
@@ -17,11 +16,17 @@ public class Game {
     private Player player2;
     public Game () throws CloneNotSupportedException, IOException {
     }
-    public void prepareTable(String FEN){
+    public void prepareTablewithFEN(String FEN){
         number_of_play = ConvertInputtonumber_of_play(FEN);
-        player_who_plays = ConvertInputtoplayer_who_has_to_win(FEN);
+        player_who_plays = ConvertInputtoplayer_who_start(FEN);
         table = new Table(FEN);
         player_who_has_to_win = ConvertInputtoplayer_who_has_to_win(FEN);
+    }
+    public void prepareTablewithParameters(String FEN, boolean player_who_start, boolean player_who_has_to_win, int number_of_play){
+        table = new Table(FEN);
+        player_who_plays = player_who_start;
+        this.player_who_has_to_win = player_who_has_to_win;
+        this.number_of_play = number_of_play;
     }
 
     public int getNumber_of_play() {
@@ -71,4 +76,5 @@ public class Game {
     public void setPlayer2(Player player2) {
         this.player2 = player2;
     }
+
 }

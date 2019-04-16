@@ -135,7 +135,7 @@ public class PlayGamePanel extends JPanel {
           public void mouseClicked(MouseEvent me) {
               if (me.getClickCount() == 2) {
                   PlayerPanel Panel = new PlayerPanel(main);
-                  main.getActual_game().prepareTable(graphic_list.getSelectedItem());
+                  main.getActual_game().prepareTablewithFEN(graphic_list.getSelectedItem());
                   miFrame.getContentPane().removeAll();
                   miFrame.setContentPane(Panel);
                   miFrame.revalidate();

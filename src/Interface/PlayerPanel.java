@@ -4,6 +4,8 @@ import Data.Player.Player;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class PlayerPanel extends JPanel {
     MainInterface main;
@@ -28,6 +30,7 @@ public class PlayerPanel extends JPanel {
 
         GridBagConstraints c = new GridBagConstraints();
         JButton button = new JButton("PLAY");
+        button.addActionListener(new playaction());
         button.setFont(new Font("Serif", Font.PLAIN, 30));
         c.anchor = GridBagConstraints.CENTER;
         c.gridx = 0;
@@ -45,6 +48,16 @@ public class PlayerPanel extends JPanel {
         c.gridx = 1;
         c.gridy = 1;
         this.add(button,c);
+
+    }
+    private class playaction implements ActionListener {
+        public void actionPerformed(ActionEvent evt) {
+            GameInterface Panel = new GameInterface(main);
+
+            main.getMiFrame().getContentPane().removeAll();
+            main.getMiFrame().setContentPane(Panel);
+            main.getMiFrame().revalidate();
+        }
     }
 
 }

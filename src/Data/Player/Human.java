@@ -18,6 +18,9 @@ public class Human extends Player{
                 p.setPosition(destino);
                 System.out.println("Has movido la pieza " + p.getName() + " a la posicion " + destino.getI() + " " + destino.getJ());
             }
+            else{
+                System.out.println("Movement is imposible");
+            }
         }
     }
 }

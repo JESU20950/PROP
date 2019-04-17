@@ -10,10 +10,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class PlayerPanel extends JPanel {
-    MainInterface main;
+    FrameProgram main;
     JComboBox<String> Player1;
     JComboBox<String> Player2;
-    PlayerPanel(MainInterface t){
+    PlayerPanel(FrameProgram t){
         main = t;
         this.setLayout(new GridBagLayout());
         Player1 = new JComboBox<String>();

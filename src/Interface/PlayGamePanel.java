@@ -14,9 +14,9 @@ import java.util.List;
 
 public class PlayGamePanel extends JPanel {
     private JFrame miFrame;
-    private  MainInterface main;
+    private  FrameProgram main;
     private java.awt.List graphic_list;
-    public PlayGamePanel(MainInterface t){
+    public PlayGamePanel(FrameProgram t){
         main = t;
         miFrame = t.getMiFrame();
         JButton loadButton = new JButton("Load Problem");

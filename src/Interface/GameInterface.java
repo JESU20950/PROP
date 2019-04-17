@@ -4,43 +4,86 @@ import Data.Game;
 
 
 
-
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 
 public class GameInterface extends JPanel {
-    private JFrame main;
+    private FrameProgram frame;
+    private JPanel ChessBoardPanel;
+    private JPanel infoPanel;
     private Game actual_game;
     private ChessButton chessBoard[][];
     private int i_origen_piece;
     private int j_origen_piece;
-
-    GameInterface(MainInterface t) {
-        main = t.getMiFrame();
+    private JLabel Player_who_plays;
+    private JLabel Player_who_has_to_win;
+    private JLabel Number_of_plays;
+    GameInterface(FrameProgram t) {
+        frame = t;
         actual_game = t.getActual_game();
+        actual_game.setGameInterface(this);
+        this.setLayout(new BorderLayout());
         paint_table();
+        paint_info();
     }
-
-
+    void paint_info(){
+        infoPanel = new JPanel();
+        infoPanel.setLayout(new FlowLayout());
+        this.add(infoPanel,BorderLayout.NORTH);
+        Player_who_plays = new JLabel();
+        Player_who_has_to_win = new JLabel();
+        Number_of_plays = new JLabel();
+        setPlayer_who_plays_label(actual_game.getPlayer_who_plays());
+        setPlayer_who_has_to_win_label(actual_game.getPlayer_who_has_to_win());
+        setNumber_of_plays_label(actual_game.getNumber_of_play());
+        infoPanel.add(Player_who_has_to_win);
+        infoPanel.add(Player_who_plays);
+        infoPanel.add(Number_of_plays);
+    }
+    public void setPlayer_who_plays_label(boolean player){
+        if (player) Player_who_plays.setText("Player who plays: White");
+        else Player_who_plays.setText("Player who plays: Black");
+    }
+    public void setPlayer_who_has_to_win_label(boolean player){
+        if (player) Player_who_has_to_win.setText("Player who has to win: White");
+        else Player_who_has_to_win.setText("Player who has to win: Black");
+    }
+    public void setNumber_of_plays_label(int number_of_play){
+        Number_of_plays.setText("Number of play: " + number_of_play);
+    }
     public void paint_table() {
-        JTable g = new JTable();
-        this.setLayout(new GridLayout(9, 9));
-        this.setPreferredSize(new Dimension(8 * 80, 8 * 80));
+        ChessBoardPanel = new JPanel();
+        this.add(ChessBoardPanel,BorderLayout.CENTER);
+        ChessBoardPanel.setLayout(new GridLayout(9, 9));
+        ChessBoardPanel.setPreferredSize(new Dimension(8 * 80, 8 * 80));
         chessBoard = new ChessButton[8][8];
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 chessBoard[i][j] = new ChessButton(i, j);
-                this.add(chessBoard[i][j]);
+                ChessBoardPanel.add(chessBoard[i][j]);
             }
         }
+    }
+    public void dialaog_end_of_game() throws Exception {
+        if (actual_game.getplayerwhowins()) JOptionPane.showMessageDialog(frame.getMiFrame(),
+                "Ji grande"+actual_game.getplayerwhowins(),
+                "ERROR",
+                JOptionPane.ERROR_MESSAGE);
+        else{
+            JOptionPane.showMessageDialog(frame.getMiFrame(),
+                    "Ji grande 2"+actual_game.getplayerwhowins(),
+                    "ERROR",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+        frame.newframe();
     }
 
 
     public class ChessButton extends JButton {
-        Icon piece;
         private int i;
         private int j;
 
@@ -49,63 +92,49 @@ public class GameInterface extends JPanel {
             this.j = j;
             paint_cell();
             if (actual_game.getTable().getTable()[i][j].getPiece() == null) {
-                piece = null;
                 this.setIcon(null);
-                return;
             } else {
                 String c = actual_game.getTable().getTable()[i][j].getPiece().getName();
                 switch (c) {
                     case "k":
-                        piece = new ImageIcon("blackking.png");
-                        this.setIcon(piece);
+                        this.setIcon(new ImageIcon("blackking.png"));
                         break;
                     case "q":
-                        piece = new ImageIcon("blackqueen.png");
-                        this.setIcon(piece);
+                        this.setIcon(new ImageIcon("blackqueen.png"));
                         break;
                     case "r":
-                        piece = new ImageIcon("blackrook.png");
-                        this.setIcon(piece);
+                        this.setIcon(new ImageIcon("blackrook.png"));
                         break;
                     case "b":
-                        piece = new ImageIcon("blackbishop.png");
-                        this.setIcon(piece);
+                        this.setIcon(new ImageIcon("blackbishop.png"));
                         break;
                     case "n":
-                        piece = new ImageIcon("blackknight.png");
-                        this.setIcon(piece);
+                        this.setIcon(new ImageIcon("blackknight.png"));
                         break;
                     case "p":
-                        piece = new ImageIcon("blackpawn.png");
-                        this.setIcon(piece);
+                        this.setIcon(new ImageIcon("blackpawn.png"));
                         break;
                     case "K":
-                        piece = new ImageIcon("whiteking.png");
-                        this.setIcon(piece);
+                        this.setIcon(new ImageIcon("whiteking.png"));
                         break;
                     case "Q":
-                        piece = new ImageIcon("whitequeen.png");
-                        this.setIcon(piece);
+                        this.setIcon(new ImageIcon("whitequeen.png"));
                         break;
                     case "R":
-                        piece = new ImageIcon("whiterook.png");
-                        this.setIcon(piece);
+                        this.setIcon(new ImageIcon("whiterook.png"));
                         break;
                     case "B":
-                        piece = new ImageIcon("whitebishop.png");
-                        this.setIcon(piece);
+                        this.setIcon(new ImageIcon("whitebishop.png"));
                         break;
                     case "N":
-                        piece = new ImageIcon("whiteknight.png");
-                        this.setIcon(piece);
+                        this.setIcon(new ImageIcon("whiteknight.png"));
                         break;
                     case "P":
-                        piece = new ImageIcon("whitepawn.png");
-                        this.setIcon(piece);
+                        this.setIcon(new ImageIcon("whitepawn.png"));
                         break;
                 }
             }
-            this.addActionListener(new moveofhuman());
+            this.addActionListener(new movementofhuman());
         }
         void paint_cell(){
              if (i % 2 == 0) {
@@ -117,11 +146,8 @@ public class GameInterface extends JPanel {
                  else this.setBackground(Color.white);
              }
         }
-        public Icon getPiece() {
-            return piece;
-        }
 
-        private class moveofhuman implements ActionListener {
+        private class movementofhuman implements ActionListener {
             public void actionPerformed(ActionEvent evt) {
                 if (actual_game.Piececanmoveinthismoment(i, j)) {
                     chessBoard[i_origen_piece][j_origen_piece].paint_cell();
@@ -130,20 +156,20 @@ public class GameInterface extends JPanel {
                     chessBoard[i_origen_piece][j_origen_piece].setBackground(Color.RED);
                     return;
                 } else {
-                    if (!actual_game.getTable().MovePiece(i_origen_piece, j_origen_piece, i, j)) {
-                        JOptionPane.showMessageDialog(main,
-                                "Incorrect movement.",
-                                "ERROR",
-                                JOptionPane.ERROR_MESSAGE);
-                        return;
-                    }
-                    chessBoard[i_origen_piece][j_origen_piece].paint_cell();
-                    chessBoard[i][j].setIcon(chessBoard[i_origen_piece][j_origen_piece].getPiece());
+                    if (!actual_game.getTable().MovePiece(i_origen_piece, j_origen_piece, i, j)) return;
+                    chessBoard[i][j].setIcon(chessBoard[i_origen_piece][j_origen_piece].getIcon());
                     chessBoard[i_origen_piece][j_origen_piece].setIcon(null);
+                    chessBoard[i_origen_piece][j_origen_piece].paint_cell();
                     actual_game.setPlayer_who_plays(!actual_game.getPlayer_who_plays());
                     actual_game.setNumber_of_play(actual_game.getNumber_of_play() - 1);
+                    try {
+                        actual_game.endofgame();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }
     }
+
 }

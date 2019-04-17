@@ -130,7 +130,6 @@ public class Table implements Cloneable {
 
 
     public boolean MovePiece(int i_origen, int j_origen, int i_destino, int j_destino) {
-        print_table();
         if (i_origen >= 8 || j_origen >= 8 || j_destino >= 8 || j_destino >= 8 || i_origen <= -1 || j_origen <= -1 || j_destino <= -1 || j_destino <= -1) {
             return false;
 

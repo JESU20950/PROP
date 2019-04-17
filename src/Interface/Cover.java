@@ -8,8 +8,8 @@ import java.awt.event.WindowEvent;
 
 public class Cover extends JPanel {
     private JFrame miFrame;
-    private MainInterface main;
-    Cover(MainInterface t){
+    private FrameProgram main;
+    Cover(FrameProgram t){
     miFrame = t.getMiFrame();
     main = t;
     this.setLayout(new GridBagLayout());

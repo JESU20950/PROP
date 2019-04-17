@@ -2,6 +2,7 @@ import Data.Cell;
 import Data.Game;
 import Data.Player.*;
 import Data.Table;
+import Interface.FrameProgram;
 import Interface.MainInterface;
 
 import javax.swing.*;
@@ -17,10 +18,12 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class Main {
-    public static void main(String args[]) throws IOException, CloneNotSupportedException{
-        System.out.println("hola");
+
+    public static void main(String args[]) throws IOException, CloneNotSupportedException {
         MainInterface start = new MainInterface();
     }
+}
+
     /*
     public static void main(String[] args) throws CloneNotSupportedException, IOException {
         System.out.println("Select your option by writting the number");
@@ -205,4 +208,3 @@ public static void print_table(Cell[][] table){
         }
         }
         */
-}

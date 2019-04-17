@@ -9,12 +9,12 @@ import static Data.Problem.isCorrectProblem;
 import static Data.Problem.iscorrectFen;
 
 public class IntroduceFENPanel extends JPanel {
-    private MainInterface main;
+    private FrameProgram main;
     private JTextField FEN;
     private JSpinner number_of_plays;
     private JComboBox player_who_has_to_achive_the_check_mate;
     private JComboBox player_who_starts;
-    IntroduceFENPanel(MainInterface t){
+    IntroduceFENPanel(FrameProgram t){
         main = t;
         FEN= new JTextField();
         FEN.setPreferredSize( new Dimension( 400, 30 ) );

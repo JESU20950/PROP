@@ -19,12 +19,12 @@ import java.awt.event.*;
 
 public class Main {
 
-    public static void main(String args[]) throws IOException, CloneNotSupportedException {
+    /*public static void main(String args[]) throws IOException, CloneNotSupportedException {
         MainInterface start = new MainInterface();
     }
-}
+}*/
 
-    /*
+
     public static void main(String[] args) throws CloneNotSupportedException, IOException {
         System.out.println("Select your option by writting the number");
         System.out.println("1. Start a new game");
@@ -109,26 +109,99 @@ public class Main {
                                 System.out.print("Choose the piece to move: ");
                                 move = sc.nextLine();
                                 int index = 0;
+                                int io, jo;
+                                io = jo = -1;
                                 while (index < move.length() && move.charAt(index) == ' ') ++index;
-                                int i = move.charAt(index) - 'A';
-                                ++index;
-                                while (index < move.length() && move.charAt(index) == ' ') ++index;
-                                System.out.println(move.charAt(index));
-                                int j = Character.getNumericValue(move.charAt(index)) - 1;
-                                while (index < move.length() && move.charAt(index) == ' ') ++index;
-                                System.out.println(i + " " + j + " " + index);
+                                if (index >= move.length()) error = true;
+                                else {
+                                    jo = move.charAt(index) - 'A';
+                                    ++index;
+                                    while (index < move.length() && move.charAt(index) == ' ') ++index;
+                                    if (index >= move.length()) error = true;
+                                    else {
+                                        io = 8 - Character.getNumericValue(move.charAt(index));
+                                        ++index;
+                                        while (index < move.length() && move.charAt(index) == ' ') ++index;
+                                        if (index < move.length()) error = true;
+                                    }
+                                }
+                                if (io < 0 || io >= 8  || jo < 0 || jo >= 8) error = true;
+                                else {
+                                    System.out.print("Chose the destination: ");
+                                    move = sc.nextLine();
+                                    index = 0;
+                                    int id, jd;
+                                    id = jd = -1;
+                                    while (index < move.length() && move.charAt(index) == ' ') ++index;
+                                    if (index >= move.length()) error = true;
+                                    else {
+                                        jd = move.charAt(index) - 'A';
+                                        ++index;
+                                        while (index < move.length() && move.charAt(index) == ' ') ++index;
+                                        if (index >= move.length()) error = true;
+                                        else {
+                                            id = 8 - Character.getNumericValue(move.charAt(index));
+                                            ++index;
+                                            while (index < move.length() && move.charAt(index) == ' ') ++index;
+                                            if (index < move.length()) error = true;
+                                        }
+                                    }
+                                    if (id < 0 || id >= 8 || jd < 0 || jd >= 8) error = true;
+                                    else error = g.getTable().MovePiece(io, jo, id, jd);
+                                }
                             }
                             else {
                                 g.getTable().print_table();
                                 System.out.println("Black Team turn");
                                 System.out.print("Choose the piece to move: ");
                                 move = sc.nextLine();
-                                System.out.println(move.charAt(0) + " " + move.charAt(2));
+                                int index = 0;
+                                int io, jo;
+                                io = jo = -1;
+                                while (index < move.length() && move.charAt(index) == ' ') ++index;
+                                if (index >= move.length()) error = true;
+                                else {
+                                    io = move.charAt(index) - 'A';
+                                    ++index;
+                                    while (index < move.length() && move.charAt(index) == ' ') ++index;
+                                    if (index >= move.length()) error = true;
+                                    else {
+                                        jo = 8 - Character.getNumericValue(move.charAt(index));
+                                        ++index;
+                                        while (index < move.length() && move.charAt(index) == ' ') ++index;
+                                        if (index < move.length()) error = true;
+                                    }
+                                }
+                                if (io < 0 || io >= 8  || jo < 0 || jo >= 8) error = true;
+                                else {
+                                    System.out.print("Chose the destination: ");
+                                    move = sc.nextLine();
+                                    index = 0;
+                                    int id, jd;
+                                    id = jd = -1;
+                                    while (index < move.length() && move.charAt(index) == ' ') ++index;
+                                    if (index >= move.length()) error = true;
+                                    else {
+                                        jd = move.charAt(index) - 'A';
+                                        ++index;
+                                        while (index < move.length() && move.charAt(index) == ' ') ++index;
+                                        if (index >= move.length()) error = true;
+                                        else {
+                                            id = 8 - Character.getNumericValue(move.charAt(index));
+                                            ++index;
+                                            while (index < move.length() && move.charAt(index) == ' ') ++index;
+                                            if (index < move.length()) error = true;
+                                        }
+                                    }
+                                    if (id < 0 || id >= 8 || jd < 0 || jd >= 8) error = true;
+                                    else error = g.getTable().MovePiece(io, jo, id, jd);
+                                }
                             }
                             if (!error) {
                                 g.setPlayer_who_plays(!g.getPlayer_who_plays());
                                 g.setNumber_of_play(g.getNumber_of_play() - 1);
                             }
+                            else System.out.println("Wrong move, try again!");
                         }
                     }
                     else if (instr == 2) {

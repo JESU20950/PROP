@@ -62,7 +62,7 @@ public class Game {
 
     public void setNumber_of_play(int number_of_play) {
         this.number_of_play = number_of_play;
-        gameInterface.setNumber_of_plays_label(number_of_play);
+        //gameInterface.setNumber_of_plays_label(number_of_play);
     }
 
     public Table getTable() {
@@ -76,7 +76,7 @@ public class Game {
 
     public void setPlayer_who_plays(boolean player_who_plays) {
         this.player_who_plays = player_who_plays;
-        gameInterface.setPlayer_who_plays_label(player_who_plays);
+        //gameInterface.setPlayer_who_plays_label(player_who_plays);
     }
 
     public void setGameInterface(GameInterface gameInterface) {

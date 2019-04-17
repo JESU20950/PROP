@@ -108,10 +108,13 @@ public class Game {
     }
     public boolean getplayerwhowins() throws CloneNotSupportedException {
         if (table.checkmate_to(true)) return false;
-        else if (table.checkmate_to(false )) return true;
+        else if (table.checkmate_to(false)) return true;
         else if (number_of_play == 0 && table.checkmate_to(!player_who_has_to_win)) return player_who_has_to_win;
         else return !player_who_has_to_win;
     }
-
+    public Player getPlayerwhoplays(){
+        if (player_who_plays) return player1;
+        else return player2;
+    }
 
 }

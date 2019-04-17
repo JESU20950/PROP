@@ -25,7 +25,9 @@ public class Machine1 extends Player{
         }
         return aux;
     }
-
+    public boolean isMachine(){
+        return true;
+    }
     public int minimax(int depth){
         int val = 0;
         if(super.isColor())

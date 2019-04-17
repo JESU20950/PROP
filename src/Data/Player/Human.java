@@ -11,7 +11,9 @@ public class Human extends Player{
     public Human(){
 
     }
-
+    public boolean isMachine(){
+        return false;
+    }
     public boolean movementCorrect(Table t, Piece p, Cell origen, Cell destino) {
         if (super.color != p.getColor()) return false;
         else return p.correct_movement(t.getTable(), origen, destino);

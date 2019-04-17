@@ -135,64 +135,51 @@ public class Problem {
         static public boolean isCorrectProblem(String FEN,boolean player_who_start,boolean player_who_has_to_win,int number_of_play) throws CloneNotSupportedException{
             FEN = ConvertInputtoFEN(FEN);
             Table t = new Table(FEN);
-            return true;
+            return achieve_the_goal(t,player_who_start,number_of_play,player_who_has_to_win);
         }
         static public boolean achieve_the_goal(Table t, boolean player_who_start, int number_of_play, boolean player_who_has_to_win) throws CloneNotSupportedException{
-            if (number_of_play == 1 &&  t.checkmate_to(!player_who_has_to_win)) return true;
-            else if (number_of_play == 1) return false;
-            List <Piece> l = t.getPieces(player_who_start);
-            if (t.mate_from(player_who_has_to_win) && player_who_start == !player_who_has_to_win) {
-                for (int i = 0; i < l.size(); ++i) {
-                    List<Cell> movements = l.get(i).getMovement();
-                    int origen_i = l.get(i).getPosition().getI();
-                    int origen_j = l.get(i).getPosition().getJ();
-                    for (int j = 0; j < movements.size(); ++j) {
-                        int destino_i = movements.get(j).getI();
-                        int destino_j = movements.get(j).getJ();
-                        Table auxiliar = new Table();
-                        auxiliar.setTable(t.getTable());
-                        if (auxiliar.MovePiece(origen_i, origen_j, destino_i, destino_j) && !auxiliar.mate_from(player_who_has_to_win)){
-                            boolean b = achieve_the_goal(auxiliar, !player_who_start, number_of_play - 1, player_who_has_to_win);
-                            System.out.println("jugada salvacion " + number_of_play+ " " + l.get(i).getName());
-                            print_table(auxiliar.getTable());
-                            System.out.println(player_who_start);
-                            System.out.println();
-                            return b;
-                        }
-                    }
-                }
-            }else {
-                for (int i = 0; i < l.size(); ++i) {
-                    List<Cell> movements = l.get(i).getMovement();
-                    int origen_i = l.get(i).getPosition().getI();
-                    int origen_j = l.get(i).getPosition().getJ();
-                    for (int j = 0; j < movements.size(); ++j) {
-                        int destino_i = movements.get(j).getI();
-                        int destino_j = movements.get(j).getJ();
-                        Table auxiliar = new Table();
-                        auxiliar.setTable(t.getTable());
-                        if (auxiliar.MovePiece(origen_i, origen_j, destino_i, destino_j)) {
-                            /*
-                        if (auxiliar.checkmate_to(!player_who_has_to_win)){
-                            System.out.println("jugada legendaria" + number_of_play);
-                            System.out.println(l.get(i).getName());
-                            print_table(auxiliar.getTable());
-                            System.out.println("");
-                            return  true;
-                        }
-                            */
-                        if (achieve_the_goal(auxiliar, !player_who_start, number_of_play - 1, player_who_has_to_win)) {
-                                System.out.println("jugada maestra" + number_of_play);
-                                System.out.println(l.get(i).getName());
-                                print_table(auxiliar.getTable());
-                                System.out.println("");
+            if (number_of_play >= 0 && t.checkmate_to(!player_who_has_to_win)) return true;
+            else if (number_of_play <= 0) return false;
+
+            List <Piece> pieces = t.getPieces(player_who_start);
+            if (player_who_start == player_who_has_to_win){
+                for (int i = 0; i<pieces.size();++i){
+                    List<Cell> movement = pieces.get(i).getMovement();
+                    int i_origen = pieces.get(i).getPosition().getI();
+                    int j_origen = pieces.get(i).getPosition().getJ();
+                    for (int j = 0;j<movement.size();++j){
+                        int i_destino = movement.get(j).getI();
+                        int j_destino = movement.get(j).getJ();
+                        Table aux = new Table();
+                        aux.setTable(t.getTable());
+                        if (aux.MovePiece(i_origen,j_origen,i_destino,j_destino)){
+                            if (achieve_the_goal(aux,!player_who_start,number_of_play-1,player_who_has_to_win)){
+                                if (number_of_play == 4) t.print_table();
                                 return true;
-                         }
+                            }
                         }
                     }
                 }
+             return false;
+            }else{
+                for (int i = 0; i<pieces.size();++i){
+                    List<Cell> movement = pieces.get(i).getMovement();
+                    int i_origen = pieces.get(i).getPosition().getI();
+                    int j_origen = pieces.get(i).getPosition().getJ();
+                    for (int j = 0;j<movement.size();++j){
+                        int i_destino = movement.get(j).getI();
+                        int j_destino = movement.get(j).getJ();
+                        Table aux = new Table();
+                        aux.setTable(t.getTable());
+                        if (aux.MovePiece(i_origen,j_origen,i_destino,j_destino)){
+                            if (!achieve_the_goal(aux,!player_who_start,number_of_play-1,player_who_has_to_win)){
+                                return false;
+                            }
+                        }
+                    }
+                }
+                return true;
             }
-            return false;
         }
         public static List<String> load_problem_fromBD_Easy_Mode() throws IOException {
             File file = new File("BD_EASYMODE");

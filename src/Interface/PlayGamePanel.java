@@ -85,8 +85,10 @@ public class PlayGamePanel extends JPanel {
             }
             graphic_list = new java.awt.List();
             for (int i = 0; i<problem.size(); ++i){
+
                 graphic_list.add(problem.get(i));
             }
+            graphic_list.setFont(new Font("Serif", Font.PLAIN, 10));
             graphic_list.setMultipleMode(false);
             graphic_list.addMouseListener(new double_click());
             JLabel label = new JLabel();
@@ -116,6 +118,7 @@ public class PlayGamePanel extends JPanel {
             for (int i = 0; i<problem.size(); ++i){
                 graphic_list.add(problem.get(i));
             }
+            graphic_list.setFont(new Font("Serif", Font.PLAIN, 10));
             graphic_list.setMultipleMode(false);
             graphic_list.addMouseListener(new double_click());
             JLabel label = new JLabel();

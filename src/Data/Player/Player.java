@@ -20,4 +20,5 @@ public abstract class Player {
     public Table getTable() {
         return table;
     }
+    abstract public boolean isMachine();
 }

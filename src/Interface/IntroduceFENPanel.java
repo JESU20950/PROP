@@ -124,7 +124,4 @@ public class IntroduceFENPanel extends JPanel {
             }
         }
     }
-
-
-
 }

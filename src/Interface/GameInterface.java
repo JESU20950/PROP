@@ -84,7 +84,7 @@ public class GameInterface extends JPanel {
                     "CONGRATULATION",
                     JOptionPane.NO_OPTION);
         }
-        frame.newframe();
+        System.exit(0);
     }
 
 
@@ -154,12 +154,15 @@ public class GameInterface extends JPanel {
 
         private class movementofhuman implements ActionListener {
             public void actionPerformed(ActionEvent evt) {
-                if (actual_game.Piececanmoveinthismoment(i, j)) {
-                    chessBoard[i_origen_piece][j_origen_piece].paint_cell();
-                    i_origen_piece = i;
-                    j_origen_piece = j;
-                    chessBoard[i_origen_piece][j_origen_piece].setBackground(Color.RED);
-                }else actual_game.graphic_move_and_internal_move(i_origen_piece, j_origen_piece, i, j);
+                if (!actual_game.getPlayerwhoplays().isMachine())
+
+                    if (actual_game.Piececanmoveinthismoment(i, j)) {
+                        chessBoard[i_origen_piece][j_origen_piece].paint_cell();
+                        i_origen_piece = i;
+                        j_origen_piece = j;
+                        chessBoard[i_origen_piece][j_origen_piece].setBackground(Color.RED);
+                    } else actual_game.graphic_move_and_internal_move(i_origen_piece, j_origen_piece, i, j);
+
                     /*
                     if (!actual_game.getTable().MovePiece(i_origen_piece, j_origen_piece, i, j)) return;
                     chessBoard[i][j].setIcon(chessBoard[i_origen_piece][j_origen_piece].getIcon());

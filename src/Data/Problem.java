@@ -195,24 +195,22 @@ public class Problem {
             return false;
         }
         public static List<String> load_problem_fromBD_Easy_Mode() throws IOException {
-            File file = new File("BD");
+            File file = new File("BD_EASYMODE");
             FileReader fr = new FileReader(file);
             BufferedReader br = new BufferedReader(fr);
             List <String> result = new ArrayList<String >();
             String linea;
-            linea = br.readLine();
-            while ((linea = br.readLine()).charAt(0) != 'H') {
+            while ((linea = br.readLine()) != null) {
                 result.add(linea);
             }
             return result;
         }
         public static List<String> load_problem_fromBD_Hard_Mode() throws IOException{
-            File file = new File("BD");
+            File file = new File("BD_HARDMODE");
             FileReader fr = new FileReader(file);
             BufferedReader br = new BufferedReader(fr);
             List <String> result = new ArrayList<String >();
             String linea;
-            while ((linea = br.readLine()).charAt(0) != 'H');
             while ((linea = br.readLine()) != null) {
                 result.add(linea);
             }
@@ -221,6 +219,5 @@ public class Problem {
 
         public static void introduce_problem_toBD(String FEN,boolean player_who_start,boolean player_who_has_to_win,int number_of_play) throws IOException{
             FileWriter file = new FileWriter("BD");
-            System.out.println("hooola");
         }
 }

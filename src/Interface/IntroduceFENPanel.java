@@ -97,6 +97,13 @@ public class IntroduceFENPanel extends JPanel {
                 boolean player_who_has_to_win = player_who_has_to_achive_the_check_mate.getSelectedItem() == "White";
                 boolean iscorrectproblem = false;
                 int number_of_plays_int = (int) number_of_plays.getValue();
+                if (number_of_plays_int < 0) {
+                    JOptionPane.showMessageDialog(main.getMiFrame(),
+                            "Number of plays negative.",
+                            "ERROR",
+                            JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
                 try {
                     iscorrectproblem = isCorrectProblem(FENtext, player_who_start_bool, player_who_has_to_win, number_of_plays_int);
                 } catch (CloneNotSupportedException e) {
@@ -109,7 +116,7 @@ public class IntroduceFENPanel extends JPanel {
                             JOptionPane.ERROR_MESSAGE);
                             return;
                 }
-                main.getActual_game().prepareTablewithParameters(FENtext, player_who_start_bool, player_who_has_to_win, number_of_plays_int);
+                main.getActual_game().prepareTablewithParameters(FENtext, player_who_start_bool, player_who_has_to_win, number_of_plays_int*2);
                 PlayerPanel Panel = new PlayerPanel(main);
                 main.getMiFrame().getContentPane().removeAll();
                 main.getMiFrame().setContentPane(Panel);

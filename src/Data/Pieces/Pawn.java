@@ -29,14 +29,14 @@ public class Pawn extends Piece {
             if (destino.getPiece() == null && i_destino-i_origen == -1 && j_destino-j_origen == 0 && Nobody_in_trajectory(t, origen,destino)){
                 return true;
             }
-            if (destino.getPiece() != null && (i_destino-i_origen == -1) && Math.abs(j_destino-j_origen) == 1 && destino.getPiece().getColor() != destino.getPiece().getColor() && Nobody_in_trajectory(t, origen,destino)){
+            if (destino.getPiece() != null && (i_destino-i_origen == -1) && Math.abs(j_destino-j_origen) == 1 && origen.getPiece().getColor() != destino.getPiece().getColor() && Nobody_in_trajectory(t, origen,destino)){
                 return true;
             }
         }else{
             if (destino.getPiece() == null && i_destino-i_origen == 1 && j_destino-j_origen == 0 && Nobody_in_trajectory(t, origen,destino)){
                 return true;
             }
-            if (destino.getPiece() != null && (i_destino-i_origen == 1) && Math.abs(j_destino-j_origen) == 1 && destino.getPiece().getColor() != destino.getPiece().getColor() && Nobody_in_trajectory(t, origen,destino)){
+            if (destino.getPiece() != null && (i_destino-i_origen == 1) && Math.abs(j_destino-j_origen) == 1 && origen.getPiece().getColor() != destino.getPiece().getColor() && Nobody_in_trajectory(t, origen,destino)){
                 return true;
             }
 

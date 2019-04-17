@@ -17,11 +17,11 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class Main {
-    /*public static void main(String args[]) throws IOException, CloneNotSupportedException{
+    public static void main(String args[]) throws IOException, CloneNotSupportedException{
         System.out.println("hola");
         MainInterface start = new MainInterface();
-    }*/
-
+    }
+    /*
     public static void main(String[] args) throws CloneNotSupportedException, IOException {
         System.out.println("Select your option by writting the number");
         System.out.println("1. Start a new game");
@@ -205,3 +205,4 @@ public static void print_table(Cell[][] table){
         }
         }
         */
+}

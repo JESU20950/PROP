@@ -8,6 +8,9 @@ public class Human extends Player{
     public Human(String name){
         super.name = name;
     }
+    public Human(){
+
+    }
 
     public boolean movementCorrect(Table t, Piece p, Cell origen, Cell destino) {
         if (super.color != p.getColor()) return false;

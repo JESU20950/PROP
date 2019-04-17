@@ -28,7 +28,10 @@ public class Game {
         this.player_who_has_to_win = player_who_has_to_win;
         this.number_of_play = number_of_play;
     }
+    public boolean Piececanmoveinthismoment(int i_origen, int j_origen){
+        return table.getTable()[i_origen][j_origen].getPiece() != null && table.getTable()[i_origen][j_origen].getPiece().getColor() == player_who_plays;
 
+    }
     public boolean getPlayer_who_plays() {
         return player_who_plays;
     }
@@ -80,5 +83,8 @@ public class Game {
     public void setPlayer2(Player player2) {
         this.player2 = player2;
     }
+
+
+
 
 }

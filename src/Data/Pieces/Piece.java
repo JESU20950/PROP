@@ -47,7 +47,9 @@ public abstract class Piece {
         i += unit_vector_i;
         j += unit_vector_j;
         while (i != i_destino || j != j_destino){
-            if (t[i][j].getPiece() != null) return false;
+            if (t[i][j].getPiece() != null){
+                return false;
+            }
             i += unit_vector_i;
             j += unit_vector_j;
         }

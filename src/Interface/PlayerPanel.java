@@ -1,6 +1,8 @@
 package Interface;
 
-import Data.Player.Player;
+import Data.Player.Human;
+import Data.Player.Machine1;
+import Data.Player.Machine2;
 
 import javax.swing.*;
 import java.awt.*;
@@ -53,7 +55,22 @@ public class PlayerPanel extends JPanel {
     private class playaction implements ActionListener {
         public void actionPerformed(ActionEvent evt) {
             GameInterface Panel = new GameInterface(main);
-
+            if (Player1.getSelectedItem() == "Human"){
+                main.getActual_game().setPlayer1(new Human());
+            }else if(Player1.getSelectedItem() == "Machine1"){
+                main.getActual_game().setPlayer1(new Machine1());
+            }else if (Player1.getSelectedItem() == "Machine2"){
+                main.getActual_game().setPlayer1(new Machine2());
+            }
+            if (Player2.getSelectedItem() == "Human"){
+                main.getActual_game().setPlayer2(new Human());
+            }else if(Player2.getSelectedItem() == "Machine1"){
+                main.getActual_game().setPlayer2(new Machine1());
+            }else if (Player2.getSelectedItem() == "Machine2") {
+                main.getActual_game().setPlayer2(new Machine2());
+            }
+            main.getActual_game().getPlayer1().setColor(true);
+            main.getActual_game().getPlayer2().setColor(false);
             main.getMiFrame().getContentPane().removeAll();
             main.getMiFrame().setContentPane(Panel);
             main.getMiFrame().revalidate();

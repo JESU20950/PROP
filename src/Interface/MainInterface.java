@@ -21,7 +21,8 @@ public class MainInterface extends JFrame {
         actual_game = new Game();
         miFrame = new JFrame("ChessGameUPC");
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        miFrame.setSize((int) screenSize.getWidth() / 2, (int) screenSize.getHeight() / 2);
+        miFrame.setResizable(false);
+        miFrame.setSize((int) (screenSize.getHeight()/1.2) , (int) (screenSize.getHeight()/1.2));
         miFrame.setVisible(true);
         miFrame.getContentPane().removeAll();
         miFrame.setContentPane(new Cover(this));

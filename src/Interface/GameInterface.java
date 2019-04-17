@@ -5,10 +5,10 @@ import Data.Game;
 
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
 
 
 public class GameInterface extends JPanel {
@@ -159,9 +159,7 @@ public class GameInterface extends JPanel {
                     i_origen_piece = i;
                     j_origen_piece = j;
                     chessBoard[i_origen_piece][j_origen_piece].setBackground(Color.RED);
-                    return;
-                } else {
-                    actual_game.graphic_move_and_internal_move(i_origen_piece, j_origen_piece, i, j);
+                }else actual_game.graphic_move_and_internal_move(i_origen_piece, j_origen_piece, i, j);
                     /*
                     if (!actual_game.getTable().MovePiece(i_origen_piece, j_origen_piece, i, j)) return;
                     chessBoard[i][j].setIcon(chessBoard[i_origen_piece][j_origen_piece].getIcon());
@@ -176,7 +174,7 @@ public class GameInterface extends JPanel {
                     }
 
                      */
-                }
+
             }
         }
     }

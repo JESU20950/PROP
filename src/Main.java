@@ -195,6 +195,7 @@ public class Main {
                                     }
                                     if (id < 0 || id >= 8 || jd < 0 || jd >= 8) error = true;
                                     else error = g.getTable().MovePiece(io, jo, id, jd);
+                                    System.out.println(error + " ERROR");
                                 }
                             }
                             if (!error) {

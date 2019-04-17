@@ -38,6 +38,20 @@ public class Game {
         return player_who_plays;
     }
 
+    public void graphic_move_and_internal_move(int i_origen, int j_origen, int i_destino, int j_destino){
+        if (!table.MovePiece(i_origen, j_origen, i_destino, j_destino)) return;
+        gameInterface.getChessBoard()[i_destino][j_destino].setIcon(gameInterface.getChessBoard()[i_origen][j_origen].getIcon());
+        gameInterface.getChessBoard()[i_origen][j_origen].setIcon(null);
+        gameInterface.getChessBoard()[i_origen][j_origen].paint_cell();
+        player_who_plays = !player_who_plays;
+        number_of_play = number_of_play-1;
+        gameInterface.paint_info();
+        try {
+            endofgame();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     public boolean getPlayer_who_has_to_win() {
         return player_who_has_to_win;
     }

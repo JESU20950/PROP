@@ -28,21 +28,21 @@ public class GameInterface extends JPanel {
         actual_game.setGameInterface(this);
         this.setLayout(new BorderLayout());
         paint_table();
-        paint_info();
-    }
-    void paint_info(){
         infoPanel = new JPanel();
         infoPanel.setLayout(new FlowLayout());
         this.add(infoPanel,BorderLayout.NORTH);
         Player_who_plays = new JLabel();
         Player_who_has_to_win = new JLabel();
         Number_of_plays = new JLabel();
-        setPlayer_who_plays_label(actual_game.getPlayer_who_plays());
-        setPlayer_who_has_to_win_label(actual_game.getPlayer_who_has_to_win());
-        setNumber_of_plays_label(actual_game.getNumber_of_play());
+        paint_info();
         infoPanel.add(Player_who_has_to_win);
         infoPanel.add(Player_who_plays);
         infoPanel.add(Number_of_plays);
+    }
+    public void paint_info(){
+        setPlayer_who_plays_label(actual_game.getPlayer_who_plays());
+        setPlayer_who_has_to_win_label(actual_game.getPlayer_who_has_to_win());
+        setNumber_of_plays_label(actual_game.getNumber_of_play());
     }
     public void setPlayer_who_plays_label(boolean player){
         if (player) Player_who_plays.setText("Player who plays: White");
@@ -68,16 +68,21 @@ public class GameInterface extends JPanel {
             }
         }
     }
+
+    public ChessButton[][] getChessBoard() {
+        return chessBoard;
+    }
+
     public void dialaog_end_of_game() throws Exception {
         if (actual_game.getplayerwhowins()) JOptionPane.showMessageDialog(frame.getMiFrame(),
-                "Ji grande"+actual_game.getplayerwhowins(),
-                "ERROR",
-                JOptionPane.ERROR_MESSAGE);
+                "Congratulation white player",
+                "CONGRATULATION",
+                JOptionPane.NO_OPTION);
         else{
             JOptionPane.showMessageDialog(frame.getMiFrame(),
-                    "Ji grande 2"+actual_game.getplayerwhowins(),
-                    "ERROR",
-                    JOptionPane.ERROR_MESSAGE);
+                    "Congratulation black player",
+                    "CONGRATULATION",
+                    JOptionPane.NO_OPTION);
         }
         frame.newframe();
     }
@@ -136,7 +141,7 @@ public class GameInterface extends JPanel {
             }
             this.addActionListener(new movementofhuman());
         }
-        void paint_cell(){
+        public void paint_cell(){
              if (i % 2 == 0) {
                  if (j % 2 == 0) this.setBackground(Color.white);
                  else this.setBackground(Color.black);
@@ -156,6 +161,8 @@ public class GameInterface extends JPanel {
                     chessBoard[i_origen_piece][j_origen_piece].setBackground(Color.RED);
                     return;
                 } else {
+                    actual_game.graphic_move_and_internal_move(i_origen_piece, j_origen_piece, i, j);
+                    /*
                     if (!actual_game.getTable().MovePiece(i_origen_piece, j_origen_piece, i, j)) return;
                     chessBoard[i][j].setIcon(chessBoard[i_origen_piece][j_origen_piece].getIcon());
                     chessBoard[i_origen_piece][j_origen_piece].setIcon(null);
@@ -167,6 +174,8 @@ public class GameInterface extends JPanel {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+
+                     */
                 }
             }
         }

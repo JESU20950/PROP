@@ -142,10 +142,12 @@ public class Table implements Cloneable {
             return false;
 
         }
-        //operacio moure
+        //operacio moure en el domini
         table[i_destino][j_destino].setPiece(table[i_origen][j_origen].getPiece());
         table[i_origen][j_origen].setPiece(null);
         update_all_pieces_movement();
+
+        //operacio moure graficamente
         return true;
     }
 

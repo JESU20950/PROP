@@ -18,11 +18,88 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class Main {
+    public static void main(String[] args) throws CloneNotSupportedException {
+        Scanner input = new Scanner(System.in);
+        //String s = "5BR1/6P1/5KBk/8/8/8/8/8";
+        //http://ajedrezutea.com/blancas-dan-mate-en-3-jugadas
+        String s = "3K4/8/8/p2k4/pp1B4/N5N1/P2Q4/8";
+        //String s = "8/8/2K5/p7/pp1B4/N5N1/P2Q4/8";
+        Table t = testConstructor(s);
+        Cell[][] t2 = testgettable(t);
+        t.print_table();
+        System.out.println(" ");
+        boolean b;
+        //b = t.checkmate_to(false);
+        b = isCorrectProblem(s, true, true, 3);
+        System.out.println(b);
+        t2 = testgettable(t);
+        t.print_table();
 
-    /*public static void main(String args[]) throws IOException, CloneNotSupportedException {
-        MainInterface start = new MainInterface();
     }
-}*/
+
+    private static Table testConstructor(String s) throws CloneNotSupportedException {
+        return new Table(s);
+    }
+
+    private static Cell[][] testgettable(Table t) {
+        return t.getTable();
+    }
+
+    public static void print_table(Cell[][] table) {
+        for (int i = 0; i < 8; ++i) {
+            for (int j = 0; j < 8; ++j) {
+                if (table[i][j].getPiece() == null) System.out.printf(".");
+                else System.out.printf(table[i][j].getPiece().getName());
+
+            }
+            System.out.println(" ");
+        }
+    }
+}
+    /*
+
+    public static void main(String[] args) throws CloneNotSupportedException, IOException {
+        MainInterface t = new MainInterface();
+    }
+     */
+    /*
+    public static void main(String[] args) throws CloneNotSupportedException{
+        Scanner input = new Scanner(System.in);
+        //String s = "5BR1/6P1/5KBk/8/8/8/8/8";
+        //http://ajedrezutea.com/blancas-dan-mate-en-3-jugadas
+        String s = "3K4/8/8/p2k4/pp1B4/N5N1/P2Q4/8";
+        Table t = testConstructor(s);
+        Cell[][] t2 = testgettable(t);
+        t.print_table();
+        System.out.println(" ");
+        boolean b = isCorrectProblem(s, true, true, 6);
+        //1.Cxf6+ Dxf6 2.Df8++
+        if (b) System.out.println("bieeenn");
+        else System.out.println("ostia neeng");
+        t2 = testgettable(t);
+        t.print_table();
+
+    }
+
+    private static Table testConstructor(String s) throws CloneNotSupportedException{
+        return new Table(s);
+    }
+    private static Cell[][] testgettable(Table t){
+        return t.getTable();
+    }
+
+    public static void print_table(Cell[][] table){
+        for (int i = 0; i<8; ++i){
+            for  (int j = 0; j<8; ++j){
+                if (table[i][j].getPiece() == null)System.out.printf(".");
+                else System.out.printf(table[i][j].getPiece().getName());
+
+            }
+            System.out.println(" ");
+        }
+    }
+}
+/*
 
 
     public static void main(String[] args) throws CloneNotSupportedException, IOException {

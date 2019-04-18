@@ -137,12 +137,20 @@ public class Problem {
             Table t = new Table(FEN);
             return achieve_the_goal(t,player_who_start,number_of_play,player_who_has_to_win);
         }
-        static public boolean achieve_the_goal(Table t, boolean player_who_start, int number_of_play, boolean player_who_has_to_win) throws CloneNotSupportedException{
-            if (number_of_play >= 0 && t.checkmate_to(!player_who_has_to_win)) return true;
-            else if (number_of_play <= 0) return false;
 
-            List <Piece> pieces = t.getPieces(player_who_start);
-            if (player_who_start == player_who_has_to_win){
+
+        static public boolean achieve_the_goal(Table t, boolean player_who_plays, int number_of_play, boolean player_who_has_to_win) throws CloneNotSupportedException{
+            if (t.checkmate_to(player_who_has_to_win)) return false;
+            if (number_of_play >= 0 && t.checkmate_to(!player_who_has_to_win)){
+                t.print_fen();
+                t.print_table();
+                return true;
+            }else if (number_of_play <= 0) return false;
+
+
+
+            List <Piece> pieces = t.getPieces(player_who_plays);
+            if (player_who_plays == player_who_has_to_win){
                 for (int i = 0; i<pieces.size();++i){
                     List<Cell> movement = pieces.get(i).getMovement();
                     int i_origen = pieces.get(i).getPosition().getI();
@@ -153,8 +161,7 @@ public class Problem {
                         Table aux = new Table();
                         aux.setTable(t.getTable());
                         if (aux.MovePiece(i_origen,j_origen,i_destino,j_destino)){
-                            if (achieve_the_goal(aux,!player_who_start,number_of_play-1,player_who_has_to_win)){
-                                if (number_of_play == 4) t.print_table();
+                            if (achieve_the_goal(aux,!player_who_plays,number_of_play-1,player_who_has_to_win)){
                                 return true;
                             }
                         }
@@ -172,7 +179,7 @@ public class Problem {
                         Table aux = new Table();
                         aux.setTable(t.getTable());
                         if (aux.MovePiece(i_origen,j_origen,i_destino,j_destino)){
-                            if (!achieve_the_goal(aux,!player_who_start,number_of_play-1,player_who_has_to_win)){
+                            if (!achieve_the_goal(aux,!player_who_plays,number_of_play-1,player_who_has_to_win)){
                                 return false;
                             }
                         }
@@ -181,6 +188,8 @@ public class Problem {
                 return true;
             }
         }
+
+
         public static List<String> load_problem_fromBD_Easy_Mode() throws IOException {
             File file = new File("BD_EASYMODE");
             FileReader fr = new FileReader(file);

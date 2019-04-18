@@ -112,6 +112,24 @@ public class Table implements Cloneable {
         }
         System.out.println();
     }
+    public void print_fen() {
+        int space = 0;
+        for (int i = 0; i < 8; ++i) {
+            for (int j = 0; j < 8; ++j) {
+                if (table[i][j].getPiece() == null) ++space;
+                else{
+                    if (space != 0) System.out.print(space);
+                    System.out.print(table[i][j].getPiece().getName());
+                    space = 0;
+                }
+
+            }
+            if (space != 0) System.out.print(space);
+            space = 0;
+            if (i != 7) System.out.print("/");
+        }
+        System.out.println();
+    }
 
     public Cell[][] getTable() {
         return table;
@@ -185,6 +203,23 @@ public class Table implements Cloneable {
 
     public boolean checkmate_to(boolean player) throws CloneNotSupportedException {
         List<Piece> l = getPieces(player);
+        if (this.king_position(true) == null || this.king_position(false) == null) return false;
+        boolean b = false;
+        for (int i = 0; i < l.size() && b; ++i) {
+            List<Cell> movements = l.get(i).getMovement();
+            int origen_i = l.get(i).getPosition().getI();
+            int origen_j = l.get(i).getPosition().getJ();
+            for (int j = 0; j < movements.size() && b; ++j) {
+                int destino_i = movements.get(j).getI();
+                int destino_j = movements.get(j).getJ();
+                Table T = new Table();
+                T.setTable(this.table);
+                if (T.MovePiece(origen_i,origen_j,destino_i,destino_j) && T.king_position(player) == null) b = true;
+            }
+        }
+        if (!b) return false;
+
+        l = getPieces(player);
         for (int i = 0; i < l.size(); ++i) {
             List<Cell> movements = l.get(i).getMovement();
             int origen_i = l.get(i).getPosition().getI();

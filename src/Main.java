@@ -149,6 +149,10 @@ public class Main {
                 }
                 System.out.print("Introduce the number of plays: ");
                 number_of_plays = sc.nextInt();
+
+                if (isCorrectProblem(s, player_who_start, player_who_has_to_win, number_of_plays)) System.out.println("True");
+                else System.out.println("False");
+
                 Game g = new Game();
                 g.prepareTablewithParameters(s, player_who_start, player_who_has_to_win, number_of_plays);
                 System.out.println("Select your option by writting the number");

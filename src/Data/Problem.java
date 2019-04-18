@@ -12,6 +12,7 @@ import Data.Pieces.Piece;
 import static Data.driversData.driverTable.print_table;
 
 public class Problem {
+
     public static boolean iscorrectFen(String FEN) {
         int K, k, Q, q, R, r, B, b, N, n, P, p, index;
         K = k = Q = q = R = r = B = b = N = n = P = p = index = 0;
@@ -90,130 +91,166 @@ public class Problem {
     }
 
 
-        static public String ConvertInputtoFEN(String input){
+    static public String ConvertInputtoFEN(String input){
         String FEN = "";
         int w = 0;
         while (input.charAt(w) == ' ') ++w;
         while (w < input.length() && input.charAt(w) != ' '){
-         FEN = FEN + input.charAt(w);
-         ++w;
-            }
-        return FEN;
+            FEN = FEN + input.charAt(w);
+            ++w;
         }
-        static public boolean ConvertInputtoplayer_who_start(String input){
+        return FEN;
+    }
+
+    static public boolean ConvertInputtoplayer_who_start(String input){
         int w = 0;
         while (input.charAt(w) == ' ') ++w;
         while (input.charAt(w) != ' ') ++w;
         while (input.charAt(w) == ' ') ++w;
         return input.charAt(w) == 'w';
+    }
+
+    static public boolean ConvertInputtoplayer_who_has_to_win(String input){
+        int w = 0;
+        while (input.charAt(w) == ' ') ++w;
+        while (input.charAt(w) != ' ') ++w;
+        while (input.charAt(w) == ' ') ++w;
+        ++w;
+        while (input.charAt(w) == ' ') ++w;
+        return input.charAt(w) == 'w';
+    }
+
+    static public int ConvertInputtonumber_of_play(String s){
+        int w = 0;
+        String input = String.valueOf(s);
+        while (input.charAt(w) == ' ') ++w;
+        while (input.charAt(w) != ' ') ++w;
+        while (input.charAt(w) == ' ') ++w;
+        ++w;
+        while (input.charAt(w) == ' ') ++w;
+        ++w;
+        while (input.charAt(w) == ' ') ++w;
+        StringBuilder str = new StringBuilder(s);
+        str.delete(0,w);
+        input = str.toString();
+        return Integer.parseInt(input);
+    }
+
+    static public boolean isCorrectProblem(String FEN,boolean player_who_start,boolean player_who_has_to_win,int number_of_play) throws CloneNotSupportedException{
+        FEN = ConvertInputtoFEN(FEN);
+        Table t = new Table(FEN);
+        return achieve_the_goal(t,player_who_start,number_of_play,player_who_has_to_win);
+    }
+
+    static void print_list_of_pieces(List<Piece> p) {
+        for (int i = 0; i < p.size(); ++i) System.out.println(p.get(i).getName() + ": (" + p.get(i).getPosition().getI() + ", " + p.get(i).getPosition().getJ() + ")");
+        System.out.println();
+    }
+
+    static void print_list_of_movements(List<Cell> m, String name) {
+        for (int i = 0; i < m.size(); ++i) {
+            if (i == 0) System.out.print(name + ": (" + m.get(0).getI() + ", " + m.get(0).getJ() + ")");
+            else {
+                System.out.print(", (" + m.get(i).getI() + ", " + m.get(i).getJ() + ")");
+            }
         }
-        static public boolean ConvertInputtoplayer_who_has_to_win(String input){
-            int w = 0;
-            while (input.charAt(w) == ' ') ++w;
-            while (input.charAt(w) != ' ') ++w;
-            while (input.charAt(w) == ' ') ++w;
-            ++w;
-            while (input.charAt(w) == ' ') ++w;
-            return input.charAt(w) == 'w';
-        }
-        static public int ConvertInputtonumber_of_play(String s){
-            int w = 0;
-            String input = String.valueOf(s);
-            while (input.charAt(w) == ' ') ++w;
-            while (input.charAt(w) != ' ') ++w;
-            while (input.charAt(w) == ' ') ++w;
-            ++w;
-            while (input.charAt(w) == ' ') ++w;
-            ++w;
-            while (input.charAt(w) == ' ') ++w;
-            StringBuilder str = new StringBuilder(s);
-            str.delete(0,w);
-            input = str.toString();
-            return Integer.parseInt(input);
-        }
+        System.out.println();
+    }
 
-        static public boolean isCorrectProblem(String FEN,boolean player_who_start,boolean player_who_has_to_win,int number_of_play) throws CloneNotSupportedException{
-            FEN = ConvertInputtoFEN(FEN);
-            Table t = new Table(FEN);
-            return achieve_the_goal(t,player_who_start,number_of_play,player_who_has_to_win);
-        }
+    static public boolean achieve_the_goal(Table t, boolean player_who_start, int number_of_play, boolean player_who_has_to_win) throws CloneNotSupportedException{
+        /*Table aux = new Table();
+        aux.setTable(t.getTable());
+        aux.print_table();*/
 
+        t.print_table();
 
-        static public boolean achieve_the_goal(Table t, boolean player_who_plays, int number_of_play, boolean player_who_has_to_win) throws CloneNotSupportedException{
-            if (t.checkmate_to(player_who_has_to_win)) return false;
-            if (number_of_play >= 0 && t.checkmate_to(!player_who_has_to_win)){
-                t.print_fen();
-                t.print_table();
-                return true;
-            }else if (number_of_play <= 0) return false;
+        List <Piece> pieces1 = t.getPieces(player_who_start);
+        print_list_of_pieces(pieces1);
 
+        //if (number_of_play >= 0 && t.checkmate_to(!player_who_has_to_win)) return true;
+        //else if (number_of_play < 0) return false;
 
+        t.print_table();
 
-            List <Piece> pieces = t.getPieces(player_who_plays);
-            if (player_who_plays == player_who_has_to_win){
-                for (int i = 0; i<pieces.size();++i){
-                    List<Cell> movement = pieces.get(i).getMovement();
-                    int i_origen = pieces.get(i).getPosition().getI();
-                    int j_origen = pieces.get(i).getPosition().getJ();
-                    for (int j = 0;j<movement.size();++j){
-                        int i_destino = movement.get(j).getI();
-                        int j_destino = movement.get(j).getJ();
-                        Table aux = new Table();
-                        aux.setTable(t.getTable());
-                        if (aux.MovePiece(i_origen,j_origen,i_destino,j_destino)){
-                            if (achieve_the_goal(aux,!player_who_plays,number_of_play-1,player_who_has_to_win)){
-                                return true;
-                            }
+        List <Piece> pieces2 = t.getPieces(player_who_start);
+        print_list_of_pieces(pieces2);
+
+        if (number_of_play >= 0 && t.checkmate_to(!player_who_has_to_win)) return true;
+        else if (number_of_play < 0) return false;
+
+        List <Piece> pieces3 = t.getPieces(player_who_start);
+        print_list_of_pieces(pieces3);
+
+        /*for (int i = 0; i < pieces.size(); ++i) {
+            List<Cell> movement = pieces.get(i).getMovement();
+            print_list_of_movements(movement, pieces.get(i).getName());
+        }*/
+
+        /*
+        if (player_who_start == player_who_has_to_win){
+            for (int i = 0; i<pieces.size();++i){
+                List<Cell> movement = pieces.get(i).getMovement();
+                print_list_of_movements(movement, pieces.get(i).getName());
+                int i_origen = pieces.get(i).getPosition().getI();
+                int j_origen = pieces.get(i).getPosition().getJ();
+                for (int j = 0;j<movement.size();++j){
+                    int i_destino = movement.get(j).getI();
+                    int j_destino = movement.get(j).getJ();
+                    if (aux.MovePiece(i_origen,j_origen,i_destino,j_destino)){
+                        if (achieve_the_goal(aux,!player_who_start,number_of_play-1,player_who_has_to_win)){
+                            //if (number_of_play == 4) t.print_table();
+                            return true;
                         }
                     }
                 }
-             return false;
-            }else{
-                for (int i = 0; i<pieces.size();++i){
-                    List<Cell> movement = pieces.get(i).getMovement();
-                    int i_origen = pieces.get(i).getPosition().getI();
-                    int j_origen = pieces.get(i).getPosition().getJ();
-                    for (int j = 0;j<movement.size();++j){
-                        int i_destino = movement.get(j).getI();
-                        int j_destino = movement.get(j).getJ();
-                        Table aux = new Table();
-                        aux.setTable(t.getTable());
-                        if (aux.MovePiece(i_origen,j_origen,i_destino,j_destino)){
-                            if (!achieve_the_goal(aux,!player_who_plays,number_of_play-1,player_who_has_to_win)){
-                                return false;
-                            }
+            }
+            return false;
+        }
+        else{
+            for (int i = 0; i<pieces.size();++i){
+                List<Cell> movement = pieces.get(i).getMovement();
+                int i_origen = pieces.get(i).getPosition().getI();
+                int j_origen = pieces.get(i).getPosition().getJ();
+                for (int j = 0;j<movement.size();++j){
+                    int i_destino = movement.get(j).getI();
+                    int j_destino = movement.get(j).getJ();
+                    if (aux.MovePiece(i_origen,j_origen,i_destino,j_destino)){
+                        if (!achieve_the_goal(aux,!player_who_start,number_of_play-1,player_who_has_to_win)){
+                            return false;
                         }
                     }
                 }
-                return true;
             }
-        }
+            return true;
+        }*/
+        return true;
+    }
 
+    public static List<String> load_problem_fromBD_Easy_Mode() throws IOException {
+        File file = new File("BD_EASYMODE");
+        FileReader fr = new FileReader(file);
+        BufferedReader br = new BufferedReader(fr);
+        List <String> result = new ArrayList<String >();
+        String linea;
+        while ((linea = br.readLine()) != null) {
+            result.add(linea);
+        }
+        return result;
+    }
 
-        public static List<String> load_problem_fromBD_Easy_Mode() throws IOException {
-            File file = new File("BD_EASYMODE");
-            FileReader fr = new FileReader(file);
-            BufferedReader br = new BufferedReader(fr);
-            List <String> result = new ArrayList<String >();
-            String linea;
-            while ((linea = br.readLine()) != null) {
-                result.add(linea);
-            }
-            return result;
+    public static List<String> load_problem_fromBD_Hard_Mode() throws IOException{
+        File file = new File("BD_HARDMODE");
+        FileReader fr = new FileReader(file);
+        BufferedReader br = new BufferedReader(fr);
+        List <String> result = new ArrayList<String >();
+        String linea;
+        while ((linea = br.readLine()) != null) {
+            result.add(linea);
         }
-        public static List<String> load_problem_fromBD_Hard_Mode() throws IOException{
-            File file = new File("BD_HARDMODE");
-            FileReader fr = new FileReader(file);
-            BufferedReader br = new BufferedReader(fr);
-            List <String> result = new ArrayList<String >();
-            String linea;
-            while ((linea = br.readLine()) != null) {
-                result.add(linea);
-            }
-            return result;
-        }
+        return result;
+    }
 
-        public static void introduce_problem_toBD(String FEN,boolean player_who_start,boolean player_who_has_to_win,int number_of_play) throws IOException{
-            FileWriter file = new FileWriter("BD");
-        }
+    public static void introduce_problem_toBD(String FEN,boolean player_who_start,boolean player_who_has_to_win,int number_of_play) throws IOException{
+        FileWriter file = new FileWriter("BD");
+    }
 }

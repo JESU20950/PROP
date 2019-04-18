@@ -61,8 +61,8 @@ public class Queen extends Piece {
             ++diagonal1i;
             ++diagonal1j;
         }
-        diagonal1i = i-min(i,8-j);
-        diagonal1j = j+min(i,8-j);
+        diagonal1i = i-min(i,7-j);
+        diagonal1j = j+min(i,7-j);
         while (diagonal1i <8 && diagonal1j >= 0 && diagonal1i >= 0 && diagonal1j <8){
             if (i!= diagonal1i && j != diagonal1j && Nobody_in_trajectory(t,origen,t[diagonal1i][diagonal1j])) resultat.add(t[diagonal1i][diagonal1j]);
             ++diagonal1i;

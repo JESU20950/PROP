@@ -165,24 +165,9 @@ public class Problem {
         if (number_of_play >= 0 && t.checkmate_to(!player_who_has_to_win)) return true;
         else if (number_of_play < 0) return false;
 
-        List<Piece> pieces = t.getPieces(player_who_start);
+        List<Piece> pieces = aux.getPieces(player_who_has_to_win);
         print_list_of_pieces(pieces);
 
-
-        for (int i = 0; i < pieces.size(); ++i) {
-            List<Cell> movement = pieces.get(i).getMovement();
-            print_list_of_movements(movement, pieces.get(i).getName());
-        }
-
-        List<Piece> pieces2 = t.getPieces(!player_who_start);
-        print_list_of_pieces(pieces2);
-
-        for (int i = 0; i < pieces2.size(); ++i) {
-            List <Cell> movement = pieces2.get(i).getMovement();
-            print_list_of_movements(movement, pieces2.get(i).getName());
-        }
-
-        /*
         if (player_who_start == player_who_has_to_win){
             for (int i = 0; i<pieces.size();++i){
                 List<Cell> movement = pieces.get(i).getMovement();
@@ -218,8 +203,7 @@ public class Problem {
                 }
             }
             return true;
-        }*/
-        return true;
+        }
     }
 
     public static List<String> load_problem_fromBD_Easy_Mode() throws IOException {

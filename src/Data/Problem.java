@@ -155,6 +155,7 @@ public class Problem {
             }
         }
         System.out.println();
+        System.out.println();
     }
 
     static public boolean achieve_the_goal(Table t, boolean player_who_start, int number_of_play, boolean player_who_has_to_win) throws CloneNotSupportedException{
@@ -165,8 +166,14 @@ public class Problem {
         if (number_of_play >= 0 && t.checkmate_to(!player_who_has_to_win)) return true;
         else if (number_of_play < 0) return false;
 
-        List<Piece> pieces = aux.getPieces(player_who_has_to_win);
+        List<Piece> pieces = aux.getPieces(player_who_start);
         print_list_of_pieces(pieces);
+
+        if (player_who_start) System.out.println("White");
+        else System.out.println("Black");
+        if (player_who_has_to_win) System.out.println("Win Whites");
+        else System.out.println("Win Black");
+        System.out.println(number_of_play);
 
         if (player_who_start == player_who_has_to_win){
             for (int i = 0; i<pieces.size();++i){
@@ -178,10 +185,7 @@ public class Problem {
                     int i_destino = movement.get(j).getI();
                     int j_destino = movement.get(j).getJ();
                     if (aux.MovePiece(i_origen,j_origen,i_destino,j_destino)){
-                        if (achieve_the_goal(aux,!player_who_start,number_of_play-1,player_who_has_to_win)){
-                            //if (number_of_play == 4) t.print_table();
-                            return true;
-                        }
+                        if (achieve_the_goal(aux,!player_who_start,number_of_play-1,player_who_has_to_win))return true;
                     }
                 }
             }
@@ -190,6 +194,7 @@ public class Problem {
         else{
             for (int i = 0; i<pieces.size();++i){
                 List<Cell> movement = pieces.get(i).getMovement();
+                print_list_of_movements(movement, pieces.get(i).getName());
                 int i_origen = pieces.get(i).getPosition().getI();
                 int j_origen = pieces.get(i).getPosition().getJ();
                 for (int j = 0;j<movement.size();++j){

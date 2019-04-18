@@ -158,33 +158,29 @@ public class Problem {
     }
 
     static public boolean achieve_the_goal(Table t, boolean player_who_start, int number_of_play, boolean player_who_has_to_win) throws CloneNotSupportedException{
-        /*Table aux = new Table();
+        Table aux = new Table();
         aux.setTable(t.getTable());
-        aux.print_table();*/
-
-        t.print_table();
-
-        List <Piece> pieces1 = t.getPieces(player_who_start);
-        print_list_of_pieces(pieces1);
-
-        //if (number_of_play >= 0 && t.checkmate_to(!player_who_has_to_win)) return true;
-        //else if (number_of_play < 0) return false;
-
-        t.print_table();
-
-        List <Piece> pieces2 = t.getPieces(player_who_start);
-        print_list_of_pieces(pieces2);
+        aux.print_table();
 
         if (number_of_play >= 0 && t.checkmate_to(!player_who_has_to_win)) return true;
         else if (number_of_play < 0) return false;
 
-        List <Piece> pieces3 = t.getPieces(player_who_start);
-        print_list_of_pieces(pieces3);
+        List<Piece> pieces = t.getPieces(player_who_start);
+        print_list_of_pieces(pieces);
 
-        /*for (int i = 0; i < pieces.size(); ++i) {
+
+        for (int i = 0; i < pieces.size(); ++i) {
             List<Cell> movement = pieces.get(i).getMovement();
             print_list_of_movements(movement, pieces.get(i).getName());
-        }*/
+        }
+
+        List<Piece> pieces2 = t.getPieces(!player_who_start);
+        print_list_of_pieces(pieces2);
+
+        for (int i = 0; i < pieces2.size(); ++i) {
+            List <Cell> movement = pieces2.get(i).getMovement();
+            print_list_of_movements(movement, pieces2.get(i).getName());
+        }
 
         /*
         if (player_who_start == player_who_has_to_win){

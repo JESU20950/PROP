@@ -18,7 +18,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class Main {
-    public static void main(String[] args) throws CloneNotSupportedException {
+    /*public static void main(String[] args) throws CloneNotSupportedException {
         Scanner input = new Scanner(System.in);
         //String s = "5BR1/6P1/5KBk/8/8/8/8/8";
         //http://ajedrezutea.com/blancas-dan-mate-en-3-jugadas
@@ -56,13 +56,13 @@ public class Main {
         }
     }
 }
-    /*
+
 
     public static void main(String[] args) throws CloneNotSupportedException, IOException {
         MainInterface t = new MainInterface();
     }
-     */
-    /*
+
+
     public static void main(String[] args) throws CloneNotSupportedException{
         Scanner input = new Scanner(System.in);
         //String s = "5BR1/6P1/5KBk/8/8/8/8/8";
@@ -98,8 +98,8 @@ public class Main {
             System.out.println(" ");
         }
     }
-}
-/*
+}*/
+
 
 
     public static void main(String[] args) throws CloneNotSupportedException, IOException {

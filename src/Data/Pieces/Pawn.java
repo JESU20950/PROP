@@ -49,6 +49,7 @@ public class Pawn extends Piece {
     public String getName() {
         return super.name;
     }
+
     public void updateMovement(Cell[][] t, Cell origen){
         int i = origen.getI();
         int j = origen.getJ();
@@ -56,21 +57,20 @@ public class Pawn extends Piece {
         super.position = origen;
 
         List<Cell> resultat = new ArrayList<Cell>();
+
         if (super.color){
             if ( i == 6  && Nobody_in_trajectory(t,origen,t[i-2][j])) resultat.add(t[i-2][j]);
-            if (i-1 >=0 && j+1< 8 && j-1 >= 0){
+            if (i-1 >=0){
                if (Nobody_in_trajectory(t,origen,t[i-1][j])) resultat.add(t[i-1][j]);
-               if (Nobody_in_trajectory(t,origen,t[i-1][j+1])) resultat.add(t[i-1][j+1]);
-               if (Nobody_in_trajectory(t,origen,t[i-1][j-1])) resultat.add(t[i-1][j-1]);
-
+               if (j+1 < 8 && Nobody_in_trajectory(t,origen,t[i-1][j+1])) resultat.add(t[i-1][j+1]);
+               if (j-1 >= 0 && Nobody_in_trajectory(t,origen,t[i-1][j-1])) resultat.add(t[i-1][j-1]);
             }
-
         }else{
             if ( i == 1 && Nobody_in_trajectory(t,origen,t[i+2][j])) resultat.add(t[i+2][j]);
-            if(i+1 < 8 && j+1< 8 && j-1 >= 0){
+            if(i+1 < 8){
                 if (Nobody_in_trajectory(t,origen,t[i+1][j])) resultat.add(t[i+1][j]);
-                if (Nobody_in_trajectory(t,origen,t[i+1][j+1])) resultat.add(t[i+1][j+1]);
-                if (Nobody_in_trajectory(t,origen,t[i+1][j-1])) resultat.add(t[i+1][j-1]);
+                if (j+1 < 8 && Nobody_in_trajectory(t,origen,t[i+1][j+1])) resultat.add(t[i+1][j+1]);
+                if (j-1 >= 0 && Nobody_in_trajectory(t,origen,t[i+1][j-1])) resultat.add(t[i+1][j-1]);
             }
         }
         super.Movement = resultat;

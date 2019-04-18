@@ -142,19 +142,18 @@ public class Problem {
         return achieve_the_goal(t,player_who_start,number_of_play,player_who_has_to_win);
     }
 
-    static void print_list_of_pieces(List<Piece> p) {
+    static public void print_list_of_pieces(List<Piece> p) {
         for (int i = 0; i < p.size(); ++i) System.out.println(p.get(i).getName() + ": (" + p.get(i).getPosition().getI() + ", " + p.get(i).getPosition().getJ() + ")");
         System.out.println();
     }
 
-    static void print_list_of_movements(List<Cell> m, String name) {
+    static public void print_list_of_movements(List<Cell> m, String name) {
         for (int i = 0; i < m.size(); ++i) {
             if (i == 0) System.out.print(name + ": (" + m.get(0).getI() + ", " + m.get(0).getJ() + ")");
             else {
                 System.out.print(", (" + m.get(i).getI() + ", " + m.get(i).getJ() + ")");
             }
         }
-        System.out.println();
         System.out.println();
     }
 
@@ -163,51 +162,44 @@ public class Problem {
         aux.setTable(t.getTable());
         aux.print_table();
 
-        if (number_of_play >= 0 && t.checkmate_to(!player_who_has_to_win)) return true;
-        else if (number_of_play < 0) return false;
+        if (number_of_play > 0 && t.checkmate(player_who_has_to_win)) return true;
+        if (number_of_play <= 0) return false;
 
         List<Piece> pieces = aux.getPieces(player_who_start);
         print_list_of_pieces(pieces);
 
-        if (player_who_start) System.out.println("White");
-        else System.out.println("Black");
-        if (player_who_has_to_win) System.out.println("Win Whites");
-        else System.out.println("Win Black");
-        System.out.println(number_of_play);
-
-        if (player_who_start == player_who_has_to_win){
-            for (int i = 0; i<pieces.size();++i){
+        if (player_who_start == player_who_has_to_win) {
+            boolean b = false;
+            for (int i = 0; i < pieces.size(); ++i) {
                 List<Cell> movement = pieces.get(i).getMovement();
                 print_list_of_movements(movement, pieces.get(i).getName());
                 int i_origen = pieces.get(i).getPosition().getI();
                 int j_origen = pieces.get(i).getPosition().getJ();
-                for (int j = 0;j<movement.size();++j){
+                for (int j = 0; j < movement.size(); ++j) {
                     int i_destino = movement.get(j).getI();
                     int j_destino = movement.get(j).getJ();
-                    if (aux.MovePiece(i_origen,j_origen,i_destino,j_destino)){
-                        if (achieve_the_goal(aux,!player_who_start,number_of_play-1,player_who_has_to_win))return true;
+                    if (aux.MovePiece(i_origen, j_origen, i_destino, j_destino)) {
+                        b = b || achieve_the_goal(aux, !player_who_has_to_win, number_of_play - 1, player_who_has_to_win);
                     }
                 }
             }
-            return false;
-        }
-        else{
-            for (int i = 0; i<pieces.size();++i){
+            return b;
+        } else {
+            boolean b = true;
+            for (int i = 0; i < pieces.size(); ++i) {
                 List<Cell> movement = pieces.get(i).getMovement();
                 print_list_of_movements(movement, pieces.get(i).getName());
                 int i_origen = pieces.get(i).getPosition().getI();
                 int j_origen = pieces.get(i).getPosition().getJ();
-                for (int j = 0;j<movement.size();++j){
+                for (int j = 0; j < movement.size(); ++j) {
                     int i_destino = movement.get(j).getI();
                     int j_destino = movement.get(j).getJ();
-                    if (aux.MovePiece(i_origen,j_origen,i_destino,j_destino)){
-                        if (!achieve_the_goal(aux,!player_who_start,number_of_play-1,player_who_has_to_win)){
-                            return false;
-                        }
+                    if (aux.MovePiece(i_origen, j_origen, i_destino, j_destino)) {
+                        b = b && achieve_the_goal(aux, !player_who_has_to_win, number_of_play - 1, player_who_has_to_win);
                     }
                 }
             }
-            return true;
+            return b;
         }
     }
 

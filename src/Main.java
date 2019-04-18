@@ -99,10 +99,39 @@ public class Main {
         }
     }
 }*/
+    private static void error_choice() {
+        System.out.println("Error, this option is not available");
+        System.exit(1);
+    }
 
+    private static void quit() {
+        System.exit(0);
+    }
 
+    private static void start_menu() {
+        System.out.println("Select your option by writting the number");
+        System.out.println("1. Start a new game");
+        System.out.println("2. See the ranking table");
+        System.out.println("3. Quit");
+        Scanner sc = new Scanner(System.in);
+        int instr = sc.nextInt();
+        if (instr == 1) {
+
+        }
+        else if (instr == 2) {
+
+        }
+        else if (instr == 3) {
+
+        }
+        else {
+            error_choice();
+        }
+    }
 
     public static void main(String[] args) throws CloneNotSupportedException, IOException {
+        start_menu();
+
         System.out.println("Select your option by writting the number");
         System.out.println("1. Start a new game");
         System.out.println("2. See the ranking table");
@@ -149,7 +178,12 @@ public class Main {
                 }
                 System.out.print("Introduce the number of plays: ");
                 number_of_plays = sc.nextInt();
-
+                b = isCorrectProblem(s, player_who_start, player_who_has_to_win, number_of_plays);
+                while (!b) {
+                    System.out.println("The problems has no solution in " + number_of_plays + " movements!");
+                    System.out.println("Select your option by writting the number");
+                    asd
+                }
                 if (isCorrectProblem(s, player_who_start, player_who_has_to_win, number_of_plays)) System.out.println("True");
                 else System.out.println("False");
 

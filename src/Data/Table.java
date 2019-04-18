@@ -1,5 +1,6 @@
 package Data;
 import Data.Pieces.*;
+import Data.Problem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -197,6 +198,56 @@ public class Table implements Cloneable {
             }
         }
         return null;
+    }
+
+    public boolean check(boolean player) throws CloneNotSupportedException {
+        int i_king = king_position(!player).getI();
+        int j_king = king_position(!player).getJ();
+        List<Piece> pieces = getPieces(player);
+        //Problem.print_list_of_pieces(pieces);
+        //System.out.println(i_king + " " + j_king);
+        boolean b = false;
+        int i = 0;
+        while (!b && i < pieces.size()) {
+            List<Cell> movements = pieces.get(i).getMovement();
+            //Problem.print_list_of_movements(movements, pieces.get(i).getName());
+            int j = 0;
+            while (!b && j < movements.size()) {
+                int i_piece = movements.get(j).getI();
+                int j_piece = movements.get(j).getJ();
+                b = b || (i_king == i_piece && j_king == j_piece);
+                //System.out.println(i_piece + " " + j_piece + ": " + b);
+                ++j;
+            }
+            ++i;
+        }
+        return b;
+    }
+
+    public boolean checkmate(boolean player) throws CloneNotSupportedException {
+        List<Piece> pieces = getPieces(!player);
+        //Problem.print_list_of_pieces(pieces);
+        boolean b = true;
+        int i = 0;
+        while (b && i < pieces.size()) {
+            int i_origen = pieces.get(i).getPosition().getI();
+            int j_origen = pieces.get(i).getPosition().getJ();
+            List<Cell> movements = pieces.get(i).getMovement();
+            //Problem.print_list_of_movements(movements, pieces.get(i).getName());
+            int j = 0;
+            while (b && j < movements.size()) {
+                int i_destino = movements.get(j).getI();
+                int j_destino = movements.get(j).getJ();
+                Table aux = new Table();
+                aux.setTable(table);
+                if (aux.MovePiece(i_origen, j_origen, i_destino, j_destino)) b = b && aux.check(player);
+                //System.out.println(i_destino + " " + j_destino + ": " + b);
+                //aux.print_table();
+                ++j;
+            }
+            ++i;
+        }
+        return b;
     }
 
     public boolean checkmate_to(boolean player) throws CloneNotSupportedException {

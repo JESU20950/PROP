@@ -48,9 +48,24 @@ public class driverBishop {
             jd = sc.nextInt();
             b = t.CorrectMove(io, jo, id, jd);
         }
+        Cell co = new Cell();
+        co = c[io][jo];
+        p.setPosition(co);
+        p.updateMovement(c, co);
         List<Cell> movement = p.getMovement();
         Problem.print_list_of_movements(movement, "Bishop");
         t.MovePiece1(io, jo, id, jd);
+        t.print_table();
+        c = t.getTable();
+        Cell cd = new Cell();
+        cd = c[id][jd];
+        p.setPosition(cd);
+        c[id][jd] = cd;
+        Cell aux = new Cell();
+        aux.setI(io);
+        aux.setJ(jo);
+        c[io][jo] = aux;
+        p.updateMovement(c, cd);
         movement = p.getMovement();
         Problem.print_list_of_movements(movement, "Bishop");
         List<Piece> pieces = new ArrayList<Piece>();

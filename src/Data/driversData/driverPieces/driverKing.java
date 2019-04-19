@@ -28,30 +28,45 @@ public class driverKing {
         System.out.println(b);
     }
 
-    private static void test_update_movement(Table t, Piece p) throws CloneNotSupportedException {
+    private static void test_update_movement(Table t, Piece p) throws CloneNotSupportedException{
         Cell[][] c = t.getTable();
         Scanner sc = new Scanner(System.in);
         t.print_table();
-        System.out.println("Select king: ");
-        int i = sc.nextInt();
-        int j = sc.nextInt();
+        System.out.println("Select bishop: ");
+        int io = sc.nextInt();
+        int jo = sc.nextInt();
+        int id = sc.nextInt();
+        int jd = sc.nextInt();
+        boolean b = t.CorrectMove(io, jo, id, jd);
+        while (!b) {
+            t.print_table();
+            System.out.println("Select bishop: ");
+            io = sc.nextInt();
+            jo = sc.nextInt();
+            id = sc.nextInt();
+            jd = sc.nextInt();
+            b = t.CorrectMove(io, jo, id, jd);
+        }
         Cell co = new Cell();
-        co = c[i][j];
-        p = co.getPiece();
+        co = c[io][jo];
+        p.setPosition(co);
+        p.updateMovement(c, co);
         List<Cell> movement = p.getMovement();
-        Problem.print_list_of_movements(movement, "King");
-        i = sc.nextInt();
-        j = sc.nextInt();
-        Cell cd = new Cell();
-        cd = c[i][j];
-        cd.setPiece(p);
-        c[i][j] = cd;
-        p = cd.getPiece();
-        p.updateMovement(c, cd);
-        t.setTable(c);
+        Problem.print_list_of_movements(movement, "Bishop");
+        t.MovePiece1(io, jo, id, jd);
         t.print_table();
+        c = t.getTable();
+        Cell cd = new Cell();
+        cd = c[id][jd];
+        p.setPosition(cd);
+        c[id][jd] = cd;
+        Cell aux = new Cell();
+        aux.setI(io);
+        aux.setJ(jo);
+        c[io][jo] = aux;
+        p.updateMovement(c, cd);
         movement = p.getMovement();
-        Problem.print_list_of_movements(movement, "King");
+        Problem.print_list_of_movements(movement, "Bishop");
         List<Piece> pieces = new ArrayList<Piece>();
         pieces.add(p);
         Problem.print_list_of_pieces(pieces);

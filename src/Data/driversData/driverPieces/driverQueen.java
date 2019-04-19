@@ -1,6 +1,14 @@
 package Data.driversData.driverPieces;
 
+import Data.Cell;
+import Data.Pieces.Bishop;
+import Data.Pieces.Piece;
 import Data.Pieces.Queen;
+import Data.Problem;
+import Data.Table;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class driverQueen {
@@ -15,20 +23,65 @@ public class driverQueen {
         System.out.println(s);
     }
 
-    public static void main(String[] args) {
+    private static void test_correct_movement(Cell[][] c, Piece p, int io, int jo, int id, int jd) {
+        boolean b = io >= 0 && jo >= 0 && id >= 0 && jd >= 0 && io < 8 && jo < 8 && id < 8 && jd < 8;
+        if (b) b = p.correct_movement(c, c[io][jo], c[id][jd]);
+        System.out.println(b);
+    }
+
+    private static void test_update_movement(Table t, Piece p) throws CloneNotSupportedException{
+        Cell[][] c = t.getTable();
+        Scanner sc = new Scanner(System.in);
+        t.print_table();
+        System.out.println("Select queen: ");
+        int i = sc.nextInt();
+        int j = sc.nextInt();
+        Cell co = new Cell();
+        co = c[i][j];
+        p = co.getPiece();
+        List<Cell> movement = p.getMovement();
+        Problem.print_list_of_movements(movement, "Queen");
+        i = sc.nextInt();
+        j = sc.nextInt();
+        Cell cd = new Cell();
+        cd = c[i][j];
+        cd.setPiece(p);
+        c[i][j] = cd;
+        p = cd.getPiece();
+        p.updateMovement(c, cd);
+        t.setTable(c);
+        t.print_table();
+        movement = p.getMovement();
+        Problem.print_list_of_movements(movement, "Queen");
+        List<Piece> pieces = new ArrayList<Piece>();
+        pieces.add(p);
+        Problem.print_list_of_pieces(pieces);
+    }
+
+    public static void main(String[] args) throws CloneNotSupportedException{
         Scanner sc = new Scanner(System.in);
         System.out.print("Introduce your team: ");
-        String s = sc.nextLine();
-        boolean b;
-        //System.out.print(s);
-        if (s.equals("white")) b = true;
-        else if (s.equals("black")) b = false;
-        else {
-            b = false;
-            System.out.println("Color not valid!");
-            System.exit(1);
-        }
-        Queen p = new Queen(b);
+        boolean b = sc.nextBoolean();
+        Piece p = new Bishop(b);
+        test_getColor(p);
         test_getName(p);
+        System.out.println("FEN: ");
+        sc.nextLine();
+        String s = sc.nextLine();
+        Table t = new Table(s);
+        boolean stop = false;
+        while (!stop) {
+            t.print_table();
+            System.out.println("origen: ");
+            int io = sc.nextInt();
+            int jo = sc.nextInt();
+            System.out.println("destino: ");
+            int id = sc.nextInt();
+            int jd = sc.nextInt();
+            Cell[][] c = t.getTable();
+            test_correct_movement(c, p, io, jo, id, jd);
+            if (io < 0 ) stop = true;
+        }
+        test_update_movement(t, p);
     }
 }

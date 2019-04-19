@@ -11,7 +11,6 @@ import java.util.Scanner;
 import java.util.List;
 
 public class driverBishop {
-
     private static void test_getColor(Piece p) {
         boolean b = p.getColor();
         if (b) System.out.println("White");

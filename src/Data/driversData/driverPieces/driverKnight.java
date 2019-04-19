@@ -37,7 +37,9 @@ public class driverKnight {
         int jo = sc.nextInt();
         int id = sc.nextInt();
         int jd = sc.nextInt();
-        boolean b = t.CorrectMove(io, jo, id, jd);
+        Cell co = new Cell();
+        co = c[io][jo];
+        boolean b = t.CorrectMove(io, jo, id, jd) && (co.getPiece().getName().equals("n") || co.getPiece().getName().equals("N"));
         while (!b) {
             t.print_table();
             System.out.println("Select knight: ");
@@ -45,9 +47,10 @@ public class driverKnight {
             jo = sc.nextInt();
             id = sc.nextInt();
             jd = sc.nextInt();
-            b = t.CorrectMove(io, jo, id, jd);
+            co = c[io][jo];
+            b = t.CorrectMove(io, jo, id, jd) && (co.getPiece().getName().equals("n") || co.getPiece().getName().equals("N"));
         }
-        Cell co = new Cell();
+        co = new Cell();
         co = c[io][jo];
         p.setPosition(co);
         p.updateMovement(c, co);

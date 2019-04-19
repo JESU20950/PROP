@@ -37,7 +37,9 @@ public class driverQueen {
         int jo = sc.nextInt();
         int id = sc.nextInt();
         int jd = sc.nextInt();
-        boolean b = t.CorrectMove(io, jo, id, jd);
+        Cell co = new Cell();
+        co = c[io][jo];
+        boolean b = t.CorrectMove(io, jo, id, jd) && (co.getPiece().getName().equals("q") || co.getPiece().getName().equals("Q"));
         while (!b) {
             t.print_table();
             System.out.println("Select queen: ");
@@ -45,9 +47,10 @@ public class driverQueen {
             jo = sc.nextInt();
             id = sc.nextInt();
             jd = sc.nextInt();
-            b = t.CorrectMove(io, jo, id, jd);
+            co = c[io][jo];
+            b = t.CorrectMove(io, jo, id, jd) && (co.getPiece().getName().equals("q") || co.getPiece().getName().equals("Q"));
         }
-        Cell co = new Cell();
+        co = new Cell();
         co = c[io][jo];
         p.setPosition(co);
         p.updateMovement(c, co);

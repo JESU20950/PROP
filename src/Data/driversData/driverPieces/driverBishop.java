@@ -38,7 +38,9 @@ public class driverBishop {
         int jo = sc.nextInt();
         int id = sc.nextInt();
         int jd = sc.nextInt();
-        boolean b = t.CorrectMove(io, jo, id, jd);
+        Cell co = new Cell();
+        co = c[io][jo];
+        boolean b = t.CorrectMove(io, jo, id, jd) && (co.getPiece().getName().equals("b") || co.getPiece().getName().equals("B"));
         while (!b) {
             t.print_table();
             System.out.println("Select bishop: ");
@@ -46,9 +48,10 @@ public class driverBishop {
             jo = sc.nextInt();
             id = sc.nextInt();
             jd = sc.nextInt();
-            b = t.CorrectMove(io, jo, id, jd);
+            co = c[io][jo];
+            b = t.CorrectMove(io, jo, id, jd) && (co.getPiece().getName().equals("b") || co.getPiece().getName().equals("B"));
         }
-        Cell co = new Cell();
+        co = new Cell();
         co = c[io][jo];
         p.setPosition(co);
         p.updateMovement(c, co);

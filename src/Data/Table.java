@@ -147,6 +147,19 @@ public class Table implements Cloneable {
         }
     }
 
+    public boolean CorrectMove(int i_origen, int j_origen, int i_destino, int j_destino) {
+        if (i_origen >= 8 || j_origen >= 8 || i_destino >= 8 || j_destino >= 8 || i_origen < 0 || j_origen < 0 || i_destino < 0 || j_destino < 0) return false;
+        if (table[i_origen][j_origen].getPiece() == null) return false;
+        if (!table[i_origen][j_origen].getPiece().correct_movement(table, table[i_origen][j_origen], table[i_destino][j_destino])) return false;
+        return true;
+    }
+
+    public void MovePiece1(int i_origen, int j_origen, int i_destino, int j_destino) {
+        table[i_destino][j_destino].setPiece(table[i_origen][j_origen].getPiece());
+        table[i_origen][j_origen].setPiece(null);
+        update_all_pieces_movement();
+    }
+
     public boolean MovePiece(int i_origen, int j_origen, int i_destino, int j_destino) {
         if (i_origen >= 8 || j_origen >= 8 || j_destino >= 8 || j_destino >= 8 || i_origen <= -1 || j_origen <= -1 || j_destino <= -1 || j_destino <= -1) {
             return false;
@@ -182,10 +195,15 @@ public class Table implements Cloneable {
         List<Piece> resultat = new ArrayList<Piece>();
         for (int i = 0; i < 8; ++i) {
             for (int j = 0; j < 8; ++j) {
-                if (table[i][j].getPiece() != null && player == table[i][j].getPiece().getColor())
-                    resultat.add(table[i][j].getPiece());
+                if (this.table[i][j].getPiece() != null && player == this.table[i][j].getPiece().getColor()) {
+                    resultat.add(this.table[i][j].getPiece());
+                    //System.out.println(i + " " + j);
+                    //Problem.print_list_of_pieces(resultat);
+                }
             }
         }
+        //print_table();
+
         return resultat;
     }
 
@@ -239,8 +257,11 @@ public class Table implements Cloneable {
                 int i_destino = movements.get(j).getI();
                 int j_destino = movements.get(j).getJ();
                 Table aux = new Table();
-                aux.setTable(table);
-                if (aux.MovePiece(i_origen, j_origen, i_destino, j_destino)) b = b && aux.check(player);
+                aux.setTable(this.table);
+                if (aux.CorrectMove(i_origen, j_origen, i_destino, j_destino)) {
+                    //aux.MovePiece(i_origen, j_origen, i_destino, j_destino);
+                    b = b && aux.check(player);
+                }
                 //System.out.println(i_destino + " " + j_destino + ": " + b);
                 //aux.print_table();
                 ++j;

@@ -184,7 +184,7 @@ public class Main {
                         }
                     }
                     if (id < 0 || id >= 8 || jd < 0 || jd >= 8) error = true;
-                    else error = g.getTable().MovePiece(io, jo, id, jd);
+                    else error = g.getTable().CorrectMove(io, jo, id, jd);
                 }
             }
             else {
@@ -231,7 +231,7 @@ public class Main {
                         }
                     }
                     if (id < 0 || id >= 8 || jd < 0 || jd >= 8) error = true;
-                    else error = g.getTable().MovePiece(io, jo, id, jd);
+                    else error = g.getTable().CorrectMove(io, jo, id, jd);
                     System.out.println(error + " ERROR");
                 }
             }
@@ -293,12 +293,12 @@ public class Main {
         System.out.print("Introduce the number of plays: ");
         number_of_plays = sc.nextInt();
         b = isCorrectProblem(s, player_who_start, player_who_has_to_win, number_of_plays);
-
-        if (!b) {
+        System.out.println(b);
+        /*if (!b) {
             System.out.println("The problems has no solution in " + number_of_plays + " movements!");
             start_game();
             return;
-        }
+        }*/
         Game g = new Game();
         g.prepareTablewithParameters(s, player_who_start, player_who_has_to_win, number_of_plays);
         System.out.println("Select your option by writting the number");

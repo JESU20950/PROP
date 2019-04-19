@@ -161,14 +161,71 @@ public class Problem {
         Table aux = new Table();
         aux.setTable(t.getTable());
         aux.print_table();
-
-        if (number_of_play > 0 && t.checkmate(player_who_has_to_win)) return true;
-        if (number_of_play <= 0) return false;
-
+        if (player_who_start) System.out.print("white");
+        else System.out.print("black");
+        System.out.println(" " + number_of_play);
         List<Piece> pieces = aux.getPieces(player_who_start);
         print_list_of_pieces(pieces);
-
+        if (number_of_play > 0 && player_who_has_to_win == player_who_start && aux.checkmate(player_who_has_to_win)) return true;
+        if (number_of_play <= 0) return false;
+        List<Piece> pieces2 = aux.getPieces(player_who_start);
+        System.out.println("HOLA");
+        aux.print_table();
+        print_list_of_pieces(pieces2);
+        boolean b;
         if (player_who_start == player_who_has_to_win) {
+            b = false;
+            int i = 0;
+            while (!b && i < pieces.size()) {
+                List<Cell> movement = pieces.get(i).getMovement();
+                print_list_of_movements(movement, pieces.get(i).getName());
+                int i_origen = pieces.get(i).getPosition().getI();
+                int j_origen = pieces.get(i).getPosition().getJ();
+                int j = 0;
+                while (!b && j < movement.size()) {
+                    int i_destino = movement.get(j).getI();
+                    int j_destino = movement.get(j).getJ();
+                    aux.print_table();
+                    System.out.println(i_destino + " " + j_destino + ": " + b);
+                    if (aux.CorrectMove(i_origen, j_origen, i_destino, j_destino)) {
+                        aux.MovePiece1(i_origen, j_origen, i_destino, j_destino);
+                        b = b || achieve_the_goal(aux, !player_who_start, number_of_play - 1, player_who_has_to_win);
+                    }
+                    aux.print_table();
+                    System.out.println(i_destino + " " + j_destino + ": " + b);
+                    ++j;
+                }
+                ++i;
+            }
+        }
+        else {
+            b = true;
+            int i = 0;
+            while (b && i < pieces.size()) {
+                List<Cell> movement = pieces.get(i).getMovement();
+                print_list_of_movements(movement, pieces.get(i).getName());
+                int i_origen = pieces.get(i).getPosition().getI();
+                int j_origen = pieces.get(i).getPosition().getJ();
+                int j = 0;
+                while (b && j < movement.size()) {
+                    int i_destino = movement.get(j).getI();
+                    int j_destino = movement.get(j).getJ();
+                    aux.print_table();
+                    System.out.println(i_destino + " " + j_destino + ": " + b);
+                    if (aux.CorrectMove(i_origen, j_origen, i_destino, j_destino)) {
+                        aux.MovePiece1(i_origen, j_origen, i_destino, j_destino);
+                        b = b && achieve_the_goal(aux, !player_who_start, number_of_play - 1, player_who_has_to_win);
+                    }
+                    aux.print_table();
+                    System.out.println(i_destino + " " + j_destino + ": " + b);
+                    ++j;
+                }
+                ++i;
+            }
+        }
+        return b;
+
+        /*if (player_who_start == player_who_has_to_win) {
             boolean b = false;
             for (int i = 0; i < pieces.size(); ++i) {
                 List<Cell> movement = pieces.get(i).getMovement();
@@ -200,7 +257,7 @@ public class Problem {
                 }
             }
             return b;
-        }
+        }*/
     }
 
     public static List<String> load_problem_fromBD_Easy_Mode() throws IOException {

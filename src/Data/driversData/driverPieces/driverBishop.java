@@ -29,10 +29,6 @@ public class driverBishop {
         System.out.println(b);
     }
 
-    private static void error_status() {
-        System.out.println("Error!");
-    }
-
     private static void test_update_movement(Table t, Piece p) throws CloneNotSupportedException{
         Cell[][] c = t.getTable();
         Scanner sc = new Scanner(System.in);

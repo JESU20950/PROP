@@ -104,12 +104,12 @@ public class Game {
     }
 
     public void endofgame() throws Exception {
-        if(number_of_play == 0 || table.checkmate_to(true) || table.checkmate_to( false)) gameInterface.dialaog_end_of_game();
+        if(number_of_play == 0 || table.checkmate(true) || table.checkmate( false)) gameInterface.dialaog_end_of_game();
     }
     public boolean getplayerwhowins() throws CloneNotSupportedException {
-        if (table.checkmate_to(true)) return false;
-        else if (table.checkmate_to(false)) return true;
-        else if (number_of_play == 0 && table.checkmate_to(!player_who_has_to_win)) return player_who_has_to_win;
+        if (table.checkmate(true)) return false;
+        else if (table.checkmate(false)) return true;
+        else if (number_of_play == 0 && table.checkmate(!player_who_has_to_win)) return player_who_has_to_win;
         else return !player_who_has_to_win;
     }
     public Player getPlayerwhoplays(){

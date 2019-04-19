@@ -113,6 +113,7 @@ public class Table implements Cloneable {
         }
         System.out.println();
     }
+
     public void print_fen() {
         int space = 0;
         for (int i = 0; i < 8; ++i) {
@@ -211,7 +212,7 @@ public class Table implements Cloneable {
         for (int i = 0; i < 8; ++i) {
             for (int j = 0; j < 8; ++j) {
                 if (table[i][j].getPiece() != null && player == table[i][j].getPiece().getColor()
-                        && (table[i][j].getPiece().getName() == "k" || table[i][j].getPiece().getName() == "K"))
+                        && (table[i][j].getPiece().getName().equals("k") || table[i][j].getPiece().getName().equals("K")))
                     return table[i][j];
             }
         }
@@ -271,7 +272,7 @@ public class Table implements Cloneable {
         return b;
     }
 
-    public boolean checkmate_to(boolean player) throws CloneNotSupportedException {
+    /*public boolean checkmate_to(boolean player) throws CloneNotSupportedException {
         List<Piece> l = getPieces(player);
         if (this.king_position(true) == null || this.king_position(false) == null) return false;
         boolean b = false;
@@ -321,7 +322,7 @@ public class Table implements Cloneable {
             }
         }
         return false;
-    }
+    }*/
 }
 
 

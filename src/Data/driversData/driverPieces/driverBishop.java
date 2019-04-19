@@ -5,6 +5,8 @@ import Data.Pieces.Piece;
 import Data.Cell;
 import Data.Problem;
 import Data.Table;
+
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.List;
 
@@ -31,7 +33,7 @@ public class driverBishop {
         System.out.println("Error!");
     }
 
-    private static void test_update_movement(Table t, Piece p) {
+    private static void test_update_movement(Table t, Piece p) throws CloneNotSupportedException{
         Cell[][] c = t.getTable();
         Scanner sc = new Scanner(System.in);
         t.print_table();
@@ -45,16 +47,22 @@ public class driverBishop {
         Problem.print_list_of_movements(movement, "Bishop");
         i = sc.nextInt();
         j = sc.nextInt();
-        co.setI(i);
-        co.setJ(j);
-        c[i][j] = co;
-        p = co.getPiece();
-        p.updateMovement(c, co);
+        Cell cd = new Cell();
+        cd = c[i][j];
+        cd.setPiece(p);
+        c[i][j] = cd;
+        p = cd.getPiece();
+        p.updateMovement(c, cd);
+        t.setTable(c);
+        t.print_table();
         movement = p.getMovement();
         Problem.print_list_of_movements(movement, "Bishop");
+        List<Piece> pieces = new ArrayList<Piece>();
+        pieces.add(p);
+        Problem.print_list_of_pieces(pieces);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws CloneNotSupportedException{
         Scanner sc = new Scanner(System.in);
         System.out.print("Introduce your team: ");
         boolean b = sc.nextBoolean();

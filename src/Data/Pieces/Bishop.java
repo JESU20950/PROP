@@ -1,6 +1,8 @@
 package Data.Pieces;
 
 import Data.Cell;
+import Data.Problem;
+
 import java.lang.Math;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,20 +44,31 @@ public class Bishop extends Piece {
     public void updateMovement(Cell[][] t, Cell origen) {
         int i = origen.getI();
         int j = origen.getJ();
+        //System.out.println(i + " " + j);
         super.position = origen;
 
         List<Cell> resultat = new ArrayList<Cell>();
         int diagonal1i = i-min(i,j);
         int diagonal1j = j-min(i,j);
         while (diagonal1i < 8 && diagonal1j<8){
-            if (i != diagonal1i && diagonal1j != j && Nobody_in_trajectory(t,origen,t[diagonal1i][diagonal1j])) resultat.add(t[diagonal1i][diagonal1j]);
+            if (i != diagonal1i && diagonal1j != j && Nobody_in_trajectory(t,origen,t[diagonal1i][diagonal1j])) {
+                //System.out.println(i + " " + j + "a");
+                //System.out.println(diagonal1i + " " + diagonal1j + "b");
+                resultat.add(t[diagonal1i][diagonal1j]);
+                //Problem.print_list_of_movements(resultat, "Bis");
+            }
             ++diagonal1i;
             ++diagonal1j;
         }
         diagonal1i = i-min(i,7-j);
         diagonal1j = j+min(i,7-j);
         while (diagonal1i <8 && diagonal1j >= 0 && diagonal1i >= 0 && diagonal1j <8){
-            if (i!= diagonal1i && j != diagonal1j && Nobody_in_trajectory(t,origen,t[diagonal1i][diagonal1j])) resultat.add(t[diagonal1i][diagonal1j]);
+            if (i != diagonal1i && j != diagonal1j && Nobody_in_trajectory(t,origen,t[diagonal1i][diagonal1j])) {
+                //System.out.println(i + " " + j + "a");
+                //System.out.println(diagonal1i + " " + diagonal1j + "b");
+                resultat.add(t[diagonal1i][diagonal1j]);
+                //Problem.print_list_of_movements(resultat, "Bis");
+            }
             ++diagonal1i;
             --diagonal1j;
         }

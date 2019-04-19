@@ -9,6 +9,7 @@ import Data.Table;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.List;
+import java.util.concurrent.CancellationException;
 
 public class driverBishop {
     private static void test_getColor(Piece p) {
@@ -33,23 +34,23 @@ public class driverBishop {
         Scanner sc = new Scanner(System.in);
         t.print_table();
         System.out.println("Select bishop: ");
-        int i = sc.nextInt();
-        int j = sc.nextInt();
-        Cell co = new Cell();
-        co = c[i][j];
-        p = co.getPiece();
+        int io = sc.nextInt();
+        int jo = sc.nextInt();
+        int id = sc.nextInt();
+        int jd = sc.nextInt();
+        boolean b = t.CorrectMove(io, jo, id, jd);
+        while (!b) {
+            t.print_table();
+            System.out.println("Select bishop: ");
+            io = sc.nextInt();
+            jo = sc.nextInt();
+            id = sc.nextInt();
+            jd = sc.nextInt();
+            b = t.CorrectMove(io, jo, id, jd);
+        }
         List<Cell> movement = p.getMovement();
         Problem.print_list_of_movements(movement, "Bishop");
-        i = sc.nextInt();
-        j = sc.nextInt();
-        Cell cd = new Cell();
-        cd = c[i][j];
-        cd.setPiece(p);
-        c[i][j] = cd;
-        p = cd.getPiece();
-        p.updateMovement(c, cd);
-        t.setTable(c);
-        t.print_table();
+        t.MovePiece1(io, jo, id, jd);
         movement = p.getMovement();
         Problem.print_list_of_movements(movement, "Bishop");
         List<Piece> pieces = new ArrayList<Piece>();

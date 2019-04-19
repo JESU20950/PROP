@@ -12,13 +12,13 @@ import java.util.List;
 import java.util.Scanner;
 
 public class driverQueen {
-    private static void test_getColor(Queen p) {
+    private static void test_getColor(Piece p) {
         boolean b = p.getColor();
         if (b) System.out.println("White");
         else System.out.println("Black");
     }
 
-    private static void test_getName(Queen p) {
+    private static void test_getName(Piece p) {
         String s = p.getName();
         System.out.println(s);
     }

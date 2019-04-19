@@ -32,7 +32,7 @@ public class driverKing {
         Cell[][] c = t.getTable();
         Scanner sc = new Scanner(System.in);
         t.print_table();
-        System.out.println("Select bishop: ");
+        System.out.println("Select king: ");
         int io = sc.nextInt();
         int jo = sc.nextInt();
         int id = sc.nextInt();
@@ -40,7 +40,7 @@ public class driverKing {
         boolean b = t.CorrectMove(io, jo, id, jd);
         while (!b) {
             t.print_table();
-            System.out.println("Select bishop: ");
+            System.out.println("Select king: ");
             io = sc.nextInt();
             jo = sc.nextInt();
             id = sc.nextInt();
@@ -52,7 +52,7 @@ public class driverKing {
         p.setPosition(co);
         p.updateMovement(c, co);
         List<Cell> movement = p.getMovement();
-        Problem.print_list_of_movements(movement, "Bishop");
+        Problem.print_list_of_movements(movement, "King");
         t.MovePiece1(io, jo, id, jd);
         t.print_table();
         c = t.getTable();
@@ -66,7 +66,7 @@ public class driverKing {
         c[io][jo] = aux;
         p.updateMovement(c, cd);
         movement = p.getMovement();
-        Problem.print_list_of_movements(movement, "Bishop");
+        Problem.print_list_of_movements(movement, "King");
         List<Piece> pieces = new ArrayList<Piece>();
         pieces.add(p);
         Problem.print_list_of_pieces(pieces);

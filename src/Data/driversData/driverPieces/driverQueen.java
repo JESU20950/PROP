@@ -1,7 +1,6 @@
 package Data.driversData.driverPieces;
 
 import Data.Cell;
-import Data.Pieces.Bishop;
 import Data.Pieces.Piece;
 import Data.Pieces.Queen;
 import Data.Problem;
@@ -34,23 +33,38 @@ public class driverQueen {
         Scanner sc = new Scanner(System.in);
         t.print_table();
         System.out.println("Select queen: ");
-        int i = sc.nextInt();
-        int j = sc.nextInt();
+        int io = sc.nextInt();
+        int jo = sc.nextInt();
+        int id = sc.nextInt();
+        int jd = sc.nextInt();
+        boolean b = t.CorrectMove(io, jo, id, jd);
+        while (!b) {
+            t.print_table();
+            System.out.println("Select queen: ");
+            io = sc.nextInt();
+            jo = sc.nextInt();
+            id = sc.nextInt();
+            jd = sc.nextInt();
+            b = t.CorrectMove(io, jo, id, jd);
+        }
         Cell co = new Cell();
-        co = c[i][j];
-        p = co.getPiece();
+        co = c[io][jo];
+        p.setPosition(co);
+        p.updateMovement(c, co);
         List<Cell> movement = p.getMovement();
         Problem.print_list_of_movements(movement, "Queen");
-        i = sc.nextInt();
-        j = sc.nextInt();
-        Cell cd = new Cell();
-        cd = c[i][j];
-        cd.setPiece(p);
-        c[i][j] = cd;
-        p = cd.getPiece();
-        p.updateMovement(c, cd);
-        t.setTable(c);
+        t.MovePiece1(io, jo, id, jd);
         t.print_table();
+        c = t.getTable();
+        Cell cd = new Cell();
+        cd = c[id][jd];
+        p.setPosition(cd);
+        c[id][jd] = cd;
+        Cell aux = new Cell();
+        aux.setI(io);
+        aux.setJ(jo);
+        c[io][jo] = aux;
+        p.updateMovement(c, cd);
         movement = p.getMovement();
         Problem.print_list_of_movements(movement, "Queen");
         List<Piece> pieces = new ArrayList<Piece>();
@@ -62,7 +76,7 @@ public class driverQueen {
         Scanner sc = new Scanner(System.in);
         System.out.print("Introduce your team: ");
         boolean b = sc.nextBoolean();
-        Piece p = new Bishop(b);
+        Piece p = new Queen(b);
         test_getColor(p);
         test_getName(p);
         System.out.println("FEN: ");

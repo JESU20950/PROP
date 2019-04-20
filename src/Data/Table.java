@@ -223,19 +223,19 @@ public class Table implements Cloneable {
         int i_king = king_position(!player).getI();
         int j_king = king_position(!player).getJ();
         List<Piece> pieces = getPieces(player);
-        //Problem.print_list_of_pieces(pieces);
-        //System.out.println(i_king + " " + j_king);
+        Problem.print_list_of_pieces(pieces);
+        System.out.println(i_king + " " + j_king);
         boolean b = false;
         int i = 0;
         while (!b && i < pieces.size()) {
             List<Cell> movements = pieces.get(i).getMovement();
-            //Problem.print_list_of_movements(movements, pieces.get(i).getName());
+            Problem.print_list_of_movements(movements, pieces.get(i).getName());
             int j = 0;
             while (!b && j < movements.size()) {
                 int i_piece = movements.get(j).getI();
                 int j_piece = movements.get(j).getJ();
                 b = b || (i_king == i_piece && j_king == j_piece);
-                //System.out.println(i_piece + " " + j_piece + ": " + b);
+                System.out.println(i_piece + " " + j_piece + ": " + b);
                 ++j;
             }
             ++i;
@@ -260,7 +260,7 @@ public class Table implements Cloneable {
                 Table aux = new Table();
                 aux.setTable(this.table);
                 if (aux.CorrectMove(i_origen, j_origen, i_destino, j_destino)) {
-                    //aux.MovePiece(i_origen, j_origen, i_destino, j_destino);
+                    aux.MovePiece(i_origen, j_origen, i_destino, j_destino);
                     b = b && aux.check(player);
                 }
                 //System.out.println(i_destino + " " + j_destino + ": " + b);

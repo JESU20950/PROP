@@ -1,6 +1,7 @@
 import Data.Cell;
 import Data.Game;
 import Data.Player.*;
+import Data.Problem;
 import Data.Table;
 import Interface.FrameProgram;
 import Interface.MainInterface;
@@ -8,6 +9,7 @@ import Interface.MainInterface;
 import javax.swing.*;
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.List;
 
 import static Data.Problem.isCorrectProblem;
 import static Data.Problem.iscorrectFen;
@@ -138,8 +140,11 @@ public class Main {
         g.setPlayer2(p2);
         sc.nextLine();
         String move;
-        while (g.getNumber_of_play() > 0 && !(g.getTable().checkmate(false) || g.getTable().checkmate(true))) {
+        g.getTable().print_table();
+        System.out.println(g.getTable().checkmate(false) + " " + g.getTable().checkmate(true) + " " + g.getTable().check(true) + " " + g.getTable().check(false));
+        while (g.getNumber_of_play() > 0 && !g.getTable().checkmate(false) && !g.getTable().checkmate(true)) {
             boolean error = false;
+            System.out.println("Hola");
             if (g.getPlayer_who_plays()) {
                 g.getTable().print_table();
                 System.out.println("White Team turn");
@@ -263,6 +268,27 @@ public class Main {
 
     }
 
+    private static void handleGame(String s, boolean player_who_start, boolean player_who_has_to_win, int number_of_plays)  throws CloneNotSupportedException, IOException{
+        Scanner sc = new Scanner(System.in);
+        Game g = new Game();
+        g.prepareTablewithParameters(s, player_who_start, player_who_has_to_win, number_of_plays);
+        System.out.println("Select your option by writting the number");
+        System.out.println("1. Player1 vs Player2");
+        System.out.println("2. Player vs CPU(Easy)");
+        System.out.println("3. Player vs CPU(Hard)");
+        System.out.println("4. CPU1(Easy) vs CPU2(Easy)");
+        System.out.println("5. CPU1(Easy) vs CPU2(Hard)");
+        System.out.println("6. CPU1(Hard) vs CPU2(Hard)");
+        int instr = sc.nextInt();
+        if (instr == 1) player_vs_player(g);
+        else if (instr == 2) player_vs_CPUe(g);
+        else if (instr == 3) player_vs_CPUh(g);
+        else if (instr == 4) CPUe_vs_CPUe(g);
+        else if (instr == 5) CPUe_vs_CPUh(g);
+        else if (instr == 6) CPUh_Vs_CPUh(g);
+        else error_choice();
+    }
+
     private static void introduceFEN() throws CloneNotSupportedException, IOException {
         Scanner sc = new Scanner(System.in);
         String s = sc.nextLine();
@@ -299,31 +325,59 @@ public class Main {
             start_game();
             return;
         }*/
-        Game g = new Game();
-        g.prepareTablewithParameters(s, player_who_start, player_who_has_to_win, number_of_plays);
-        System.out.println("Select your option by writting the number");
-        System.out.println("1. Player1 vs Player2");
-        System.out.println("2. Player vs CPU(Easy)");
-        System.out.println("3. Player vs CPU(Hard)");
-        System.out.println("4. CPU1(Easy) vs CPU2(Easy)");
-        System.out.println("5. CPU1(Easy) vs CPU2(Hard)");
-        System.out.println("6. CPU1(Hard) vs CPU2(Hard)");
-        instr = sc.nextInt();
-        if (instr == 1) player_vs_player(g);
-        else if (instr == 2) player_vs_CPUe(g);
-        else if (instr == 3) player_vs_CPUh(g);
-        else if (instr == 4) CPUe_vs_CPUe(g);
-        else if (instr == 5) CPUe_vs_CPUh(g);
-        else if (instr == 6) CPUh_Vs_CPUh(g);
-        else error_choice();
+        handleGame(s, player_who_start, player_who_has_to_win, number_of_plays);
     }
 
     private static void easy_problems() throws CloneNotSupportedException, IOException {
+        List<String> l = Problem.load_problem_fromBD_Easy_Mode();
+        for(int i = 0; i < l.size(); i++) {
+            System.out.println(i + " : " +l.get(i));
+        }
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Select the problem by typing the number at the start of each one");
+        int aux = sc.nextInt();
+        while(aux < 0 || aux > l.size()){
+            System.out.println("There is no problem there...");
+            System.out.println("Select the problem by typing the number at the start of each one");
+            aux = sc.nextInt();
 
+        }
+        String s = l.get(aux);
+        String FEN;
+        boolean whoStarts;
+        boolean whoWins;
+        int N;
+        FEN = Problem.ConvertInputtoFEN(s);
+        whoStarts = Problem.ConvertInputtoplayer_who_start(s);
+        whoWins = Problem.ConvertInputtoplayer_who_has_to_win(s);
+        N = Problem.ConvertInputtonumber_of_play(s);
+        handleGame(FEN,whoStarts,whoWins,N);
     }
 
     private static void hard_problems() throws CloneNotSupportedException, IOException {
+        List<String> l = Problem.load_problem_fromBD_Hard_Mode();
+        for(int i = 0; i < l.size(); i++) {
+            System.out.println(i + " : " +l.get(i));
+        }
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Select the problem by typing the number at the start of each one");
+        int aux = sc.nextInt();
+        while(aux < 0 || aux > l.size()){
+            System.out.println("There is no problem there...");
+            System.out.println("Select the problem by typing the number at the start of each one");
+            aux = sc.nextInt();
 
+        }
+        String s = l.get(aux);
+        String FEN;
+        boolean whoStarts;
+        boolean whoWins;
+        int N;
+        FEN = Problem.ConvertInputtoFEN(s);
+        whoStarts = Problem.ConvertInputtoplayer_who_start(s);
+        whoWins = Problem.ConvertInputtoplayer_who_has_to_win(s);
+        N = Problem.ConvertInputtonumber_of_play(s);
+        handleGame(FEN,whoStarts,whoWins,N);
     }
 
     private static void selectFEN() throws CloneNotSupportedException, IOException {

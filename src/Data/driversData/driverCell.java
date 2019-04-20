@@ -21,38 +21,42 @@ public class driverCell {
         System.exit(1);
     }
 
-    private static void choice_color(boolean b) {
-        Scanner sc = new Scanner(System.in);
-        b = sc.nextBoolean();
+    private static void test_setI(Cell c, int i){
+        c.setI(i);
+    }
+    private static void test_setJ(Cell c, int j){
+        c.setJ(j);
+    }
+    private static void test_getI(Cell c){
+        System.out.println("Row " + c.getI());
+    }
+    private static void test_getJ(Cell c){
+        System.out.println("Column " + c.getJ());
     }
 
     public static void main(String[] args) throws CloneNotSupportedException {
         Scanner sc = new Scanner(System.in);
+        System.out.println("Choose your piece: pawn, king, queen, knight, bishop or rook.");
         String s = sc.nextLine();
         Piece p;
-        boolean b = false;
+        System.out.println("Choose your team true for white, false for black.");
+        boolean b = sc.nextBoolean();
         if (s.equals("pawn")) {
-            choice_color(b);
             p = new Pawn(b);
         }
         else if (s.equals("king")) {
-            choice_color(b);
             p = new King(b);
         }
         else if (s.equals("queen")) {
-            choice_color(b);
             p = new Queen(b);
         }
         else if (s.equals("knight")) {
-            choice_color(b);
             p = new Knight(b);
         }
         else if (s.equals("bishop")) {
-            choice_color(b);
             p = new Bishop(b);
         }
         else if (s.equals("rook")) {
-            choice_color(b);
             p = new Rook(b);
         }
         else {
@@ -62,5 +66,18 @@ public class driverCell {
         Cell c = new Cell();
         test_setPiece(c, p);
         test_getPiece(c);
+        System.out.println("Set the position of the cell, first rows then columns.");
+        int i = sc.nextInt();
+        int j = sc.nextInt();
+        while((i< 0 || i >7 ) && (j<0 || j > 7)){
+            System.out.println("Wrong position, has to be between 0 and 7");
+            System.out.println("Set the position of the cell, first rows then columns.");
+            i = sc.nextInt();
+            j = sc.nextInt();
+        }
+        test_setI(c,i);
+        test_setJ(c,j);
+        test_getI(c);
+        test_getJ(c);
     }
 }

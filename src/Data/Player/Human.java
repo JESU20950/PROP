@@ -5,6 +5,7 @@ import Data.Pieces.Piece;
 import Data.Table;
 
 public class Human extends Player{
+
     public Human(String name) {
         super.name = name;
     }

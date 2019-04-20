@@ -5,8 +5,6 @@ import Data.Problem;
 import java.util.ArrayList;
 import java.util.List;
 
-import static Data.driversData.driverTable.print_table;
-
 public class Table implements Cloneable {
     private Cell table[][];
 
@@ -184,7 +182,7 @@ public class Table implements Cloneable {
     }
 
 
-    void update_all_pieces_movement() {
+    public void update_all_pieces_movement() {
         for (int i = 0; i < 8; ++i) {
             for (int j = 0; j < 8; ++j) {
                 if (table[i][j].getPiece() != null) table[i][j].getPiece().updateMovement(table, table[i][j]);
@@ -260,7 +258,7 @@ public class Table implements Cloneable {
                 Table aux = new Table();
                 aux.setTable(this.table);
                 if (aux.CorrectMove(i_origen, j_origen, i_destino, j_destino)) {
-                    //aux.MovePiece(i_origen, j_origen, i_destino, j_destino);
+                    aux.MovePiece(i_origen, j_origen, i_destino, j_destino);
                     b = b && aux.check(player);
                 }
                 //System.out.println(i_destino + " " + j_destino + ": " + b);

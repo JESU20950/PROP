@@ -318,8 +318,8 @@ public class Main {
         else error_choice();
         System.out.print("Introduce the number of plays: ");
         number_of_plays = sc.nextInt();
-        b = isCorrectProblem(s, player_who_start, player_who_has_to_win, number_of_plays);
-        System.out.println(b);
+        //b = isCorrectProblem(s, player_who_start, player_who_has_to_win, number_of_plays);
+        //System.out.println(b);
         /*if (!b) {
             System.out.println("The problems has no solution in " + number_of_plays + " movements!");
             start_game();

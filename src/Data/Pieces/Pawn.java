@@ -4,6 +4,7 @@ import Data.Cell;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.prefs.NodeChangeEvent;
 
 public class Pawn extends Piece {
     public Pawn(boolean color){
@@ -24,24 +25,28 @@ public class Pawn extends Piece {
         int j_destino = destino.getJ();
         int i_origen = origen.getI();
         int j_origen = origen.getJ();
-        if ( (i_origen == 6 || i_origen == 1)  &&  Math.abs(i_destino - i_origen) == 2 &&  destino.getPiece() == null && Nobody_in_trajectory(t, origen,destino)) return true;
-        if (origen.getPiece().getColor()){
-            if (destino.getPiece() == null && i_destino-i_origen == -1 && j_destino-j_origen == 0 && Nobody_in_trajectory(t, origen,destino)){
-                return true;
+        if (origen.getPiece().getColor()) { // White pawn
+            if (i_origen == 6) return i_origen - i_destino == 2 && j_destino - j_origen == 0 && Nobody_in_trajectory(t, origen, destino) && destino.getPiece() == null; // Can do double step
+            else { // Can't do double step
+                if (i_origen - i_destino == 1) { // Only one step in front
+                    if (j_destino - j_origen == 0) return destino.getPiece() == null; // Single movement step
+                    else if (Math.abs(j_destino - j_origen) == 1) return destino.getPiece() != null && destino.getPiece().getColor() != origen.getPiece().getColor(); // Attack movement
+                    else return false;
+                }
+                else return false;
             }
-            if (destino.getPiece() != null && (i_destino-i_origen == -1) && Math.abs(j_destino-j_origen) == 1 && origen.getPiece().getColor() != destino.getPiece().getColor() && Nobody_in_trajectory(t, origen,destino)){
-                return true;
-            }
-        }else{
-            if (destino.getPiece() == null && i_destino-i_origen == 1 && j_destino-j_origen == 0 && Nobody_in_trajectory(t, origen,destino)){
-                return true;
-            }
-            if (destino.getPiece() != null && (i_destino-i_origen == 1) && Math.abs(j_destino-j_origen) == 1 && origen.getPiece().getColor() != destino.getPiece().getColor() && Nobody_in_trajectory(t, origen,destino)){
-                return true;
-            }
-
         }
-        return false;
+        else { // Black pawn
+            if (i_origen == 1) return i_destino - i_origen == 2 && j_destino - j_origen == 0 && Nobody_in_trajectory(t, origen, destino) && destino.getPiece() == null; // Can do double step
+            else {
+                if (i_destino - i_origen == 1) { // Only one step in front
+                    if (j_destino - j_origen == 0) return destino.getPiece() == null; //Sigle movement step
+                    else if (Math.abs(j_destino - j_origen) == 1) return destino.getPiece() != null && destino.getPiece().getColor() != origen.getPiece().getColor(); // Attack movement
+                    else return false;
+                }
+                else return false;
+            }
+        }
     }
 
 

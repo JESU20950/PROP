@@ -221,19 +221,23 @@ public class Table implements Cloneable {
         int i_king = king_position(!player).getI();
         int j_king = king_position(!player).getJ();
         List<Piece> pieces = getPieces(player);
-        Problem.print_list_of_pieces(pieces);
-        System.out.println(i_king + " " + j_king);
+        //Problem.print_list_of_pieces(pieces);
+        //System.out.println(i_king + " " + j_king);
         boolean b = false;
         int i = 0;
         while (!b && i < pieces.size()) {
             List<Cell> movements = pieces.get(i).getMovement();
-            Problem.print_list_of_movements(movements, pieces.get(i).getName());
+            //Problem.print_list_of_movements(movements, pieces.get(i).getName());
+            int io = pieces.get(i).getPosition().getI();
+            int jo = pieces.get(i).getPosition().getJ();
             int j = 0;
             while (!b && j < movements.size()) {
-                int i_piece = movements.get(j).getI();
-                int j_piece = movements.get(j).getJ();
-                b = b || (i_king == i_piece && j_king == j_piece);
-                System.out.println(i_piece + " " + j_piece + ": " + b);
+                int id = movements.get(j).getI();
+                int jd = movements.get(j).getJ();
+                if (CorrectMove(io, jo, id, jd)) {
+                    b = b || (i_king == id && j_king == jd);
+                    //System.out.println(id + " " + jd + ": " + b);
+                }
                 ++j;
             }
             ++i;

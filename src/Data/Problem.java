@@ -8,9 +8,6 @@ import java.util.*;
 import Data.Pieces.Piece;
 
 
-
-import static Data.driversData.driverTable.print_table;
-
 public class Problem {
 
     public static boolean iscorrectFen(String FEN) {

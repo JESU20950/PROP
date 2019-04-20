@@ -69,7 +69,7 @@ public class driverCell {
         System.out.println("Set the position of the cell, first rows then columns.");
         int i = sc.nextInt();
         int j = sc.nextInt();
-        while((i< 0 || i >7 ) && (j<0 || j > 7)){
+        while((i< 0 || i >7 ) || (j<0 || j > 7)){
             System.out.println("Wrong position, has to be between 0 and 7");
             System.out.println("Set the position of the cell, first rows then columns.");
             i = sc.nextInt();

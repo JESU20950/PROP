@@ -1,7 +1,6 @@
 package Data.Pieces;
 
 import Data.Cell;
-import Data.Table;
 
 import java.util.List;
 
@@ -9,8 +8,8 @@ import java.util.List;
 public abstract class Piece {
     protected boolean color;// white == true
     protected String name;
-    protected List<Cell> Movement;
-    protected Cell position;
+    private List<Cell> Movement;
+    private Cell position;
     public Piece() {}
 
 

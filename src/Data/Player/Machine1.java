@@ -14,7 +14,7 @@ public class Machine1 extends Player{
     }
 
     public List<List<Cell>> todosMovimientosPosibles(Table t){
-        List<Piece> misPiezas = t.getPieces(super.isColor());
+        List<Piece> misPiezas = t.getPieces(super.getColor());
         List<List<Cell> > aux = new ArrayList<> ();
         for(int i = 0; i < misPiezas.size(); ++i){
             List<Cell> aux2;
@@ -29,7 +29,7 @@ public class Machine1 extends Player{
     }
     public int minimax(int depth){
         int val = 0;
-        if(super.isColor())
+        if(super.getColor())
             val = Max(depth); // white moves first
         else
             val = Min(depth); // black moves first

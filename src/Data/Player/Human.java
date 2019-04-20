@@ -5,21 +5,20 @@ import Data.Pieces.Piece;
 import Data.Table;
 
 public class Human extends Player{
-    public Human(String name){
+    public Human(String name) {
         super.name = name;
     }
-    public Human(){
+
+    public Human() {
 
     }
-    public boolean isMachine(){
-        return false;
-    }
+
     public boolean movementCorrect(Table t, Piece p, Cell origen, Cell destino) {
         if (super.color != p.getColor()) return false;
         else return p.correct_movement(t.getTable(), origen, destino);
     }
 
-    public void movePiece(Table t, Piece p, Cell origen, Cell destino){
+    /*public void movePiece(Table t, Piece p, Cell origen, Cell destino){
         if(super.color != p.getColor()){
             System.out.println("Not your piece");
         }
@@ -33,5 +32,5 @@ public class Human extends Player{
             }
         }
 
-    }
+    }*/
 }

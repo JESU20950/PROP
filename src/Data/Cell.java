@@ -13,17 +13,12 @@ public class Cell implements Cloneable{
         piece = null;
     }
 
-    public boolean isCellOccupied() { // funcion para consultar si hay alguna pieza en la celda i j
-        return piece == null;
-    }
-
     public Piece getPiece(){
         return piece;
     }
 
     public void setPiece(Piece p){
         piece = p;
-
     }
 
     public void setI(int i) {

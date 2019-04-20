@@ -330,32 +330,15 @@ public class Main {
 
     private static void easy_problems() throws CloneNotSupportedException, IOException {
         List<String> l = Problem.load_problem_fromBD_Easy_Mode();
-        for(int i = 0; i < l.size(); i++) {
-            System.out.println(i + " : " +l.get(i));
-        }
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Select the problem by typing the number at the start of each one");
-        int aux = sc.nextInt();
-        while(aux < 0 || aux > l.size()){
-            System.out.println("There is no problem there...");
-            System.out.println("Select the problem by typing the number at the start of each one");
-            aux = sc.nextInt();
-
-        }
-        String s = l.get(aux);
-        String FEN;
-        boolean whoStarts;
-        boolean whoWins;
-        int N;
-        FEN = Problem.ConvertInputtoFEN(s);
-        whoStarts = Problem.ConvertInputtoplayer_who_start(s);
-        whoWins = Problem.ConvertInputtoplayer_who_has_to_win(s);
-        N = Problem.ConvertInputtonumber_of_play(s);
-        handleGame(FEN,whoStarts,whoWins,N);
+        load_problem(l);
     }
 
     private static void hard_problems() throws CloneNotSupportedException, IOException {
         List<String> l = Problem.load_problem_fromBD_Hard_Mode();
+        load_problem(l);
+    }
+
+    private static void load_problem(List<String> l) throws CloneNotSupportedException, IOException {
         for(int i = 0; i < l.size(); i++) {
             System.out.println(i + " : " +l.get(i));
         }

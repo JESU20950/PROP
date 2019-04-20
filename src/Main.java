@@ -101,21 +101,21 @@ public class Main {
         }
     }
 }*/
-    private static void error_choice() throws CloneNotSupportedException, IOException {
+    private static void error_choice() {
         System.out.println("Error, this option is not available");
         System.exit(1);
     }
 
-    private static void quit() throws CloneNotSupportedException, IOException {
+    private static void quit() {
         System.exit(0);
     }
 
-    private static void ranking() throws CloneNotSupportedException, IOException {
+    private static void ranking() {
         System.out.println("Feature not available yet");
         System.exit(0);
     }
 
-    private static void player_vs_player(Game g) throws CloneNotSupportedException, IOException {
+    private static void player_vs_player(Game g) throws CloneNotSupportedException {
         Scanner sc = new Scanner(System.in);
         System.out.println("Select your option by writting the number");
         System.out.print("Enter Player1's name: ");
@@ -141,9 +141,9 @@ public class Main {
         sc.nextLine();
         String move;
         g.getTable().print_table();
-        System.out.println(g.getTable().checkmate(false) + " " + g.getTable().checkmate(true) + " " + g.getTable().check(true) + " " + g.getTable().check(false));
+        //System.out.println(g.getTable().checkmate(false) + " " + g.getTable().checkmate(true) + " " + g.getTable().check(true) + " " + g.getTable().check(false));
         while (g.getNumber_of_play() > 0 && !g.getTable().checkmate(false) && !g.getTable().checkmate(true)) {
-            boolean error = false;
+            boolean error;
             System.out.println("Hola");
             if (g.getPlayer_who_plays()) {
                 g.getTable().print_table();

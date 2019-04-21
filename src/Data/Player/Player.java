@@ -10,6 +10,10 @@ public abstract class Player {
     protected String name;
     public Table t;
 
+    public Player() {
+
+    }
+
     public Table getTable() {
         return t;
     }
@@ -19,12 +23,9 @@ public abstract class Player {
     }
 
     public boolean correct_piece(Table t, int i, int j) {
+        if (i < 0 || i >= 8 || j < 0 || j>= 8) return false;
         Cell[][] c = t.getTable();
         return c[i][j].getPiece().getColor() == color;
-    }
-
-    public Player() {
-
     }
 
     public void setColor(boolean color) {
@@ -34,4 +35,6 @@ public abstract class Player {
     public boolean getColor() {
         return color;
     }
+
+    public abstract void move_piece(Table t);
 }

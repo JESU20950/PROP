@@ -9,8 +9,12 @@ import java.util.List;
 
 
 public class Machine1 extends Player{
-    public Machine1(){
+    public Machine1() {
         super.name = "Machine1";
+    }
+
+    public void move_piece(Table t) {
+
     }
 
     public List<List<Cell>> todosMovimientosPosibles(Table t){

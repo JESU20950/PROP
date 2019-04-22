@@ -36,15 +36,27 @@ public class Human extends Player{
     }
 
     public void move_piece(Table t) {
-        t.print_table();
-        if (super.color) System.out.println("White Team turn");
-        else System.out.println("Black Team turn");
-        System.out.print("Choose the piece to move: ");
         Scanner sc = new Scanner(System.in);
-        String s = sc.nextLine();
-        int[] origen = getPosition(s);
-        System.out.println(origen[0] + " " + origen[1]);
-
+        boolean error = true;
+        while (error) {
+            t.print_table();
+            if (super.color) System.out.println("White Team turn");
+            else System.out.println("Black Team turn");
+            System.out.print("Choose the piece to move: ");
+            String s = sc.nextLine();
+            int[] origen = getPosition(s);
+            error = !correct_piece(t, origen[0], origen[1]);
+            if (!error) {
+                System.out.println("Choose the destination: ");
+                s = sc.nextLine();
+                int[] destino = getPosition(s);
+                error = !t.CorrectMove(origen[0], origen[1], destino[0], destino[1]);
+                if (!error) t.MovePiece(origen[0], origen[1], destino[0], destino[1]);
+                else System.out.println("Wrong move, try again!");
+            }
+            else System.out.println("Wrong piece, try again!");
+        }
+        t.print_table();
     }
 
         /*

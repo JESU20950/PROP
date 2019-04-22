@@ -22,10 +22,9 @@ public abstract class Player {
         return false;
     }
 
-    public boolean correct_piece(Table t, int i, int j) {
-        if (i < 0 || i >= 8 || j < 0 || j>= 8) return false;
+    protected boolean correct_piece(Table t, int i, int j) {
         Cell[][] c = t.getTable();
-        return c[i][j].getPiece().getColor() == color;
+        return (i >= 0 && i < 8 && j >= 0 && j < 8) && c[i][j].getPiece() != null && c[i][j].getPiece().getColor() == color;
     }
 
     public void setColor(boolean color) {

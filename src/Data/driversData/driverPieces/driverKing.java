@@ -56,7 +56,7 @@ public class driverKing {
         p.updateMovement(c, co);
         List<Cell> movement = p.getMovement();
         Problem.print_list_of_movements(movement, "King");
-        t.MovePiece1(io, jo, id, jd);
+        t.MovePiece(io, jo, id, jd);
         t.print_table();
         c = t.getTable();
         Cell cd = new Cell();

@@ -38,7 +38,7 @@ public class driverTable {
         private static void test_MovePiece(Table t, int io, int jo, int id, int jd) {
             System.out.println("Testing MovePiece (if CorrectMove) ... ");
             boolean b = t.CorrectMove(io, jo, id, jd);
-            if (b) t.MovePiece1(io, jo, id, jd);
+            if (b) t.MovePiece(io, jo, id, jd);
             t.print_table();
         }
 

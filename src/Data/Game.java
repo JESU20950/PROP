@@ -44,7 +44,7 @@ public class Game {
     }
 
     public void graphic_move_and_internal_move(int i_origen, int j_origen, int i_destino, int j_destino){
-        if (!table.MovePiece(i_origen, j_origen, i_destino, j_destino)) return;
+        if (!table.CorrectMove(i_origen, j_origen, i_destino, j_destino)) return;
         gameInterface.getChessBoard()[i_destino][j_destino].setIcon(gameInterface.getChessBoard()[i_origen][j_origen].getIcon());
         gameInterface.getChessBoard()[i_origen][j_origen].setIcon(null);
         gameInterface.getChessBoard()[i_origen][j_origen].paint_cell();

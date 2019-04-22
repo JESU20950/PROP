@@ -199,7 +199,7 @@ public class Problem {
                     aux.print_table();
                     System.out.println(i_destino + " " + j_destino + ": " + b);
                     if (aux.CorrectMove(i_origen, j_origen, i_destino, j_destino)) {
-                        aux.MovePiece1(i_origen, j_origen, i_destino, j_destino);
+                        aux.MovePiece(i_origen, j_origen, i_destino, j_destino);
                         b = b || achieve_the_goal(aux, !player_who_start, number_of_play - 1, player_who_has_to_win);
                     }
                     aux.print_table();
@@ -224,7 +224,7 @@ public class Problem {
                     aux.print_table();
                     System.out.println(i_destino + " " + j_destino + ": " + b);
                     if (aux.CorrectMove(i_origen, j_origen, i_destino, j_destino)) {
-                        aux.MovePiece1(i_origen, j_origen, i_destino, j_destino);
+                        aux.MovePiece(i_origen, j_origen, i_destino, j_destino);
                         b = b && achieve_the_goal(aux, !player_who_start, number_of_play - 1, player_who_has_to_win);
                     }
                     aux.print_table();

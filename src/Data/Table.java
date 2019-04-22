@@ -153,32 +153,10 @@ public class Table implements Cloneable {
         return true;
     }
 
-    public void MovePiece1(int i_origen, int j_origen, int i_destino, int j_destino) {
+    public void MovePiece(int i_origen, int j_origen, int i_destino, int j_destino) {
         table[i_destino][j_destino].setPiece(table[i_origen][j_origen].getPiece());
         table[i_origen][j_origen].setPiece(null);
         update_all_pieces_movement();
-    }
-
-    public boolean MovePiece(int i_origen, int j_origen, int i_destino, int j_destino) {
-        if (i_origen >= 8 || j_origen >= 8 || j_destino >= 8 || j_destino >= 8 || i_origen <= -1 || j_origen <= -1 || j_destino <= -1 || j_destino <= -1) {
-            return false;
-
-        }
-        if (table[i_origen][j_origen].getPiece() == null){
-
-            return false;
-        }
-        if (!table[i_origen][j_origen].getPiece().correct_movement(table, table[i_origen][j_origen], table[i_destino][j_destino])){
-            return false;
-
-        }
-        //operacio moure en el domini
-        table[i_destino][j_destino].setPiece(table[i_origen][j_origen].getPiece());
-        table[i_origen][j_origen].setPiece(null);
-        update_all_pieces_movement();
-
-        //operacio moure graficamente
-        return true;
     }
 
 

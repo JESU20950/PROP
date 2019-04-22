@@ -174,20 +174,18 @@ public class Problem {
 
         List<Piece> pieces2 = t.getPieces(player_turn);
         pieces2 = t.getPieces(player_turn);
-        print_list_of_pieces(pieces2);
+        //print_list_of_pieces(pieces2);
         if (number_of_play == 0) return t.checkmate(player_who_has_to_win, true) && t.checkmate(player_who_has_to_win, false);
         if (number_of_play > 0) {
-            Table aux2 = new Table();
-            aux2.setTable(t.getTable());
-            if (aux2.checkmate(player_who_has_to_win, player_turn)) {
+            if (t.checkmate(player_who_has_to_win, player_turn)) {
                 return true;
             }
             //print_list_of_pieces(pieces2);
-            if (aux2.checkmate(!player_who_has_to_win, player_turn)) return false;
+            if (t.checkmate(!player_who_has_to_win, player_turn)) return false;
             //print_list_of_pieces(pieces2);
-            /*if (player_who_has_to_win == player_turn){
+            if (player_who_has_to_win == player_turn){
                 List<Piece> pieces = t.getPieces(player_turn);
-                print_list_of_pieces(pieces);
+                //print_list_of_pieces(pieces);
                 for (int i = 0; i<pieces.size(); ++i){
                     List<Cell> movement = pieces.get(i).getMovement();
                     int i_origen = pieces.get(i).getPosition().getI();
@@ -199,7 +197,6 @@ public class Problem {
                         aux.setTable(t.getTable());
                         if (aux.CorrectMove(i_origen, j_origen, i_destino, j_destino)){
                             aux.MovePiece(i_origen, j_origen, i_destino, j_destino);
-                            aux.print_table();
                             if (achieve_the_goal(aux,!player_turn,number_of_play-1,player_who_has_to_win))return true;
                         }
                     }
@@ -225,7 +222,6 @@ public class Problem {
                 return true;
             }
 
-        }*/
         }
         return false;
         /*

@@ -142,10 +142,63 @@ public class Table implements Cloneable {
         for (int i = 0; i < 8; ++i) {
             for (int j = 0; j < 8; ++j) {
                 this.table[i][j] = new Cell();
-                this.table[i][j] = (Cell) table[i][j].clone();
-
+                this.table[i][j].setJ(j);
+                this.table[i][j].setI(i);
+                if (table[i][j].getPiece() != null){
+                    switch (table[i][j].getPiece().getName()) {
+                        case "k":
+                            King k = new King(false);
+                            this.table[i][j].setPiece(k);
+                            break;
+                        case "q":
+                            Queen q = new Queen(false);
+                            this.table[i][j].setPiece(q);
+                            break;
+                        case "r":
+                            Rook r = new Rook(false);
+                            this.table[i][j].setPiece(r);
+                            break;
+                        case "b":
+                            Bishop b = new Bishop(false);
+                            this.table[i][j].setPiece(b);
+                            break;
+                        case "n":
+                            Knight n = new Knight(false);
+                            this.table[i][j].setPiece(n);
+                            break;
+                        case "p":
+                            Pawn p = new Pawn(false);
+                            this.table[i][j].setPiece(p);
+                            break;
+                        case "K":
+                            King K = new King(true);
+                            this.table[i][j].setPiece(K);
+                            break;
+                        case "Q":
+                            Queen Q = new Queen(true);
+                            this.table[i][j].setPiece(Q);
+                            break;
+                        case "R":
+                            Rook R = new Rook(true);
+                            this.table[i][j].setPiece(R);
+                            break;
+                        case "B":
+                            Bishop B = new Bishop(true);
+                            this.table[i][j].setPiece(B);
+                            break;
+                        case "N":
+                            Knight N = new Knight(true);
+                            this.table[i][j].setPiece(N);
+                            break;
+                        case "P":
+                            Pawn P = new Pawn(true);
+                            this.table[i][j].setPiece(P);
+                            break;
+                    }
+                }
             }
         }
+        this.update_all_pieces_movement();
     }
 
     public boolean CorrectMove(int i_origen, int j_origen, int i_destino, int j_destino) {
@@ -226,7 +279,7 @@ public class Table implements Cloneable {
         if (player_turn == player && this.check(player)) return true;
         if (player_turn == !player && this.check(!player)) return false;
         List<Piece> pieces = getPieces(!player);
-        print_list_of_pieces(pieces);
+        //print_list_of_pieces(pieces);
 
         int i = 0;
         while (i < pieces.size()) {
@@ -239,10 +292,12 @@ public class Table implements Cloneable {
                 int i_destino = movements.get(j).getI();
                 int j_destino = movements.get(j).getJ();
                 Table aux = new Table();
-                aux.setTable(this.table);
+                aux.setTable(table);
                 if (aux.CorrectMove(i_origen, j_origen, i_destino, j_destino)) {
                     aux.MovePiece(i_origen, j_origen, i_destino, j_destino);
-                    if (!aux.check(player)) return false;
+                    if (!aux.check(player)){
+                        return false;
+                    }
                 }
                 //System.out.println(i_destino + " " + j_destino + ": " + b);
                 //aux.print_table();

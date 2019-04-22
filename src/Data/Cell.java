@@ -2,7 +2,7 @@ package Data;
 
 import Data.Pieces.*;
 
-public class Cell implements Cloneable{
+public class Cell {
 
     private Piece piece;
 
@@ -37,7 +37,4 @@ public class Cell implements Cloneable{
         return j;
     }
 
-    public Object clone() throws CloneNotSupportedException {
-        return super.clone();
-    }
 }

@@ -347,7 +347,7 @@ public class Main {
         //start_menu();
         Table t = new Table("2kr4/8/8/8/Q7/6B1/6K1/8");
         t.print_table();
-        System.out.println(achieve_the_goal(t,true,2,true));
+        System.out.println(achieve_the_goal(t,false,2,true));
         //+ " " + achieve_the_goal(t,false,2,true) + " " + achieve_the_goal(t,true,2,false) + " " +achieve_the_goal(t,false,2,false)
         //System.out.println(t.checkmate(true,true) + " " + t.checkmate(true,false) + " " + t.checkmate(false,true) + " " + t.checkmate(false,false));
     }

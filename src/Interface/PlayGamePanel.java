@@ -76,7 +76,7 @@ public class PlayGamePanel extends JPanel {
             panel.setLayout( new BorderLayout());
             List<String> problem = new ArrayList<String >();
             try {
-                problem = Problem.load_problem_fromBD_Hard_Mode();
+                problem = Problem.load_problem_fromBD("BD_HARDMODE");
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -107,7 +107,7 @@ public class PlayGamePanel extends JPanel {
             panel.setLayout( new BorderLayout());
             List<String> problem = new ArrayList<String >();
             try {
-                problem = Problem.load_problem_fromBD_Easy_Mode();
+                problem = Problem.load_problem_fromBD("BD_EASYMODE");
             } catch (IOException e) {
                 e.printStackTrace();
             }

@@ -1,6 +1,7 @@
 package Data.driversData;
 
 import java.io.IOException;
+import java.time.Instant;
 import java.util.List;
 import java.util.Scanner;
 
@@ -9,17 +10,21 @@ import Data.Pieces.Piece;
 import Data.Problem;
 import Data.Table;
 
+import javax.print.DocFlavor;
+
+import static Data.Problem.*;
+
 public class driverProblem {
 
     private static void test_load_problem_fromBD_Easy_Mode()throws IOException {
-        List<String> l = Problem.load_problem_fromBD_Easy_Mode();
+        List<String> l = Problem.load_problem_fromBD("BD_EASYMODE");
         for(int i = 0; i < l.size(); i++){
             System.out.println(l.get(i));
         }
     }
 
     private static void test_load_problem_fromBD_Hard_Mode()throws IOException {
-        List<String> l = Problem.load_problem_fromBD_Hard_Mode();
+        List<String> l = Problem.load_problem_fromBD("BD_HARDMODE");
         for(int i = 0; i < l.size(); i++){
             System.out.println(l.get(i));
         }
@@ -61,7 +66,7 @@ public class driverProblem {
         Problem.print_list_of_movements(m,name);
     }
 
-    public static void main(String[] args) throws CloneNotSupportedException, IOException {
+    public static void main(String[] args) throws CloneNotSupportedException, IOException, InterruptedException {
         Scanner sc = new Scanner(System.in);
         System.out.println("Print of easy problems");
         test_load_problem_fromBD_Easy_Mode();
@@ -116,5 +121,43 @@ public class driverProblem {
             test_print_list_of_movements(pi.getMovement(),pi.getName());
         }
         System.out.println();
+        test_marks_of_problem();
+        test_introduce_user_result();
+        testintroduce_problem_toBD();
+    }
+
+    private static void testintroduce_problem_toBD() throws IOException {
+        System.out.println("Test introduce problem to BD");
+        System.out.println("Introducir FEN");
+        Scanner sc = new Scanner(System.in);
+        String FEN = sc.nextLine();
+        introduce_problem_toBD(ConvertInputtoFEN(FEN),ConvertInputtoplayer_who_start(FEN), ConvertInputtoplayer_who_has_to_win(FEN), ConvertInputtonumber_of_play(FEN));
+    }
+
+    private static void test_marks_of_problem() throws IOException {
+        System.out.println("Test marks of problem");
+        System.out.println("Introducir FEN");
+        Scanner sc = new Scanner(System.in);
+        String FEN = sc.nextLine();
+        List <String> result = marks_of_problem(FEN);
+        for (int i = 0; i<result.size(); ++i){
+            System.out.println(result.get(i));
+        }
+    }
+    private static void test_introduce_user_result() throws InterruptedException, IOException {
+        System.out.println("Test introduce user result");
+        System.out.println("Introducir FEN: ");
+        Scanner sc = new Scanner(System.in);
+        String FEN = sc.nextLine();
+        System.out.println("Introduce a time duration of game");
+        sc = new Scanner(System.in);
+        int s = sc.nextInt();
+        Instant instant_start = Instant.now();
+        Thread.sleep(s);
+        Instant instant_end_of_game = Instant.now();
+        System.out.println("Introduce a username");
+        sc = new Scanner(System.in);
+        String username = sc.nextLine();
+        introduce_user_result(FEN,username, instant_start,instant_end_of_game);
     }
 }

@@ -91,7 +91,6 @@ public class driverTable {
             System.out.println("Choose the team who has checkmate: ");
             boolean b = sc.nextBoolean();
             t.print_table();
-            System.out.println(t.checkmate(b));
         }
 
         public static void main(String[] args) throws CloneNotSupportedException{

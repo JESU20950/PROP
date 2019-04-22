@@ -1,21 +1,14 @@
-import Data.Cell;
 import Data.Game;
 import Data.Player.*;
 import Data.Problem;
 import Data.Table;
-import Interface.FrameProgram;
-import Interface.MainInterface;
 
-import javax.swing.*;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
+
 import java.util.Scanner;
 import java.util.List;
 
 
-import java.awt.*;
-import java.awt.event.*;
 
 import static Data.Problem.*;
 import static java.lang.System.exit;
@@ -95,8 +88,7 @@ public class Main {
         g.setPlayer2(p2);
         sc.nextLine();
         String move;
-        //System.out.println(g.getTable().checkmate(false) + " " + g.getTable().checkmate(true) + " " + g.getTable().check(true) + " " + g.getTable().check(false));
-        while (g.getNumber_of_play() > 0 && !g.getTable().checkmate(false) && !g.getTable().checkmate(true)) {
+            while (g.getNumber_of_play() > 0 && !g.getTable().checkmate(true,true) && !g.getTable().checkmate(true,false) && !g.getTable().checkmate(false,true) && !g.getTable().checkmate(false, false)) {
             boolean error;
             if (g.getPlayer_who_plays()) {
                 g.getTable().print_table();
@@ -352,6 +344,11 @@ public class Main {
     }
 
     public static void main(String[] args) throws CloneNotSupportedException, IOException {
-        start_menu();
+        //start_menu();
+        Table t = new Table("2kr4/8/8/8/Q7/6B1/6K1/8");
+        t.print_table();
+        System.out.println(achieve_the_goal(t,true,2,true));
+        //+ " " + achieve_the_goal(t,false,2,true) + " " + achieve_the_goal(t,true,2,false) + " " +achieve_the_goal(t,false,2,false)
+        //System.out.println(t.checkmate(true,true) + " " + t.checkmate(true,false) + " " + t.checkmate(false,true) + " " + t.checkmate(false,false));
     }
 }

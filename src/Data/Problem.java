@@ -147,11 +147,7 @@ public class Problem {
         return FEN + " " + player_who_startString + " " + player_who_has_to_winString + " " + number_of_play;
     }
 
-    static public boolean isCorrectProblem(String FEN,boolean player_who_start,boolean player_who_has_to_win,int number_of_play) throws CloneNotSupportedException{
-        FEN = ConvertInputtoFEN(FEN);
-        Table t = new Table(FEN);
-        return achieve_the_goal(t,player_who_start,number_of_play,player_who_has_to_win);
-    }
+
 
     static public void print_list_of_pieces(List<Piece> p) {
         for (int i = 0; i < p.size(); ++i) System.out.println(p.get(i).getName() + ": (" + p.get(i).getPosition().getI() + ", " + p.get(i).getPosition().getJ() + ")");
@@ -168,107 +164,75 @@ public class Problem {
         System.out.println();
     }
 
-    static public boolean achieve_the_goal(Table t, boolean player_who_start, int number_of_play, boolean player_who_has_to_win) throws CloneNotSupportedException{
-        Table aux = new Table();
-        aux.setTable(t.getTable());
-        aux.print_table();
-        if (player_who_start) System.out.print("white");
-        else System.out.print("black");
-        System.out.println(" " + number_of_play);
-        List<Piece> pieces = aux.getPieces(player_who_start);
-        print_list_of_pieces(pieces);
-        if (number_of_play > 0 && player_who_has_to_win == player_who_start && aux.checkmate(player_who_has_to_win)) return true;
-        if (number_of_play <= 0) return false;
-        List<Piece> pieces2 = aux.getPieces(player_who_start);
-        System.out.println("HOLA");
-        aux.print_table();
-        print_list_of_pieces(pieces2);
-        boolean b;
-        if (player_who_start == player_who_has_to_win) {
-            b = false;
-            int i = 0;
-            while (!b && i < pieces.size()) {
-                List<Cell> movement = pieces.get(i).getMovement();
-                print_list_of_movements(movement, pieces.get(i).getName());
-                int i_origen = pieces.get(i).getPosition().getI();
-                int j_origen = pieces.get(i).getPosition().getJ();
-                int j = 0;
-                while (!b && j < movement.size()) {
-                    int i_destino = movement.get(j).getI();
-                    int j_destino = movement.get(j).getJ();
-                    aux.print_table();
-                    System.out.println(i_destino + " " + j_destino + ": " + b);
-                    if (aux.CorrectMove(i_origen, j_origen, i_destino, j_destino)) {
-                        aux.MovePiece(i_origen, j_origen, i_destino, j_destino);
-                        b = b || achieve_the_goal(aux, !player_who_start, number_of_play - 1, player_who_has_to_win);
-                    }
-                    aux.print_table();
-                    System.out.println(i_destino + " " + j_destino + ": " + b);
-                    ++j;
-                }
-                ++i;
-            }
-        }
-        else {
-            b = true;
-            int i = 0;
-            while (b && i < pieces.size()) {
-                List<Cell> movement = pieces.get(i).getMovement();
-                print_list_of_movements(movement, pieces.get(i).getName());
-                int i_origen = pieces.get(i).getPosition().getI();
-                int j_origen = pieces.get(i).getPosition().getJ();
-                int j = 0;
-                while (b && j < movement.size()) {
-                    int i_destino = movement.get(j).getI();
-                    int j_destino = movement.get(j).getJ();
-                    aux.print_table();
-                    System.out.println(i_destino + " " + j_destino + ": " + b);
-                    if (aux.CorrectMove(i_origen, j_origen, i_destino, j_destino)) {
-                        aux.MovePiece(i_origen, j_origen, i_destino, j_destino);
-                        b = b && achieve_the_goal(aux, !player_who_start, number_of_play - 1, player_who_has_to_win);
-                    }
-                    aux.print_table();
-                    System.out.println(i_destino + " " + j_destino + ": " + b);
-                    ++j;
-                }
-                ++i;
-            }
-        }
-        return b;
+    static public boolean isCorrectProblem(String FEN,boolean player_who_start,boolean player_who_has_to_win,int number_of_play) throws CloneNotSupportedException{
+        FEN = ConvertInputtoFEN(FEN);
+        Table t = new Table(FEN);
+        return achieve_the_goal(t,player_who_start,number_of_play,player_who_has_to_win);
+    }
 
-        /*if (player_who_start == player_who_has_to_win) {
-            boolean b = false;
-            for (int i = 0; i < pieces.size(); ++i) {
-                List<Cell> movement = pieces.get(i).getMovement();
-                print_list_of_movements(movement, pieces.get(i).getName());
-                int i_origen = pieces.get(i).getPosition().getI();
-                int j_origen = pieces.get(i).getPosition().getJ();
-                for (int j = 0; j < movement.size(); ++j) {
-                    int i_destino = movement.get(j).getI();
-                    int j_destino = movement.get(j).getJ();
-                    if (aux.MovePiece(i_origen, j_origen, i_destino, j_destino)) {
-                        b = b || achieve_the_goal(aux, !player_who_has_to_win, number_of_play - 1, player_who_has_to_win);
+    static public boolean achieve_the_goal(Table t, boolean player_turn, int number_of_play, boolean player_who_has_to_win) throws CloneNotSupportedException{
+
+        List<Piece> pieces2 = t.getPieces(player_turn);
+        pieces2 = t.getPieces(player_turn);
+        print_list_of_pieces(pieces2);
+        if (number_of_play == 0) return t.checkmate(player_who_has_to_win, true) && t.checkmate(player_who_has_to_win, false);
+        if (number_of_play > 0) {
+            Table aux2 = new Table();
+            aux2.setTable(t.getTable());
+            if (aux2.checkmate(player_who_has_to_win, player_turn)) {
+                return true;
+            }
+            //print_list_of_pieces(pieces2);
+            if (aux2.checkmate(!player_who_has_to_win, player_turn)) return false;
+            //print_list_of_pieces(pieces2);
+            /*if (player_who_has_to_win == player_turn){
+                List<Piece> pieces = t.getPieces(player_turn);
+                print_list_of_pieces(pieces);
+                for (int i = 0; i<pieces.size(); ++i){
+                    List<Cell> movement = pieces.get(i).getMovement();
+                    int i_origen = pieces.get(i).getPosition().getI();
+                    int j_origen = pieces.get(i).getPosition().getJ();
+                    for (int j = 0; j<movement.size(); ++j){
+                        int i_destino = movement.get(j).getI();
+                        int j_destino = movement.get(j).getJ();
+                        Table aux = new Table();
+                        aux.setTable(t.getTable());
+                        if (aux.CorrectMove(i_origen, j_origen, i_destino, j_destino)){
+                            aux.MovePiece(i_origen, j_origen, i_destino, j_destino);
+                            aux.print_table();
+                            if (achieve_the_goal(aux,!player_turn,number_of_play-1,player_who_has_to_win))return true;
+                        }
                     }
                 }
-            }
-            return b;
-        } else {
-            boolean b = true;
-            for (int i = 0; i < pieces.size(); ++i) {
-                List<Cell> movement = pieces.get(i).getMovement();
-                print_list_of_movements(movement, pieces.get(i).getName());
-                int i_origen = pieces.get(i).getPosition().getI();
-                int j_origen = pieces.get(i).getPosition().getJ();
-                for (int j = 0; j < movement.size(); ++j) {
-                    int i_destino = movement.get(j).getI();
-                    int j_destino = movement.get(j).getJ();
-                    if (aux.MovePiece(i_origen, j_origen, i_destino, j_destino)) {
-                        b = b && achieve_the_goal(aux, !player_who_has_to_win, number_of_play - 1, player_who_has_to_win);
+                return false;
+            }else{
+                List<Piece> pieces = t.getPieces(player_turn);
+                for (int i = 0; i<pieces.size(); ++i){
+                    List<Cell> movement = pieces.get(i).getMovement();
+                    int i_origen = pieces.get(i).getPosition().getI();
+                    int j_origen = pieces.get(i).getPosition().getJ();
+                    for (int j = 0; j<movement.size(); ++j){
+                        int i_destino = movement.get(j).getI();
+                        int j_destino = movement.get(j).getJ();
+                        Table aux = new Table();
+                        aux.setTable(t.getTable());
+                        if (aux.CorrectMove(i_origen, j_origen, i_destino, j_destino)){
+                            aux.MovePiece(i_origen, j_origen, i_destino, j_destino);
+                            if (!achieve_the_goal(aux,!player_turn,number_of_play-1,player_who_has_to_win))return false;
+                        }
                     }
                 }
+                return true;
             }
-            return b;
+
         }*/
+        }
+        return false;
+        /*
+        if (number_of_play == 0){
+            return t.checkmate(player_who_has_to_win, player_turn);
+        }
+         */
     }
     public static List<String> load_problem_fromBD(String name_of_file) throws IOException {
         File file = new File(name_of_file);

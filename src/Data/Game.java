@@ -1,7 +1,7 @@
 package Data;
 
 import Data.Player.Player;
-import Interface.GameInterface;
+
 
 import java.io.IOException;
 import java.time.Instant;
@@ -10,7 +10,7 @@ import static Data.Problem.*;
 
 
 public class Game {
-    private GameInterface gameInterface;
+    //private GameInterface gameInterface;
     private int number_of_play;
     private Table table;
     private boolean player_who_plays;
@@ -39,7 +39,7 @@ public class Game {
     public boolean getPlayer_who_plays() {
         return player_who_plays;
     }
-
+    /*
     public void graphic_move_and_internal_move(int i_origen, int j_origen, int i_destino, int j_destino){
         if (!table.CorrectMove(i_origen, j_origen, i_destino, j_destino)) return;
         gameInterface.getChessBoard()[i_destino][j_destino].setIcon(gameInterface.getChessBoard()[i_origen][j_origen].getIcon());
@@ -54,6 +54,8 @@ public class Game {
             e.printStackTrace();
         }
     }
+    */
+
     public boolean getPlayer_who_has_to_win() {
         return player_who_has_to_win;
     }
@@ -80,11 +82,11 @@ public class Game {
         this.player_who_plays = player_who_plays;
         //gameInterface.setPlayer_who_plays_label(player_who_plays);
     }
-
+    /*
     public void setGameInterface(GameInterface gameInterface) {
         this.gameInterface = gameInterface;
     }
-
+    */
     public void setPlayer_who_has_to_win(boolean player_who_has_to_win) {
         this.player_who_has_to_win = player_who_has_to_win;
     }
@@ -104,16 +106,12 @@ public class Game {
     public void setPlayer2(Player player2) {
         this.player2 = player2;
     }
-
+    /*
     public void endofgame() throws Exception {
         if(number_of_play == 0 || table.checkmate(true) || table.checkmate( false)) gameInterface.dialaog_end_of_game();
     }
-    public boolean getplayerwhowins() throws CloneNotSupportedException {
-        if (table.checkmate(true)) return false;
-        else if (table.checkmate(false)) return true;
-        else if (number_of_play == 0 && table.checkmate(!player_who_has_to_win)) return player_who_has_to_win;
-        else return !player_who_has_to_win;
-    }
+     */
+
     public Player getPlayerwhoplays(){
         if (player_who_plays) return player1;
         else return player2;

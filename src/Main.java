@@ -50,12 +50,12 @@ public class Main {
 
     }
     private static void easy_problems_ranking() throws CloneNotSupportedException, IOException {
-        List<String> l = Problem.load_problem_fromBD_Easy_Mode();
+        List<String> l = Problem.load_problem_fromBD("BD_EASYMODE");
         load_problem_ranking(l);
     }
 
     private static void hard_problems_ranking() throws CloneNotSupportedException, IOException {
-        List<String> l = Problem.load_problem_fromBD_Hard_Mode();
+        List<String> l = Problem.load_problem_fromBD("BD_HARDMODE");
         load_problem_ranking(l);
     }
     private static void ranking() throws IOException, CloneNotSupportedException {
@@ -282,12 +282,12 @@ public class Main {
 }
 
     private static void easy_problems() throws CloneNotSupportedException, IOException {
-        List<String> l = Problem.load_problem_fromBD_Easy_Mode();
+        List<String> l = Problem.load_problem_fromBD("BD_EASYMODE");
         load_problem(l);
     }
 
     private static void hard_problems() throws CloneNotSupportedException, IOException {
-        List<String> l = Problem.load_problem_fromBD_Hard_Mode();
+        List<String> l = Problem.load_problem_fromBD("BD_HARDMODE");
         load_problem(l);
     }
 

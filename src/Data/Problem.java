@@ -270,9 +270,8 @@ public class Problem {
             return b;
         }*/
     }
-
-    public static List<String> load_problem_fromBD_Easy_Mode() throws IOException {
-        File file = new File("BD_EASYMODE");
+    public static List<String> load_problem_fromBD(String name_of_file) throws IOException {
+        File file = new File(name_of_file);
         FileReader fr = new FileReader(file);
         BufferedReader br = new BufferedReader(fr);
         List <String> result = new ArrayList<String >();
@@ -284,18 +283,6 @@ public class Problem {
         return result;
     }
 
-    public static List<String> load_problem_fromBD_Hard_Mode() throws IOException{
-        File file = new File("BD_HARDMODE");
-        FileReader fr = new FileReader(file);
-        BufferedReader br = new BufferedReader(fr);
-        List <String> result = new ArrayList<String >();
-        String linea;
-        while ((linea = br.readLine()) != null) {
-            result.add(linea);
-        }
-        fr.close();
-        return result;
-    }
 
     public static List<String> marks_of_problem(String FEN) throws IOException {
         File file = new File(create_file_name(FEN));
@@ -312,34 +299,37 @@ public class Problem {
         return result;
     }
     public static void introduce_problem_toBD(String FEN,boolean player_who_start,boolean player_who_has_to_win,int number_of_play) throws IOException{
-        FileWriter file = new FileWriter("BD");
+        FileWriter file = new FileWriter("BD_USERPROBLEMS",true);
+        PrintWriter pw  = new PrintWriter (file);
+        pw.println(convertParameterstoFEN(FEN,player_who_start,player_who_has_to_win,number_of_play));
+        pw.close();
     }
 
 
-    public static long getdurationofplayer(String line){
+    private static long getdurationofplayer(String line){
         int i = 0;
         while (line.charAt(i) != ' ') ++i;
-        while (line.charAt(i) == '-') ++i;
+        while (line.charAt(i) == ' ') ++i;
         StringBuilder str = new StringBuilder(line);
         str.delete(0,i);
         String input = str.toString();
         return Long.valueOf(input);
     }
-    public static String create_file_name(String FEN){
+    private static String create_file_name(String FEN){
         return FEN.replaceAll("/", "-");
     }
     public static void introduce_user_result(String FEN, String username, Instant now, Instant end_of_game) throws IOException {
        long duration_of_game = Duration.between(now, end_of_game).toMillis();
+        List <String> output = marks_of_problem(FEN);
        FileWriter file = new FileWriter(create_file_name(FEN));
        PrintWriter pw  = new PrintWriter (file);
-       List <String> output = marks_of_problem(FEN);
        boolean added = false;
        for (int i = 0; i<output.size(); ++i){
-            if(getdurationofplayer(output.get(i))  < duration_of_game){
+            if(getdurationofplayer(output.get(i))  > duration_of_game && !added){
                 pw.println(username + " " + duration_of_game);
                 pw.println(output.get(i));
-                added = false;
-            }
+                added = true;
+            }else pw.println(output.get(i));
        }
        if (!added) pw.println(username + " " + duration_of_game);
        pw.close();

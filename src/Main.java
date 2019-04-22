@@ -14,6 +14,7 @@ import java.util.Scanner;
 import java.util.List;
 
 
+
 import java.awt.*;
 import java.awt.event.*;
 
@@ -244,6 +245,7 @@ public class Main {
 
     private static void introduceFEN() throws CloneNotSupportedException, IOException {
         Scanner sc = new Scanner(System.in);
+        System.out.println("Now introduce your FEN: ");
         String s = sc.nextLine();
         boolean b = iscorrectFen(s);
         while (!b) {

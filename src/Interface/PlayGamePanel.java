@@ -1,13 +1,10 @@
 package Interface;
 
-import Data.Player.Player;
 import Data.Problem;
-import Data.Ranking;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;

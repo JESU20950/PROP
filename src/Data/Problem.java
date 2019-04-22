@@ -3,9 +3,14 @@ package Data;
 
 
 import java.io.*;
+import java.time.Duration;
+import java.time.Instant;
+import java.time.temporal.JulianFields;
 import java.util.*;
 
 import Data.Pieces.Piece;
+
+import javax.print.DocFlavor;
 
 
 public class Problem {
@@ -131,6 +136,15 @@ public class Problem {
         str.delete(0,w);
         input = str.toString();
         return Integer.parseInt(input);
+    }
+    static public String convertParameterstoFEN(String FEN, boolean player_who_start, boolean player_who_has_to_win, int number_of_play){
+        String player_who_startString;
+        String player_who_has_to_winString;
+        if (player_who_start) player_who_startString = "w";
+        else player_who_startString = "b";
+        if (player_who_has_to_win) player_who_has_to_winString = "w";
+        else player_who_has_to_winString = "b";
+        return FEN + " " + player_who_startString + " " + player_who_has_to_winString + " " + number_of_play;
     }
 
     static public boolean isCorrectProblem(String FEN,boolean player_who_start,boolean player_who_has_to_win,int number_of_play) throws CloneNotSupportedException{
@@ -266,6 +280,7 @@ public class Problem {
         while ((linea = br.readLine()) != null) {
             result.add(linea);
         }
+        fr.close();
         return result;
     }
 
@@ -278,10 +293,56 @@ public class Problem {
         while ((linea = br.readLine()) != null) {
             result.add(linea);
         }
+        fr.close();
         return result;
     }
 
+    public static List<String> marks_of_problem(String FEN) throws IOException {
+        File file = new File(create_file_name(FEN));
+        List<String> result = new ArrayList<String>();
+        if (file.exists()) {
+            FileReader fr = new FileReader(file);
+            BufferedReader br = new BufferedReader(fr);
+            String linea;
+            while ((linea = br.readLine()) != null) {
+                result.add(linea);
+            }
+            fr.close();
+        }
+        return result;
+    }
     public static void introduce_problem_toBD(String FEN,boolean player_who_start,boolean player_who_has_to_win,int number_of_play) throws IOException{
         FileWriter file = new FileWriter("BD");
     }
+
+
+    public static long getdurationofplayer(String line){
+        int i = 0;
+        while (line.charAt(i) != ' ') ++i;
+        while (line.charAt(i) == '-') ++i;
+        StringBuilder str = new StringBuilder(line);
+        str.delete(0,i);
+        String input = str.toString();
+        return Long.valueOf(input);
+    }
+    public static String create_file_name(String FEN){
+        return FEN.replaceAll("/", "-");
+    }
+    public static void introduce_user_result(String FEN, String username, Instant now, Instant end_of_game) throws IOException {
+       long duration_of_game = Duration.between(now, end_of_game).toMillis();
+       FileWriter file = new FileWriter(create_file_name(FEN));
+       PrintWriter pw  = new PrintWriter (file);
+       List <String> output = marks_of_problem(FEN);
+       boolean added = false;
+       for (int i = 0; i<output.size(); ++i){
+            if(getdurationofplayer(output.get(i))  < duration_of_game){
+                pw.println(username + " " + duration_of_game);
+                pw.println(output.get(i));
+                added = false;
+            }
+       }
+       if (!added) pw.println(username + " " + duration_of_game);
+       pw.close();
+    }
+
 }

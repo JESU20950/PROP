@@ -4,6 +4,7 @@ import Data.Player.Player;
 import Interface.GameInterface;
 
 import java.io.IOException;
+import java.time.Instant;
 
 import static Data.Problem.*;
 
@@ -16,15 +17,19 @@ public class Game {
     private boolean player_who_has_to_win;
     private Player player1;
     private Player player2;
+    private String FEN;
+    private Instant start;
     public Game () throws CloneNotSupportedException, IOException {
     }
     public void prepareTablewithFEN(String FEN){
+        this.FEN = FEN;
         number_of_play = ConvertInputtonumber_of_play(FEN)*2;
         player_who_plays = ConvertInputtoplayer_who_start(FEN);
         table = new Table(FEN);
         player_who_has_to_win = ConvertInputtoplayer_who_has_to_win(FEN);
     }
     public void prepareTablewithParameters(String FEN, boolean player_who_start, boolean player_who_has_to_win, int number_of_play){
+        this.FEN = convertParameterstoFEN(FEN,player_who_start, player_who_has_to_win, number_of_play);
         table = new Table(FEN);
         player_who_plays = player_who_start;
         this.player_who_has_to_win = player_who_has_to_win;
@@ -116,5 +121,11 @@ public class Game {
         if (player_who_plays) return player1;
         else return player2;
     }
+    public void startchronometer(){
+        start =  Instant.now();
+    }
 
+    public Instant getStart() {
+        return start;
+    }
 }

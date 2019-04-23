@@ -147,8 +147,6 @@ public class Problem {
         return FEN + " " + player_who_startString + " " + player_who_has_to_winString + " " + number_of_play;
     }
 
-
-
     static public void print_list_of_pieces(List<Piece> p) {
         for (int i = 0; i < p.size(); ++i) System.out.println(p.get(i).getName() + ": (" + p.get(i).getPosition().getI() + ", " + p.get(i).getPosition().getJ() + ")");
         System.out.println();
@@ -171,7 +169,6 @@ public class Problem {
     }
 
     static public boolean achieve_the_goal(Table t, boolean player_turn, int number_of_play, boolean player_who_has_to_win) throws CloneNotSupportedException{
-
         List<Piece> pieces2 = t.getPieces(player_turn);
         pieces2 = t.getPieces(player_turn);
         //print_list_of_pieces(pieces2);
@@ -230,6 +227,7 @@ public class Problem {
         }
          */
     }
+
     public static List<String> load_problem_fromBD(String name_of_file) throws IOException {
         File file = new File(name_of_file);
         FileReader fr = new FileReader(file);
@@ -242,7 +240,6 @@ public class Problem {
         fr.close();
         return result;
     }
-
 
     public static List<String> marks_of_problem(String FEN) throws IOException {
         File file = new File(create_file_name(FEN));
@@ -258,13 +255,13 @@ public class Problem {
         }
         return result;
     }
+
     public static void introduce_problem_toBD(String FEN,boolean player_who_start,boolean player_who_has_to_win,int number_of_play) throws IOException{
         FileWriter file = new FileWriter("BD_USERPROBLEMS",true);
         PrintWriter pw  = new PrintWriter (file);
         pw.println(convertParameterstoFEN(FEN,player_who_start,player_who_has_to_win,number_of_play));
         pw.close();
     }
-
 
     private static long getdurationofplayer(String line){
         int i = 0;
@@ -275,9 +272,11 @@ public class Problem {
         String input = str.toString();
         return Long.valueOf(input);
     }
+
     private static String create_file_name(String FEN){
         return FEN.replaceAll("/", "-");
     }
+
     public static void introduce_user_result(String FEN, String username, Instant now, Instant end_of_game) throws IOException {
        long duration_of_game = Duration.between(now, end_of_game).toMillis();
         List <String> output = marks_of_problem(FEN);

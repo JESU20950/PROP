@@ -194,7 +194,47 @@ public class Main {
     }
 
     private static void player_vs_CPUe(Game g) throws CloneNotSupportedException, IOException {
-
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Select your option by writting the number");
+        System.out.print("Enter Player's name: ");
+        String name1 = sc.nextLine();
+        System.out.println("1. " + name1 + " plays the White Team and Machine1 plays the Black Team");
+        System.out.println("2. Machine1 plays the Black Team and " + name1 + " plays the White Team");
+        Player p1 = new Human(name1);
+        Player p2 = new Machine1();
+        int instr = sc.nextInt();
+        if (instr == 1) {
+            p1.setColor(true);
+            p2.setColor(false);
+        }
+        else if (instr == 2) {
+            p1.setColor(false);
+            p2.setColor(true);
+        }
+        else error_choice();
+        g.setPlayer1(p1);
+        g.setPlayer2(p2);
+        sc.nextLine();
+        String move;
+        while (g.getNumber_of_play() > 0 && !g.getTable().checkmate(true,true) && !g.getTable().checkmate(true,false) && !g.getTable().checkmate(false,true) && !g.getTable().checkmate(false, false)) {
+            boolean error;
+            if (g.getPlayer_who_plays()) {
+                g.getTable().print_table();
+                g.getPlayer1().move_piece(g);
+                error = false;
+            }
+            else {
+                g.getTable().print_table();
+                System.out.println("Black Team turn");
+                g.getPlayer2().move_piece(g);
+                error = false;
+            }
+            if (!error) {
+                g.setPlayer_who_plays(!g.getPlayer_who_plays());
+                g.setNumber_of_play(g.getNumber_of_play() - 1);
+            }
+            else System.out.println("Wrong move, try again!");
+        }
     }
 
     private static void player_vs_CPUh(Game g) throws CloneNotSupportedException, IOException {
@@ -344,11 +384,13 @@ public class Main {
     }
 
     public static void main(String[] args) throws CloneNotSupportedException, IOException {
-        //start_menu();
+        start_menu();
+        /*
         Table t = new Table("2kr4/8/8/8/Q7/6B1/6K1/8");
         t.print_table();
         System.out.println(achieve_the_goal(t,false,2,true));
         //+ " " + achieve_the_goal(t,false,2,true) + " " + achieve_the_goal(t,true,2,false) + " " +achieve_the_goal(t,false,2,false)
         //System.out.println(t.checkmate(true,true) + " " + t.checkmate(true,false) + " " + t.checkmate(false,true) + " " + t.checkmate(false,false));
+        */
     }
 }

@@ -3,7 +3,6 @@ package Data;
 import Data.Player.Player;
 
 
-import java.io.IOException;
 import java.time.Instant;
 
 import static Data.Problem.*;
@@ -18,7 +17,7 @@ public class Game {
     private Player player1;
     private Player player2;
     private Instant start;
-    public Game () throws CloneNotSupportedException, IOException {
+    public Game () {
     }
     public void prepareTablewithFEN(String FEN){
         number_of_play = ConvertInputtonumber_of_play(FEN)*2;

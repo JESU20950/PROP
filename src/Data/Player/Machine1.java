@@ -8,91 +8,88 @@ import Data.Game;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.lang.Math.*;
+
 
 public class Machine1 extends Player{
     public Machine1() {
         super.name = "Machine1";
     }
 
-    private Cell[] move_piece_machine(Game g, int n) {
-        Table aux = new Table();
-        aux.setTable(g.getTable().getTable());
-        boolean b = super.color;
-        if (n == 0) {
-
+    private int move_piece_machine(Table t, int depth, int n, boolean turn, Cell[] result) {
+        if (depth == 0) {
+            return evaluate(t);
         }
-
-
-        List<Piece> pieces2 = t.getPieces(player_turn);
-        pieces2 = t.getPieces(player_turn);
-        //print_list_of_pieces(pieces2);
-        if (number_of_play == 0) return t.checkmate(player_who_has_to_win, true) && t.checkmate(player_who_has_to_win, false);
-        if (number_of_play > 0) {
-            if (t.checkmate(player_who_has_to_win, player_turn)) {
-                return true;
-            }
-            //print_list_of_pieces(pieces2);
-            if (t.checkmate(!player_who_has_to_win, player_turn)) return false;
-            //print_list_of_pieces(pieces2);
-            if (player_who_has_to_win == player_turn){
-                List<Piece> pieces = t.getPieces(player_turn);
-                //print_list_of_pieces(pieces);
-                for (int i = 0; i<pieces.size(); ++i){
+        else {
+            if (turn == super.color) {
+                List<Piece> pieces = t.getPieces(turn);
+                int best = -9999;
+                for (int i = 0; i < pieces.size(); ++i) {
                     List<Cell> movement = pieces.get(i).getMovement();
-                    int i_origen = pieces.get(i).getPosition().getI();
-                    int j_origen = pieces.get(i).getPosition().getJ();
-                    for (int j = 0; j<movement.size(); ++j){
-                        int i_destino = movement.get(j).getI();
-                        int j_destino = movement.get(j).getJ();
+                    int io = pieces.get(i).getPosition().getI();
+                    int jo = pieces.get(i).getPosition().getJ();
+                    for (int j = 0; j < movement.size(); ++j) {
+                        int id = movement.get(j).getI();
+                        int jd = movement.get(j).getJ();
                         Table aux = new Table();
                         aux.setTable(t.getTable());
-                        if (aux.CorrectMove(i_origen, j_origen, i_destino, j_destino)){
-                            aux.MovePiece(i_origen, j_origen, i_destino, j_destino);
-                            if (achieve_the_goal(aux,!player_turn,number_of_play-1,player_who_has_to_win)) return true;
+                        if (aux.CorrectMove(io, jo, id, jd)) {
+                            aux.MovePiece(io, jo, id, jd);
                         }
+                        int value = move_piece_machine(aux, depth-1, n, !turn, result);
+                        if (n == depth && best < value) {
+                            System.out.println("Joang10");
+                            result[0].setI(io);
+                            result[0].setJ(jo);
+                            result[1].setI(id);
+                            result[1].setJ(jd);
+                        }
+                        best = max(value, best);
                     }
                 }
-                return false;
-            }else{
-                List<Piece> pieces = t.getPieces(player_turn);
-                for (int i = 0; i<pieces.size(); ++i){
+                return best;
+            }
+            else {
+                List<Piece> pieces = t.getPieces(turn);
+                int best = 9999;
+                for (int i = 0; i < pieces.size(); ++i) {
                     List<Cell> movement = pieces.get(i).getMovement();
-                    int i_origen = pieces.get(i).getPosition().getI();
-                    int j_origen = pieces.get(i).getPosition().getJ();
-                    for (int j = 0; j<movement.size(); ++j){
-                        int i_destino = movement.get(j).getI();
-                        int j_destino = movement.get(j).getJ();
+                    int io = pieces.get(i).getPosition().getI();
+                    int jo = pieces.get(i).getPosition().getJ();
+                    for (int j = 0; j < movement.size(); ++j) {
+                        int id = movement.get(j).getI();
+                        int jd = movement.get(j).getJ();
                         Table aux = new Table();
                         aux.setTable(t.getTable());
-                        if (aux.CorrectMove(i_origen, j_origen, i_destino, j_destino)){
-                            aux.MovePiece(i_origen, j_origen, i_destino, j_destino);
-                            if (!achieve_the_goal(aux,!player_turn,number_of_play-1,player_who_has_to_win)) return false;
+                        if (aux.CorrectMove(io, jo, id, jd)) {
+                            aux.MovePiece(io, jo, id, jd);
                         }
+                        int value = move_piece_machine(aux, depth-1, n, !turn, result);
+                        best = min(value, best);
                     }
                 }
-                return true;
+                return best;
             }
-
         }
-        return false;
     }
 
-    private int max(int x, int y) {
-        if (x < y) return y;
-        else return x;
-    }
 
-    private int min(int x, int y) {
-        if (x < y) return x;
-        else return y;
-    }
 
     public void move_piece(Game g) {
         int n = g.getNumber_of_play();
-        move_piece_machine(g, min(n, 6));
+        Cell[] c = new Cell[2];
+        for (int i  = 0; i<2 ; ++i) c[i] = new Cell();
+        System.out.println("HOLA");
+        int e = evaluate(g.getTable());
+        System.out.println(e);
+        //System.exit(0);
+        int num = move_piece_machine(g.getTable(), min(n, 2), min(n, 2), g.getPlayer_who_plays(), c);
+        System.out.println("HOLA");
+        g.getTable().MovePiece(c[0].getI(), c[0].getJ(), c[1].getI(), c[1].getJ());
+        g.getTable().print_table();
     }
 
-    public List<List<Cell>> todosMovimientosPosibles(Table t){
+    /*public List<List<Cell>> todosMovimientosPosibles(Table t){
         List<Piece> misPiezas = t.getPieces(super.getColor());
         List<List<Cell> > aux = new ArrayList<> ();
         for(int i = 0; i < misPiezas.size(); ++i){
@@ -118,8 +115,8 @@ public class Machine1 extends Player{
      * @param depth - The current number of levels in the tree to be searched.
      * @return the best evaluation
      */
-    private int Max(int depth){
-        if(depth == 0) return 0;
+    /*private int Max(int depth){
+        if(depth == 0) return evaluate();
         int best = -900;
         List<List<Cell>> l = todosMovimientosPosibles(getTable());
         if(l.size() != 0){
@@ -166,7 +163,7 @@ public class Machine1 extends Player{
             }
         }
         return best;
-    }
+    }*/
     /* Lo de abajo es un minmax de interné
     private int Max(int depth) {
         if (depth == 0)
@@ -237,13 +234,9 @@ public class Machine1 extends Player{
         return value;
     }
 
-    private int evaluate(Table t1, Table t2){
-        int Mt1 = evaluate_pieces(t1.getPieces(super.color));
-        int Et1 = evaluate_pieces(t1.getPieces(!super.color));
-        int Mt2 = evaluate_pieces(t2.getPieces(super.color));
-        int Et2 = evaluate_pieces(t2.getPieces(!super.color));
-        int M = Mt2 - Mt1;
-        int E = Et2 - Et1;
+    private int evaluate(Table t){
+        int M = evaluate_pieces(t.getPieces(super.color));
+        int E = evaluate_pieces(t.getPieces(!super.color));
         return M - E;
     }
 }

@@ -42,6 +42,10 @@ public class Main {
         exit(0);
 
     }
+    private static void feature_not_available(){
+        System.out.println("Feature not available");
+        System.exit(0);
+    }
     private static void easy_problems_ranking() throws CloneNotSupportedException, IOException {
         List<String> l = Problem.load_problem_fromBD("BD_EASYMODE");
         load_problem_ranking(l);
@@ -63,163 +67,61 @@ public class Main {
         exit(0);
     }
 
+    private static void handleEndGame(Game g) throws CloneNotSupportedException {
+        g.getTable().print_table();
+        if(g.getNumber_of_play() <= 0) System.out.println("Number of plays ended, GAME OVER.");
+        if(g.getTable().checkmate(true,true) && g.getTable().checkmate(true,false) ) System.out.println("Check mate, White team won");
+        if(g.getTable().checkmate(false,true) && g.getTable().checkmate(false, false)) System.out.println("White didn't reach check mate.");
+        System.out.println("GG WP");
+    }
+
     private static void player_vs_player(Game g) throws CloneNotSupportedException {
         Scanner sc = new Scanner(System.in);
         System.out.println("Select your option by writting the number");
-        System.out.print("Enter Player1's name: ");
+        System.out.print("Enter Player1's name(will play white team): ");
         String name1 = sc.nextLine();
-        System.out.print("Enter Player2's name: ");
+        System.out.print("Enter Player2's name(will play black team): ");
         String name2 = sc.nextLine();
-        System.out.println("1. " + name1 + " plays the White Team and " + name2 + " plays the Black Team");
-        System.out.println("2. " + name1 + " plays the Black Team and " + name2 + " plays the White Team");
         Player p1 = new Human(name1);
         Player p2 = new Human(name2);
-        int instr = sc.nextInt();
-        if (instr == 1) {
-            p1.setColor(true);
-            p2.setColor(false);
-        }
-        else if (instr == 2) {
-            p1.setColor(false);
-            p2.setColor(true);
-        }
-        else error_choice();
+        p1.setColor(true);
+        p2.setColor(false);
         g.setPlayer1(p1);
         g.setPlayer2(p2);
-        sc.nextLine();
         String move;
-            while (g.getNumber_of_play() > 0 && !g.getTable().checkmate(true,true) && !g.getTable().checkmate(true,false) && !g.getTable().checkmate(false,true) && !g.getTable().checkmate(false, false)) {
+            while (g.getNumber_of_play() > 0 && !g.getTable().checkmate(true,false) && !g.getTable().checkmate(false,true)) {
             boolean error;
             if (g.getPlayer_who_plays()) {
-                g.getTable().print_table();
-                System.out.println("White Team turn");
-                System.out.print("Choose the piece to move: ");
-                move = sc.nextLine();
-                int index = 0;
-                int io, jo;
-                io = jo = -1;
-                while (index < move.length() && move.charAt(index) == ' ') ++index;
-                if (index >= move.length()) error = true;
-                else {
-                    jo = move.charAt(index) - 'A';
-                    ++index;
-                    while (index < move.length() && move.charAt(index) == ' ') ++index;
-                    if (index >= move.length()) error = true;
-                    else {
-                        io = 8 - Character.getNumericValue(move.charAt(index));
-                        ++index;
-                        while (index < move.length() && move.charAt(index) == ' ') ++index;
-                        if (index < move.length()) error = true;
-                    }
-                }
-                if (io < 0 || io >= 8  || jo < 0 || jo >= 8) error = true;
-                else {
-                    System.out.print("Chose the destination: ");
-                    move = sc.nextLine();
-                    index = 0;
-                    int id, jd;
-                    id = jd = -1;
-                    while (index < move.length() && move.charAt(index) == ' ') ++index;
-                    if (index >= move.length()) error = true;
-                    else {
-                        jd = move.charAt(index) - 'A';
-                        ++index;
-                        while (index < move.length() && move.charAt(index) == ' ') ++index;
-                        if (index >= move.length()) error = true;
-                        else {
-                            id = 8 - Character.getNumericValue(move.charAt(index));
-                            ++index;
-                            while (index < move.length() && move.charAt(index) == ' ') ++index;
-                            if (index < move.length()) error = true;
-                        }
-                    }
-                    if (id < 0 || id >= 8 || jd < 0 || jd >= 8) error = true;
-                    else error = g.getTable().CorrectMove(io, jo, id, jd);
-                }
+                g.getPlayer1().move_piece(g);
+                error = false;
             }
             else {
-                g.getTable().print_table();
-                System.out.println("Black Team turn");
-                System.out.print("Choose the piece to move: ");
-                move = sc.nextLine();
-                int index = 0;
-                int io, jo;
-                io = jo = -1;
-                while (index < move.length() && move.charAt(index) == ' ') ++index;
-                if (index >= move.length()) error = true;
-                else {
-                    io = move.charAt(index) - 'A';
-                    ++index;
-                    while (index < move.length() && move.charAt(index) == ' ') ++index;
-                    if (index >= move.length()) error = true;
-                    else {
-                        jo = 8 - Character.getNumericValue(move.charAt(index));
-                        ++index;
-                        while (index < move.length() && move.charAt(index) == ' ') ++index;
-                        if (index < move.length()) error = true;
-                    }
-                }
-                if (io < 0 || io >= 8  || jo < 0 || jo >= 8) error = true;
-                else {
-                    System.out.print("Chose the destination: ");
-                    move = sc.nextLine();
-                    index = 0;
-                    int id, jd;
-                    id = jd = -1;
-                    while (index < move.length() && move.charAt(index) == ' ') ++index;
-                    if (index >= move.length()) error = true;
-                    else {
-                        jd = move.charAt(index) - 'A';
-                        ++index;
-                        while (index < move.length() && move.charAt(index) == ' ') ++index;
-                        if (index >= move.length()) error = true;
-                        else {
-                            id = 8 - Character.getNumericValue(move.charAt(index));
-                            ++index;
-                            while (index < move.length() && move.charAt(index) == ' ') ++index;
-                            if (index < move.length()) error = true;
-                        }
-                    }
-                    if (id < 0 || id >= 8 || jd < 0 || jd >= 8) error = true;
-                    else error = g.getTable().CorrectMove(io, jo, id, jd);
-                    System.out.println(error + " ERROR");
-                }
+                g.getPlayer2().move_piece(g);
+                error = false;
             }
             if (!error) {
                 g.setPlayer_who_plays(!g.getPlayer_who_plays());
                 g.setNumber_of_play(g.getNumber_of_play() - 1);
             }
             else System.out.println("Wrong move, try again!");
-        }
+            }
+            handleEndGame(g);
     }
 
     private static void player_vs_CPUe(Game g) throws CloneNotSupportedException, IOException {
         Scanner sc = new Scanner(System.in);
         System.out.println("Select your option by writting the number");
-        System.out.print("Enter Player's name: ");
+        System.out.print("Enter Player's name(will play white team): ");
         String name1 = sc.nextLine();
-        System.out.println("1. " + name1 + " plays the White Team and Machine1 plays the Black Team");
-        System.out.println("2. Machine1 plays the Black Team and " + name1 + " plays the White Team");
         Player p1 = new Human(name1);
         Player p2 = new Machine1();
-        int instr = sc.nextInt();
-        if (instr == 1) {
-            p1.setColor(true);
-            p2.setColor(false);
-        }
-        else if (instr == 2) {
-            p1.setColor(false);
-            p2.setColor(true);
-        }
-        else error_choice();
+        p1.setColor(true);
+        p2.setColor(false);
         g.setPlayer1(p1);
         g.setPlayer2(p2);
-        sc.nextLine();
-        String move;
-        while (g.getNumber_of_play() > 0 && !g.getTable().checkmate(true,true) && !g.getTable().checkmate(true,false) && !g.getTable().checkmate(false,true) && !g.getTable().checkmate(false, false)) {
+        while (g.getNumber_of_play() > 0 && !g.getTable().checkmate(true,false) && !g.getTable().checkmate(false,true)){
             boolean error;
             if (g.getPlayer_who_plays()) {
-                g.getTable().print_table();
                 g.getPlayer1().move_piece(g);
                 error = false;
             }
@@ -235,22 +137,83 @@ public class Main {
             }
             else System.out.println("Wrong move, try again!");
         }
+        handleEndGame(g);
+    }
+
+    private static void CPUe_vs_player(Game g) throws CloneNotSupportedException, IOException{
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Select your option by writting the number");
+        System.out.print("Enter Player's name(will play black team): ");
+        String name1 = sc.nextLine();
+        Player p1 = new Machine1();
+        Player p2 = new Human(name1);
+        p1.setColor(true);
+        p2.setColor(false);
+        g.setPlayer1(p1);
+        g.setPlayer2(p2);
+        while (g.getNumber_of_play() > 0 && !g.getTable().checkmate(true,false) && !g.getTable().checkmate(false,true)){
+            boolean error;
+            if (g.getPlayer_who_plays()) {
+                g.getTable().print_table();
+                System.out.println("White Team turn");
+                g.getPlayer1().move_piece(g);
+                error = false;
+            }
+            else {
+                g.getPlayer2().move_piece(g);
+                error = false;
+            }
+            if (!error) {
+                g.setPlayer_who_plays(!g.getPlayer_who_plays());
+                g.setNumber_of_play(g.getNumber_of_play() - 1);
+            }
+            else System.out.println("Wrong move, try again!");
+        }
+        handleEndGame(g);
     }
 
     private static void player_vs_CPUh(Game g) throws CloneNotSupportedException, IOException {
-
+        feature_not_available();
     }
 
     private static void CPUe_vs_CPUe(Game g) throws CloneNotSupportedException, IOException {
-
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Select your option by writting the number");
+        Player p1 = new Machine1();
+        Player p2 = new Machine1();
+        p1.setColor(true);
+        p2.setColor(false);
+        g.setPlayer1(p1);
+        g.setPlayer2(p2);
+        while (g.getNumber_of_play() > 0 && !g.getTable().checkmate(true,false) && !g.getTable().checkmate(false,true)){
+            boolean error;
+            if (g.getPlayer_who_plays()) {
+                g.getTable().print_table();
+                System.out.println("White Team turn");
+                g.getPlayer1().move_piece(g);
+                error = false;
+            }
+            else {
+                g.getTable().print_table();
+                System.out.println("Black Team turn");
+                g.getPlayer2().move_piece(g);
+                error = false;
+            }
+            if (!error) {
+                g.setPlayer_who_plays(!g.getPlayer_who_plays());
+                g.setNumber_of_play(g.getNumber_of_play() - 1);
+            }
+            else System.out.println("Wrong move, try again!");
+        }
+        handleEndGame(g);
     }
 
     private static void CPUe_vs_CPUh(Game g) throws CloneNotSupportedException, IOException {
-
+        feature_not_available();
     }
 
     private static void CPUh_Vs_CPUh(Game g) throws CloneNotSupportedException, IOException {
-
+        feature_not_available();
     }
 
     private static void handleGame(String s, boolean player_who_start, boolean player_who_has_to_win, int number_of_plays)  throws CloneNotSupportedException, IOException{
@@ -258,19 +221,22 @@ public class Main {
         Game g = new Game();
         g.prepareTablewithParameters(s, player_who_start, player_who_has_to_win, number_of_plays);
         System.out.println("Select your option by writting the number");
+        System.out.println("Disclaimer: options that require CPU Hard mode are not yet available.");
         System.out.println("1. Player1 vs Player2");
         System.out.println("2. Player vs CPU(Easy)");
-        System.out.println("3. Player vs CPU(Hard)");
-        System.out.println("4. CPU1(Easy) vs CPU2(Easy)");
-        System.out.println("5. CPU1(Easy) vs CPU2(Hard)");
-        System.out.println("6. CPU1(Hard) vs CPU2(Hard)");
+        System.out.println("3. CPU(Easy) vs Player");
+        System.out.println("4. Player vs CPU(Hard)");
+        System.out.println("5. CPU1(Easy) vs CPU2(Easy)");
+        System.out.println("6. CPU1(Easy) vs CPU2(Hard)");
+        System.out.println("7. CPU1(Hard) vs CPU2(Hard)");
         int instr = sc.nextInt();
         if (instr == 1) player_vs_player(g);
         else if (instr == 2) player_vs_CPUe(g);
-        else if (instr == 3) player_vs_CPUh(g);
-        else if (instr == 4) CPUe_vs_CPUe(g);
-        else if (instr == 5) CPUe_vs_CPUh(g);
-        else if (instr == 6) CPUh_Vs_CPUh(g);
+        else if (instr == 3) CPUe_vs_player(g);
+        else if (instr == 4) player_vs_CPUh(g);
+        else if (instr == 5) CPUe_vs_CPUe(g);
+        else if (instr == 6) CPUe_vs_CPUh(g);
+        else if (instr == 7) CPUh_Vs_CPUh(g);
         else error_choice();
     }
 

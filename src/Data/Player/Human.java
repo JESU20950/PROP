@@ -43,6 +43,7 @@ public class Human extends Player {
             g.getTable().print_table();
             if (super.color) System.out.println("White Team turn");
             else System.out.println("Black Team turn");
+            System.out.println(g.getNumber_of_play() + " turns missing!");
             System.out.println("Choose the piece to move: ");
             String s = sc.nextLine();
             int[] origen = getPosition(s);
@@ -56,6 +57,5 @@ public class Human extends Player {
                 else System.out.println("Wrong move, try again!");
             } else System.out.println("Wrong piece, try again!");
         }
-        g.getTable().print_table();
     }
 }

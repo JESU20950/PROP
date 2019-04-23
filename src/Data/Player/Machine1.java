@@ -38,7 +38,6 @@ public class Machine1 extends Player{
                         }
                         int value = move_piece_machine(aux, depth-1, n, !turn, result);
                         if (n == depth && best < value) {
-                            System.out.println("Joang10");
                             result[0].setI(io);
                             result[0].setJ(jo);
                             result[1].setI(id);
@@ -79,14 +78,10 @@ public class Machine1 extends Player{
         int n = g.getNumber_of_play();
         Cell[] c = new Cell[2];
         for (int i  = 0; i<2 ; ++i) c[i] = new Cell();
-        System.out.println("HOLA");
         int e = evaluate(g.getTable());
-        System.out.println(e);
         //System.exit(0);
         int num = move_piece_machine(g.getTable(), min(n, 2), min(n, 2), g.getPlayer_who_plays(), c);
-        System.out.println("HOLA");
         g.getTable().MovePiece(c[0].getI(), c[0].getJ(), c[1].getI(), c[1].getJ());
-        g.getTable().print_table();
     }
 
     /*public List<List<Cell>> todosMovimientosPosibles(Table t){

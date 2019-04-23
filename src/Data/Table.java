@@ -137,7 +137,7 @@ public class Table implements Cloneable {
         return table;
     }
 
-    public void setTable(Cell[][] table) throws CloneNotSupportedException {
+    public void setTable(Cell[][] table) {
         this.table = new Cell[8][8];
         for (int i = 0; i < 8; ++i) {
             for (int j = 0; j < 8; ++j) {

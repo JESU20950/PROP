@@ -197,7 +197,7 @@ public class Problem {
                         aux.setTable(t.getTable());
                         if (aux.CorrectMove(i_origen, j_origen, i_destino, j_destino)){
                             aux.MovePiece(i_origen, j_origen, i_destino, j_destino);
-                            if (achieve_the_goal(aux,!player_turn,number_of_play-1,player_who_has_to_win))return true;
+                            if (achieve_the_goal(aux,!player_turn,number_of_play-1,player_who_has_to_win)) return true;
                         }
                     }
                 }
@@ -215,7 +215,7 @@ public class Problem {
                         aux.setTable(t.getTable());
                         if (aux.CorrectMove(i_origen, j_origen, i_destino, j_destino)){
                             aux.MovePiece(i_origen, j_origen, i_destino, j_destino);
-                            if (!achieve_the_goal(aux,!player_turn,number_of_play-1,player_who_has_to_win))return false;
+                            if (!achieve_the_goal(aux,!player_turn,number_of_play-1,player_who_has_to_win)) return false;
                         }
                     }
                 }

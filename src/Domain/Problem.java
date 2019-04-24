@@ -255,12 +255,7 @@ public class Problem {
         return result;
     }
 
-    public static void introduce_problem_toBD(String FEN,boolean player_who_start,boolean player_who_has_to_win,int number_of_play) throws IOException{
-        FileWriter file = new FileWriter("src/Data/"+"BD_USERPROBLEMS",true);
-        PrintWriter pw  = new PrintWriter (file);
-        pw.println(convertParameterstoFEN(FEN,player_who_start,player_who_has_to_win,number_of_play));
-        pw.close();
-    }
+
 
     private static long getdurationofplayer(String line){
         int i = 0;
@@ -291,6 +286,42 @@ public class Problem {
        }
        if (!added) pw.println(username + " " + duration_of_game);
        pw.close();
+    }
+
+
+    public static void introduce_problem_toBD(String FEN,boolean player_who_start,boolean player_who_has_to_win,int number_of_play) throws IOException{
+        List <String> problems = load_problem_fromBD("BD_USERPROBLEMS");
+        FileWriter file = new FileWriter("src/Data/"+"BD_USERPROBLEMS");
+        PrintWriter pw  = new PrintWriter (file);
+        String FEN_to_introduce = convertParameterstoFEN(FEN,player_who_start,player_who_has_to_win,number_of_play);
+        for (int i = 0; i<problems.size(); ++i){
+            pw.println(problems.get(i));
+        }
+        pw.println(FEN_to_introduce);
+        pw.close();
+    }
+    public static void delete_problem_fromBD(String FEN) throws IOException {
+        List <String> problems = load_problem_fromBD("BD_USERPROBLEMS");
+        FileWriter file = new FileWriter("src/Data/"+"BD_USERPROBLEMS");
+        PrintWriter pw  = new PrintWriter (file);
+        for (int i = 0; i<problems.size(); ++i){
+            if (!problems.get(i).equals(FEN)){
+                pw.println(problems.get(i));
+            }
+        }
+        pw.close();
+    }
+
+    public static void modificate_problem_fromBD(String old_FEN, String new_FEN) throws IOException {
+        List <String> problems = load_problem_fromBD("BD_USERPROBLEMS");
+        FileWriter file = new FileWriter("src/Data/"+"BD_USERPROBLEMS");
+        PrintWriter pw  = new PrintWriter (file);
+        for (int i = 0; i<problems.size(); ++i){
+            if (!problems.get(i).equals(old_FEN)){
+                pw.println(problems.get(i));
+            }else pw.println(new_FEN);
+        }
+        pw.close();
     }
 
 }

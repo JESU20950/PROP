@@ -66,6 +66,7 @@ public class driverProblem {
     }
 
     public static void main(String[] args) throws CloneNotSupportedException, IOException, InterruptedException {
+        /*
         Scanner sc = new Scanner(System.in);
         System.out.println("Print of easy problems");
         test_load_problem_fromBD_Easy_Mode();
@@ -120,9 +121,13 @@ public class driverProblem {
             test_print_list_of_movements(pi.getMovement(),pi.getName());
         }
         System.out.println();
-        test_marks_of_problem();
-        test_introduce_user_result();
-        testintroduce_problem_toBD();
+        */
+
+        //test_marks_of_problem();
+        //test_introduce_user_result();
+        //testintroduce_problem_toBD();
+        //testdelete_problem_fromBD();
+        testmodificate_problem_fromBD();
     }
 
     private static void testintroduce_problem_toBD() throws IOException {
@@ -158,5 +163,43 @@ public class driverProblem {
         sc = new Scanner(System.in);
         String username = sc.nextLine();
         introduce_user_result(FEN,username, instant_start,instant_end_of_game);
+    }
+    private static void testdelete_problem_fromBD() throws IOException {
+        System.out.println("Test delete problem to BD");
+        List<String> problems = load_problem_fromBD("BD_USERPROBLEMS");
+        for(int i = 0; i < problems.size(); i++) {
+            System.out.println(i + " : " +problems.get(i));
+        }
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Select the problem by typing the number at the start of each one");
+        int aux = sc.nextInt();
+        while(aux < 0 || aux > problems.size()){
+            System.out.println("There is no problem there...");
+            System.out.println("Select the problem by typing the number at the start of each one");
+            aux = sc.nextInt();
+
+        }
+        String problem = problems.get(aux);
+        delete_problem_fromBD(problem);
+    }
+    private static void  testmodificate_problem_fromBD() throws IOException {
+        System.out.println("Test modificate problem to BD");
+        List<String> problems = load_problem_fromBD("BD_USERPROBLEMS");
+        for(int i = 0; i < problems.size(); i++) {
+            System.out.println(i + " : " +problems.get(i));
+        }
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Select the problem by typing the number at the start of each one");
+        int aux = sc.nextInt();
+        while(aux < 0 || aux > problems.size()){
+            System.out.println("There is no problem there...");
+            System.out.println("Select the problem by typing the number at the start of each one");
+            aux = sc.nextInt();
+
+        }
+        String old_problem = problems.get(aux);
+        sc = new Scanner(System.in);
+        String new_porblem = sc.nextLine();
+        modificate_problem_fromBD(old_problem,new_porblem);
     }
 }

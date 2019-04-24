@@ -22,7 +22,9 @@ public class driverMachine1 {
         g.setPlayer2(p2);
         g.getTable().print_table();
         p1.move_piece(g);
+        g.getTable().print_table();
         g.setPlayer_who_plays(!g.getPlayer_who_plays());
         p2.move_piece(g);
+        g.getTable().print_table();
     }
 }

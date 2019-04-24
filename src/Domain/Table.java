@@ -9,7 +9,7 @@ import java.util.List;
 
 
 public class Table implements Cloneable {
-    private Cell table[][];
+    private Cell[][] table;
 
     public Table() {
     }
@@ -248,7 +248,7 @@ public class Table implements Cloneable {
         return null;
     }
 
-    public boolean check(boolean player) throws CloneNotSupportedException {
+    public boolean check(boolean player) {
         int i_king = king_position(!player).getI();
         int j_king = king_position(!player).getJ();
         List<Piece> pieces = getPieces(player);
@@ -276,7 +276,7 @@ public class Table implements Cloneable {
         return b;
     }
 
-    public boolean checkmate(boolean player, boolean player_turn) throws CloneNotSupportedException {
+    public boolean checkmate(boolean player, boolean player_turn) {
         if (player_turn == player && this.check(player)) return true;
         if (player_turn == !player && this.check(!player)) return false;
         List<Piece> pieces = getPieces(!player);

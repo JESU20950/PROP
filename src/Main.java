@@ -1,7 +1,12 @@
-import Data.Game;
-import Data.Player.*;
-import Data.Problem;
-import Data.Table;
+
+
+
+
+import Domain.Game;
+import Domain.Player.Human;
+import Domain.Player.Machine1;
+import Domain.Player.Player;
+import Domain.Problem;
 
 import java.io.IOException;
 
@@ -9,8 +14,8 @@ import java.util.Scanner;
 import java.util.List;
 
 
-
-import static Data.Problem.*;
+import static Domain.Problem.iscorrectFen;
+import static Domain.Problem.marks_of_problem;
 import static java.lang.System.exit;
 
 public class Main {

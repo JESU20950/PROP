@@ -249,7 +249,7 @@ public class Table implements Cloneable {
     }
 
     public boolean check(boolean player) {
-        if (king_position(!player) == null) return false;
+        if (king_position(!player) == null) return true;
         int i_king = king_position(!player).getI();
         int j_king = king_position(!player).getJ();
         List<Piece> pieces = getPieces(player);

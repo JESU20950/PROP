@@ -11,7 +11,7 @@ public abstract class Player {
     public Player() {
 
     }
-
+    public abstract boolean isMachine();
     protected boolean correct_piece(Game g, int i, int j) {
         Cell[][] c = g.getTable().getTable();
         return (i >= 0 && i < 8 && j >= 0 && j < 8) && c[i][j].getPiece() != null && c[i][j].getPiece().getColor() == color;
@@ -25,5 +25,5 @@ public abstract class Player {
         return color;
     }
 
-    public abstract void move_piece(Game g);
+    public abstract Cell[] move_piece(Game g);
 }

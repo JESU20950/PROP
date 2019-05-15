@@ -1,6 +1,7 @@
 package Domain.Player;
 
 
+import Domain.Cell;
 import Domain.Game;
 
 import java.util.Scanner;
@@ -14,7 +15,9 @@ public class Human extends Player {
     public Human() {
 
     }
-
+    public boolean isMachine() {
+        return false;
+    }
     private int[] getPosition(String s) {
         int[] pos = new int[2];
         pos[0] = pos[1] = -1;
@@ -33,7 +36,7 @@ public class Human extends Player {
         }
         return pos;
     }
-
+    /*
     public void move_piece(Game g) {
         Scanner sc = new Scanner(System.in);
         boolean error = true;
@@ -56,4 +59,10 @@ public class Human extends Player {
             } else System.out.println("Wrong piece, try again!");
         }
     }
+     */
+    public Cell[] move_piece(Game g){
+        Cell[ ] c = null;
+        return c;
+    }
+
 }

@@ -53,7 +53,7 @@ public class driverProblem {
         return Problem.ConvertInputtonumber_of_play(input);
     }
 
-    private static boolean test_isCorrectProblem(String FEN,boolean player_who_start,boolean player_who_has_to_win,int number_of_play) throws CloneNotSupportedException{
+    private static boolean test_isCorrectProblem(String FEN,boolean player_who_start,boolean player_who_has_to_win,int number_of_play) {
         return Problem.isCorrectProblem(FEN,player_who_start,player_who_has_to_win,number_of_play);
     }
 
@@ -65,8 +65,7 @@ public class driverProblem {
         Problem.print_list_of_movements(m,name);
     }
 
-    public static void main(String[] args) throws CloneNotSupportedException, IOException, InterruptedException {
-        /*
+    public static void main(String[] args) throws IOException, InterruptedException {
         Scanner sc = new Scanner(System.in);
         System.out.println("Print of easy problems");
         test_load_problem_fromBD_Easy_Mode();
@@ -121,12 +120,11 @@ public class driverProblem {
             test_print_list_of_movements(pi.getMovement(),pi.getName());
         }
         System.out.println();
-        */
 
-        //test_marks_of_problem();
-        //test_introduce_user_result();
-        //testintroduce_problem_toBD();
-        //testdelete_problem_fromBD();
+        test_marks_of_problem();
+        test_introduce_user_result();
+        testintroduce_problem_toBD();
+        testdelete_problem_fromBD();
         testmodificate_problem_fromBD();
     }
 
@@ -136,6 +134,7 @@ public class driverProblem {
         Scanner sc = new Scanner(System.in);
         String FEN = sc.nextLine();
         introduce_problem_toBD(ConvertInputtoFEN(FEN),ConvertInputtoplayer_who_start(FEN), ConvertInputtoplayer_who_has_to_win(FEN), ConvertInputtonumber_of_play(FEN));
+        System.out.println("Problem introduced successfully!");
     }
 
     private static void test_marks_of_problem() throws IOException {
@@ -163,6 +162,7 @@ public class driverProblem {
         sc = new Scanner(System.in);
         String username = sc.nextLine();
         introduce_user_result(FEN,username, instant_start,instant_end_of_game);
+        System.out.println("User result introduced successfully!");
     }
     private static void testdelete_problem_fromBD() throws IOException {
         System.out.println("Test delete problem to BD");
@@ -181,6 +181,7 @@ public class driverProblem {
         }
         String problem = problems.get(aux);
         delete_problem_fromBD(problem);
+        System.out.println("Deleted successfully!");
     }
     private static void  testmodificate_problem_fromBD() throws IOException {
         System.out.println("Test modificate problem to BD");
@@ -199,7 +200,9 @@ public class driverProblem {
         }
         String old_problem = problems.get(aux);
         sc = new Scanner(System.in);
+        System.out.println("Introduce the new problem: ");
         String new_porblem = sc.nextLine();
         modificate_problem_fromBD(old_problem,new_porblem);
+        System.out.println("Modified successfully!");
     }
 }

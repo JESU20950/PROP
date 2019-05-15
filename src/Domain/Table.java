@@ -8,7 +8,7 @@ import java.util.List;
 
 
 
-public class Table implements Cloneable {
+public class Table {
     private Cell[][] table;
 
     public Table() {

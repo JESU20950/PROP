@@ -1,24 +1,24 @@
 
 
-
+/*
 
 import Domain.Game;
 import Domain.Player.Human;
 import Domain.Player.Machine1;
 import Domain.Player.Player;
 import Domain.Problem;
+import Interface.FrameProgram;
 
 import java.io.IOException;
-
-import java.util.Scanner;
 import java.util.List;
-
+import java.util.Scanner;
 
 import static Domain.Problem.*;
-import static Domain.Problem.delete_problem_fromBD;
 import static java.lang.System.exit;
 
 public class Main {
+
+
     private static void error_choice() {
         System.out.println("Error, this option is not available");
         exit(1);
@@ -49,7 +49,7 @@ public class Main {
     }
     private static void feature_not_available(){
         System.out.println("Feature not available");
-        System.exit(0);
+        exit(0);
     }
     private static void easy_problems_ranking() throws CloneNotSupportedException, IOException {
         List<String> l = Problem.load_problem_fromBD("BD_EASYMODE");
@@ -441,12 +441,22 @@ public class Main {
 
     public static void main(String[] args) throws CloneNotSupportedException, IOException {
         start_menu();
-        /*
-        Table t = new Table("2kr4/8/8/8/Q7/6B1/6K1/8");
-        t.print_table();
-        System.out.println(achieve_the_goal(t,false,2,true));
-        //+ " " + achieve_the_goal(t,false,2,true) + " " + achieve_the_goal(t,true,2,false) + " " +achieve_the_goal(t,false,2,false)
-        //System.out.println(t.checkmate(true,true) + " " + t.checkmate(true,false) + " " + t.checkmate(false,true) + " " + t.checkmate(false,false));
-        */
+    }
+
+}
+*/
+
+
+import Interface.FrameProgram;
+
+import java.io.IOException;
+
+public class Main{
+    public static void main(String[] args) throws CloneNotSupportedException, IOException {
+        FrameProgram a = new FrameProgram();
+
     }
 }
+
+
+

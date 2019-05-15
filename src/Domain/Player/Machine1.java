@@ -14,10 +14,10 @@ import static java.lang.Math.*;
 
 
 public class Machine1 extends Player{
-    public Machine1() {
-        super.name = "Machine1";
-    }
 
+    public boolean isMachine() {
+        return true;
+    }
     private int move_piece_machine(Table t, int depth, int n, boolean turn, Cell[] result) {
         if (depth == 0) {
             return evaluate(t);
@@ -76,7 +76,7 @@ public class Machine1 extends Player{
 
 
 
-    public void move_piece(Game g) {
+    public Cell[] move_piece(Game g) {
         int n = g.getNumber_of_play();
         Cell[] c = new Cell[2];
         for (int i  = 0; i<2 ; ++i) c[i] = new Cell();
@@ -84,6 +84,7 @@ public class Machine1 extends Player{
         //System.exit(0);
         int num = move_piece_machine(g.getTable(), min(n, 2), min(n, 2), g.getPlayer_who_plays(), c);
         g.getTable().MovePiece(c[0].getI(), c[0].getJ(), c[1].getI(), c[1].getJ());
+        return c;
     }
 
     /*public List<List<Cell>> todosMovimientosPosibles(Table t){

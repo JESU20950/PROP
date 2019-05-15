@@ -1,6 +1,7 @@
 package Domain.Player;
 
 
+import Domain.Cell;
 import Domain.Game;
 import Domain.Table;
 
@@ -9,16 +10,13 @@ public class Machine2 extends Player{
         super.name = "Machine2";
     }
 
-    public void move_piece(Game g) {
-
-    }
-
     public boolean isMachine() {
         return true;
     }
 
-    public void move_piece(Table t) {
-
+    public Cell[] move_piece(Game g){
+        Cell[ ] c = null;
+        return c;
     }
 
 }

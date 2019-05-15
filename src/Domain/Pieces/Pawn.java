@@ -26,7 +26,7 @@ public class Pawn extends Piece {
         int i_origen = origen.getI();
         int j_origen = origen.getJ();
         if (origen.getPiece().getColor()) { // White pawn
-            if (i_origen == 6) return i_origen - i_destino == 2 && j_destino - j_origen == 0 && Nobody_in_trajectory(t, origen, destino) && destino.getPiece() == null; // Can do double step
+            if (i_origen == 6) return (i_origen - i_destino == 2 || i_origen - i_destino == 1) && j_destino - j_origen == 0 && Nobody_in_trajectory(t, origen, destino) && destino.getPiece() == null; // Can do double step
             else { // Can't do double step
                 if (i_origen - i_destino == 1) { // Only one step in front
                     if (j_destino - j_origen == 0) return destino.getPiece() == null; // Single movement step
@@ -37,7 +37,7 @@ public class Pawn extends Piece {
             }
         }
         else { // Black pawn
-            if (i_origen == 1) return i_destino - i_origen == 2 && j_destino - j_origen == 0 && Nobody_in_trajectory(t, origen, destino) && destino.getPiece() == null; // Can do double step
+            if (i_origen == 1) return (i_destino - i_origen == 2 || i_destino - i_origen == 1) && j_destino - j_origen == 0 && Nobody_in_trajectory(t, origen, destino) && destino.getPiece() == null; // Can do double step
             else {
                 if (i_destino - i_origen == 1) { // Only one step in front
                     if (j_destino - j_origen == 0) return destino.getPiece() == null; //Sigle movement step

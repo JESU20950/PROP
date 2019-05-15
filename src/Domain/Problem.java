@@ -7,7 +7,7 @@ import java.time.Duration;
 import java.time.Instant;
 
 import java.util.*;
-
+import java.lang.String;
 import Domain.Pieces.Piece;
 
 
@@ -161,13 +161,13 @@ public class Problem {
         System.out.println();
     }
 
-    static public boolean isCorrectProblem(String FEN,boolean player_who_start,boolean player_who_has_to_win,int number_of_play) throws CloneNotSupportedException{
+    static public boolean isCorrectProblem(String FEN,boolean player_who_start,boolean player_who_has_to_win,int number_of_play) {
         FEN = ConvertInputtoFEN(FEN);
         Table t = new Table(FEN);
         return achieve_the_goal(t,player_who_start,number_of_play,player_who_has_to_win);
     }
 
-    static public boolean achieve_the_goal(Table t, boolean player_turn, int number_of_play, boolean player_who_has_to_win) throws CloneNotSupportedException{
+    static public boolean achieve_the_goal(Table t, boolean player_turn, int number_of_play, boolean player_who_has_to_win) {
         List<Piece> pieces2 = t.getPieces(player_turn);
         pieces2 = t.getPieces(player_turn);
         //print_list_of_pieces(pieces2);
@@ -227,8 +227,17 @@ public class Problem {
          */
     }
 
+    public static String getOS() {
+        String os = System.getProperty("os.name").toLowerCase();
+        return os;
+    }
+
     public static List<String> load_problem_fromBD(String name_of_file) throws IOException {
-        File file = new File("src/Data/"+ name_of_file);
+        String s = getOS();
+        String path;
+        if (s.charAt(0) == 'w') path = "..\\..\\..\\FONTS\\src\\Data\\";
+        else path = "src/Data/";
+        File file = new File(path + name_of_file);
         FileReader fr = new FileReader(file);
         BufferedReader br = new BufferedReader(fr);
         List <String> result = new ArrayList<String >();
@@ -241,7 +250,11 @@ public class Problem {
     }
 
     public static List<String> marks_of_problem(String FEN) throws IOException {
-        File file = new File("src/Data/"+create_file_name(FEN));
+        String s = getOS();
+        String path;
+        if (s.charAt(0) == 'w') path = "..\\..\\..\\FONTS\\src\\Data\\";
+        else path = "src/Data/";
+        File file = new File(path + create_file_name(FEN));
         List<String> result = new ArrayList<String>();
         if (file.exists()) {
             FileReader fr = new FileReader(file);
@@ -273,8 +286,12 @@ public class Problem {
 
     public static void introduce_user_result(String FEN, String username, Instant now, Instant end_of_game) throws IOException {
        long duration_of_game = Duration.between(now, end_of_game).toMillis();
-        List <String> output = marks_of_problem(FEN);
-       FileWriter file = new FileWriter("src/Data/"+create_file_name(FEN));
+       List <String> output = marks_of_problem(FEN);
+       String s = getOS();
+       String path;
+       if (s.charAt(0) == 'w') path = "..\\..\\..\\FONTS\\src\\Data\\";
+       else path = "src/Data/";
+       FileWriter file = new FileWriter(path + create_file_name(FEN));
        PrintWriter pw  = new PrintWriter (file);
        boolean added = false;
        for (int i = 0; i<output.size(); ++i){
@@ -291,7 +308,11 @@ public class Problem {
 
     public static void introduce_problem_toBD(String FEN,boolean player_who_start,boolean player_who_has_to_win,int number_of_play) throws IOException{
         List <String> problems = load_problem_fromBD("BD_USERPROBLEMS");
-        FileWriter file = new FileWriter("src/Data/"+"BD_USERPROBLEMS");
+        String s = getOS();
+        String path;
+        if (s.charAt(0) == 'w') path = "..\\..\\..\\FONTS\\src\\Data\\";
+        else path = "src/Data/";
+        FileWriter file = new FileWriter(path +"BD_USERPROBLEMS");
         PrintWriter pw  = new PrintWriter (file);
         String FEN_to_introduce = convertParameterstoFEN(FEN,player_who_start,player_who_has_to_win,number_of_play);
         for (int i = 0; i<problems.size(); ++i){
@@ -302,7 +323,11 @@ public class Problem {
     }
     public static void delete_problem_fromBD(String FEN) throws IOException {
         List <String> problems = load_problem_fromBD("BD_USERPROBLEMS");
-        FileWriter file = new FileWriter("src/Data/"+"BD_USERPROBLEMS");
+        String s = getOS();
+        String path;
+        if (s.charAt(0) == 'w') path = "..\\..\\..\\FONTS\\src\\Data\\";
+        else path = "src/Data/";
+        FileWriter file = new FileWriter(path + "BD_USERPROBLEMS");
         PrintWriter pw  = new PrintWriter (file);
         for (int i = 0; i<problems.size(); ++i){
             if (!problems.get(i).equals(FEN)){
@@ -314,7 +339,11 @@ public class Problem {
 
     public static void modificate_problem_fromBD(String old_FEN, String new_FEN) throws IOException {
         List <String> problems = load_problem_fromBD("BD_USERPROBLEMS");
-        FileWriter file = new FileWriter("src/Data/"+"BD_USERPROBLEMS");
+        String s = getOS();
+        String path;
+        if (s.charAt(0) == 'w') path = "..\\..\\..\\FONTS\\src\\Data\\";
+        else path = "src/Data/";
+        FileWriter file = new FileWriter(path + "BD_USERPROBLEMS");
         PrintWriter pw  = new PrintWriter (file);
         for (int i = 0; i<problems.size(); ++i){
             if (!problems.get(i).equals(old_FEN)){

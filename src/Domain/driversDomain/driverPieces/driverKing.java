@@ -15,13 +15,14 @@ import java.util.Scanner;
 public class driverKing {
     private static void test_getColor(Piece p) {
         boolean b = p.getColor();
+        System.out.print("Your team is: ");
         if (b) System.out.println("White");
         else System.out.println("Black");
     }
 
     private static void test_getName(Piece p) {
         String s = p.getName();
-        System.out.println(s);
+        System.out.println("Your piece's name is: " + s);
     }
 
     private static void test_correct_movement(Cell[][] c, Piece p, int io, int jo, int id, int jd) {
@@ -30,13 +31,16 @@ public class driverKing {
         System.out.println(b);
     }
 
-    private static void test_update_movement(Table t, Piece p) throws CloneNotSupportedException{
+    private static void test_update_movement(Table t, Piece p) {
         Cell[][] c = t.getTable();
         Scanner sc = new Scanner(System.in);
         t.print_table();
         System.out.println("Select king: ");
+        System.out.println("Position i and j = between 0-7");
+        System.out.println("Origin: ");
         int io = sc.nextInt();
         int jo = sc.nextInt();
+        System.out.println("Destination: ");
         int id = sc.nextInt();
         int jd = sc.nextInt();
         Cell co = new Cell();
@@ -45,8 +49,11 @@ public class driverKing {
         while (!b) {
             t.print_table();
             System.out.println("Select king: ");
+            System.out.println("Position i and j = between 0-7");
+            System.out.println("Origin: ");
             io = sc.nextInt();
             jo = sc.nextInt();
+            System.out.println("Destination: ");
             id = sc.nextInt();
             jd = sc.nextInt();
             co = c[io][jo];
@@ -77,9 +84,10 @@ public class driverKing {
         Problem.print_list_of_pieces(pieces);
     }
 
-    public static void main(String[] args) throws CloneNotSupportedException{
+    public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        System.out.print("Introduce your team: ");
+        System.out.println("Introduce your team: ");
+        System.out.println("true for white team, false for black team");
         boolean b = sc.nextBoolean();
         Piece p = new King(b);
         test_getColor(p);
@@ -91,10 +99,12 @@ public class driverKing {
         boolean stop = false;
         while (!stop) {
             t.print_table();
-            System.out.println("origen: ");
+            System.out.println("Write -1 -1 -1 -1 to exit the loop");
+            System.out.println("Position i and j = between 0-7");
+            System.out.println("Origin: ");
             int io = sc.nextInt();
             int jo = sc.nextInt();
-            System.out.println("destino: ");
+            System.out.println("Destination: ");
             int id = sc.nextInt();
             int jd = sc.nextInt();
             Cell[][] c = t.getTable();

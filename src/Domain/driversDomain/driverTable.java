@@ -28,7 +28,7 @@ public class driverTable {
             return t.getTable();
         }
 
-        private static void test_setTable(Table t1, Table t2) throws CloneNotSupportedException{
+        private static void test_setTable(Table t1, Table t2) {
             Cell[][] c = test_getTable(t2);
             t1.setTable(c);
             System.out.println("Testing setTable ... ");
@@ -50,6 +50,7 @@ public class driverTable {
         private static void test_update_all_pieces_movement(Table t) {
             System.out.println("Testing update_all_pieces_movement and getPieces ... ");
             System.out.println("Choose a team: ");
+            System.out.println("false for Black team, true for White team");
             List<Piece> pieces = test_getPieces(t);
             t.print_table();
             Problem.print_list_of_pieces(pieces);
@@ -75,30 +76,36 @@ public class driverTable {
             return t.king_position(b);
         }
 
-        private static void test_check() throws CloneNotSupportedException{
+        private static void test_check() {
             System.out.println("Introduce a FEN for check:");
             Scanner sc = new Scanner(System.in);
             String s = sc.nextLine();
             Table t = new Table(s);
             System.out.println("Testing check ... ");
             System.out.println("Chose the team who has check: ");
+            System.out.println("false for Black team, true for White team");
             boolean b = sc.nextBoolean();
             t.print_table();
             System.out.println(t.check(b));
         }
 
-        private static void test_checkmate() throws CloneNotSupportedException{
+        private static void test_checkmate() {
             System.out.println("Introduce a FEN for checkmate:");
             Scanner sc = new Scanner(System.in);
             String s = sc.nextLine();
             Table t = new Table(s);
             System.out.println("Testing checkmate ... ");
             System.out.println("Choose the team who has checkmate: ");
+            System.out.println("false for Black team, true for White team");
             boolean b = sc.nextBoolean();
+            System.out.println("Choose the team who starts: ");
+            System.out.println("false for Black team, true for White team");
+            boolean turn = sc.nextBoolean();
             t.print_table();
+            System.out.println(t.checkmate(b, turn));
         }
 
-        public static void main(String[] args) throws CloneNotSupportedException{
+        public static void main(String[] args) {
             Scanner sc = new Scanner(System.in);
             System.out.println("Introduce FEN: ");
             String s = sc.nextLine();
@@ -115,6 +122,7 @@ public class driverTable {
             while (!b) {
                 System.out.println("Testing CorrectMove and MovePiece ... ");
                 System.out.println("Write -1 -1 -1 -1 to exit the loop");
+                System.out.println("Position i and j = between 0-7");
                 System.out.println("Select the origin cell: ");
                 io = sc.nextInt();
                 jo = sc.nextInt();
@@ -128,6 +136,7 @@ public class driverTable {
             test_update_all_pieces_movement(t1);
             Cell ck = new Cell();
             System.out.println("Select king's team: ");
+            System.out.println("false for Black team, true for White team");
             ck = test_king_position(t1);
             System.out.println(ck.getPiece().getName() + " is on: " + ck.getI() + " " + ck.getJ());
             test_check();

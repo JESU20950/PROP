@@ -18,7 +18,7 @@ public class IntroduceFEN extends JPanel {
     private JComboBox player_who_starts;
     private SampleGame table;
 
-    IntroduceFEN(FrameProgram t) {
+    IntroduceFEN(FrameProgram t, boolean play, boolean multiple) {
         frame = t;
         FEN = new JTextField();
         FEN.addFocusListener(new changetext());
@@ -44,7 +44,7 @@ public class IntroduceFEN extends JPanel {
         GoBack.setFont(new Font("Serif", Font.PLAIN, 30));
         number_of_plays.setFont(new Font("Serif", Font.PLAIN, 20));
         JLabel label1 = new JLabel("FEN");
-        JLabel label2 = new JLabel("Player who starts playings");
+        JLabel label2 = new JLabel("Player who starts playing");
         JLabel label3 = new JLabel("Player who has to achive checkmate");
         JLabel label4 = new JLabel("Number of plays");
         label1.setFont(new Font("Serif", Font.PLAIN, 20));

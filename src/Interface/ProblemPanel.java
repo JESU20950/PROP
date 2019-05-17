@@ -160,7 +160,6 @@ public class ProblemPanel extends JPanel {
             frame.getMiFrame().setContentPane(panel);
             frame.getMiFrame().revalidate();
         }
-
     }
 
     private class double_click extends MouseAdapter {

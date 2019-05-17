@@ -90,14 +90,15 @@ public class GameInterface extends JPanel {
     }
 
     public void dialaog_end_of_game(){
-        if (true) JOptionPane.showMessageDialog(frame.getMiFrame(),
-                "Congratulation white player",
-                "CONGRATULATION",
+        if (actual_game.getTable().checkmate(true, true) || actual_game.getTable().checkmate(true, false) )
+            JOptionPane.showMessageDialog(frame.getMiFrame(),
+                "Congratulations white player",
+                "CONGRATULATIONS",
                 JOptionPane.NO_OPTION);
         else{
             JOptionPane.showMessageDialog(frame.getMiFrame(),
-                    "Congratulation black player",
-                    "CONGRATULATION",
+                    "Congratulations black player",
+                    "CONGRATULATIONS",
                     JOptionPane.NO_OPTION);
         }
         Cover Panel = new Cover(frame);

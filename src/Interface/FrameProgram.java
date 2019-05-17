@@ -15,7 +15,7 @@ public class FrameProgram extends JFrame {
     private JFrame miFrame;
     private Game actual_game;
 
-    public FrameProgram()throws CloneNotSupportedException, IOException {
+    public FrameProgram() {
         actual_game = new Game();
         miFrame = new JFrame("ChessGameUPC");
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();

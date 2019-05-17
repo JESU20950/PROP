@@ -4,6 +4,8 @@ import Domain.Problem;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
@@ -39,11 +41,24 @@ public class EliminateFEN extends JPanel{
         JPanel panelgraphiclist = new JPanel();
         panelgraphiclist.setSize(400, 400);
         panelgraphiclist.add(graphic_list);
+        JButton Back = new JButton("Back");
+        Back.setFont(new Font("serif", Font.PLAIN, 30));
+        Back.addActionListener(new goBackListener());
         this.add(graphic_list, BorderLayout.CENTER);
-
+        this.add(Back, BorderLayout.EAST);
         if (problem.get(0) != null) table = new SampleGame(problem.get(0));
         this.add(table,BorderLayout.SOUTH);
     }
+
+    private class goBackListener implements ActionListener {
+        public void actionPerformed(ActionEvent evt) {
+            ModificatePanel Panel = new ModificatePanel(frame);
+            frame.getMiFrame().setContentPane(Panel);
+            frame.getMiFrame().revalidate();
+            frame.getMiFrame().repaint();
+        }
+    }
+
     private class double_click extends MouseAdapter {
         public void mouseClicked(MouseEvent me) {
             if (me.getClickCount() == 2) {
@@ -56,10 +71,22 @@ public class EliminateFEN extends JPanel{
                         "Problem eliminated",
                         "",
                         JOptionPane.INFORMATION_MESSAGE);
-                EliminateFEN panel = new EliminateFEN(frame);
-                frame.getMiFrame().getContentPane().removeAll();
-                frame.getMiFrame().setContentPane(panel);
-                frame.getMiFrame().revalidate();
+                try {
+                    if (Problem.load_problem_fromBD("BD_USERPROBLEMS").isEmpty()) {
+                        Cover Panel = new Cover(frame);
+                        frame.getMiFrame().setContentPane(Panel);
+                        frame.getMiFrame().revalidate();
+                        frame.getMiFrame().repaint();
+                    }
+                    else {
+                        EliminateFEN panel = new EliminateFEN(frame);
+                        frame.getMiFrame().getContentPane().removeAll();
+                        frame.getMiFrame().setContentPane(panel);
+                        frame.getMiFrame().revalidate();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }else{
                 table = new SampleGame(graphic_list.getSelectedItem());
                 frame.getMiFrame().getContentPane().remove(2);

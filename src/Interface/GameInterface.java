@@ -100,9 +100,10 @@ public class GameInterface extends JPanel {
                     "CONGRATULATION",
                     JOptionPane.NO_OPTION);
         }
-
-        exit(0);
-
+        Cover Panel = new Cover(frame);
+        frame.getMiFrame().setContentPane(Panel);
+        frame.getMiFrame().revalidate();
+        frame.getMiFrame().repaint();
     }
 
     private class ChessButton extends JButton {

@@ -235,7 +235,7 @@ public class Problem {
     public static List<String> load_problem_fromBD(String name_of_file) throws IOException {
         String s = getOS();
         String path;
-        if (s.charAt(0) == 'w') path = "..\\..\\..\\FONTS\\src\\Data\\";
+        if (s.charAt(0) == 'w') path = "src\\Data\\";
         else path = "src/Data/";
         File file = new File(path + name_of_file);
         FileReader fr = new FileReader(file);
@@ -252,7 +252,7 @@ public class Problem {
     public static List<String> marks_of_problem(String FEN) throws IOException {
         String s = getOS();
         String path;
-        if (s.charAt(0) == 'w') path = "..\\..\\..\\FONTS\\src\\Data\\";
+        if (s.charAt(0) == 'w') path = "src\\Data\\";
         else path = "src/Data/";
         File file = new File(path + create_file_name(FEN));
         List<String> result = new ArrayList<String>();
@@ -289,7 +289,7 @@ public class Problem {
        List <String> output = marks_of_problem(FEN);
        String s = getOS();
        String path;
-       if (s.charAt(0) == 'w') path = "..\\..\\..\\FONTS\\src\\Data\\";
+       if (s.charAt(0) == 'w') path = "src\\Data\\";
        else path = "src/Data/";
        FileWriter file = new FileWriter(path + create_file_name(FEN));
        PrintWriter pw  = new PrintWriter (file);
@@ -310,7 +310,7 @@ public class Problem {
         List <String> problems = load_problem_fromBD("BD_USERPROBLEMS");
         String s = getOS();
         String path;
-        if (s.charAt(0) == 'w') path = "..\\..\\..\\FONTS\\src\\Data\\";
+        if (s.charAt(0) == 'w') path = "src\\Data\\";
         else path = "src/Data/";
         FileWriter file = new FileWriter(path +"BD_USERPROBLEMS");
         PrintWriter pw  = new PrintWriter (file);
@@ -325,7 +325,7 @@ public class Problem {
         List <String> problems = load_problem_fromBD("BD_USERPROBLEMS");
         String s = getOS();
         String path;
-        if (s.charAt(0) == 'w') path = "..\\..\\..\\FONTS\\src\\Data\\";
+        if (s.charAt(0) == 'w') path = "src\\Data\\";
         else path = "src/Data/";
         FileWriter file = new FileWriter(path + "BD_USERPROBLEMS");
         PrintWriter pw  = new PrintWriter (file);
@@ -341,7 +341,7 @@ public class Problem {
         List <String> problems = load_problem_fromBD("BD_USERPROBLEMS");
         String s = getOS();
         String path;
-        if (s.charAt(0) == 'w') path = "..\\..\\..\\FONTS\\src\\Data\\";
+        if (s.charAt(0) == 'w') path = "src\\Data\\";
         else path = "src/Data/";
         FileWriter file = new FileWriter(path + "BD_USERPROBLEMS");
         PrintWriter pw  = new PrintWriter (file);

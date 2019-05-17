@@ -36,8 +36,11 @@ public class PlayerPanel extends JPanel {
 
         GridBagConstraints c = new GridBagConstraints();
         JButton button = new JButton("PLAY");
+        JButton buttonGoBack = new JButton("Back");
         button.addActionListener(new playaction());
+        buttonGoBack.addActionListener(new backaction());
         button.setFont(new Font("Serif", Font.PLAIN, 30));
+        buttonGoBack.setFont(new Font("Serif", Font.PLAIN, 30));
         c.anchor = GridBagConstraints.CENTER;
         c.gridx = 0;
         c.gridy = 0;
@@ -54,8 +57,21 @@ public class PlayerPanel extends JPanel {
         c.gridx = 1;
         c.gridy = 1;
         this.add(button,c);
-
+        c.anchor = GridBagConstraints.CENTER;
+        c.gridx = 1;
+        c.gridy = 2;
+        this.add(buttonGoBack, c);
     }
+
+    private class backaction implements ActionListener {
+        public void actionPerformed(ActionEvent evt) {
+            Cover Panel = new Cover(frame);
+            frame.getMiFrame().setContentPane(Panel);
+            frame.getMiFrame().revalidate();
+            frame.getMiFrame().repaint();
+        }
+    }
+
     private class playaction implements ActionListener {
         public void actionPerformed(ActionEvent evt) {
             ProblemPanel Panel = new ProblemPanel(frame);

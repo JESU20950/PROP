@@ -33,12 +33,15 @@ public class IntroduceFEN extends JPanel {
         player_who_has_to_achive_the_check_mate.addItem("White");
         player_who_has_to_achive_the_check_mate.addItem("Black");
         JButton introduceProblem = new JButton("Introduce Problem");
+        JButton GoBack = new JButton("Back");
         introduceProblem.addMouseListener(new double_click());
+        GoBack.addActionListener(new BackListener());
         FEN.setFont(new Font("Serif", Font.PLAIN, 20));
         player_who_starts.setFont(new Font("Serif", Font.PLAIN, 20));
         player_who_has_to_achive_the_check_mate.setFont(new Font("Serif", Font.PLAIN, 20));
         player_who_starts.setFont(new Font("Serif", Font.PLAIN, 20));
         introduceProblem.setFont(new Font("Serif", Font.PLAIN, 30));
+        GoBack.setFont(new Font("Serif", Font.PLAIN, 30));
         number_of_plays.setFont(new Font("Serif", Font.PLAIN, 20));
         JLabel label1 = new JLabel("FEN");
         JLabel label2 = new JLabel("Player who starts playings");
@@ -66,10 +69,14 @@ public class IntroduceFEN extends JPanel {
         c.gridx = 0;
         c.gridy = 7;
         this.add(number_of_plays, c);
-        c.anchor = GridBagConstraints.NORTH;
+        c.anchor = GridBagConstraints.WEST;
         c.gridx = 0;
         c.gridy = 10;
         this.add(introduceProblem, c);
+        c.anchor = GridBagConstraints.EAST;
+        c.gridx = 0;
+        c.gridy = 10;
+        this.add(GoBack, c);
         c.anchor = GridBagConstraints.NORTH;
         c.gridx = 0;
         c.gridy = 0;
@@ -93,6 +100,15 @@ public class IntroduceFEN extends JPanel {
         c.gridy = 20;
         this.add(table, c);
 
+    }
+
+    private class BackListener implements ActionListener {
+        public void actionPerformed(ActionEvent evt) {
+            ModificatePanel Panel = new ModificatePanel(frame);
+            frame.getMiFrame().setContentPane(Panel);
+            frame.getMiFrame().revalidate();
+            frame.getMiFrame().repaint();
+        }
     }
 
     private class double_click extends MouseAdapter {

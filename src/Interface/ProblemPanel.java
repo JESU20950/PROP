@@ -2,6 +2,7 @@ package Interface;
 
 
 import Domain.Game;
+import Domain.Player.Player;
 import Domain.Problem;
 
 import javax.swing.*;
@@ -22,12 +23,16 @@ public class ProblemPanel extends JPanel {
     public ProblemPanel(FrameProgram t) {
         frame = t;
         JButton loadButton = new JButton("Load Problem");
+        JButton goBackButton = new JButton("Back");
         //JButton introduceButton = new JButton("Introduce your Problem");
         //introduceButton.addActionListener(new introduceListener());
         loadButton.addActionListener(new loadListener());
+        goBackButton.addActionListener(new goBackListener());
         loadButton.setPreferredSize(new Dimension(400, 40));
+        goBackButton.setPreferredSize(new Dimension(400, 40));
         //introduceButton.setPreferredSize(new Dimension(400, 40));
         loadButton.setFont(new Font("Serif", Font.PLAIN, 30));
+        goBackButton.setFont(new Font("Serif", Font.PLAIN, 30));
         //introduceButton.setFont(new Font("Serif", Font.PLAIN, 30));
         this.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
@@ -39,6 +44,10 @@ public class ProblemPanel extends JPanel {
         c.gridx = 0;
         c.gridy = 1;
         //this.add(introduceButton, c);
+        c.anchor = GridBagConstraints.CENTER;
+        c.gridx = 0;
+        c.gridy = 3;
+        this.add(goBackButton, c);
     }
 /*
     public class introduceListener implements ActionListener {
@@ -50,24 +59,43 @@ public class ProblemPanel extends JPanel {
         }
     }
 */
+    private class goBackListener implements ActionListener {
+        public void actionPerformed(ActionEvent evt) {
+            PlayerPanel Panel = new PlayerPanel(frame);
+            frame.getMiFrame().setContentPane(Panel);
+            frame.getMiFrame().revalidate();
+            frame.getMiFrame().repaint();
+        }
+    }
+
+    private class goBack2Listener implements ActionListener {
+        public void actionPerformed(ActionEvent evt) {
+            ProblemPanel Panel = new ProblemPanel(frame);
+            frame.getMiFrame().setContentPane(Panel);
+            frame.getMiFrame().revalidate();
+            frame.getMiFrame().repaint();
+        }
+    }
+
     public class loadListener implements ActionListener {
         public void actionPerformed(ActionEvent evt) {
             JPanel Dificulty = new JPanel();
-            JButton Hard_Problems = new JButton();
-            JButton Easy_Problems = new JButton();
-            JButton User_Problems = new JButton();
-            Hard_Problems.setLabel("Hard Problems");
-            Easy_Problems.setLabel("Easy Problems");
-            User_Problems.setLabel("User Problems");
+            JButton Hard_Problems = new JButton("Hard Problems");
+            JButton Easy_Problems = new JButton("Easy Problems");
+            JButton User_Problems = new JButton("User Problems");
+            JButton Back = new JButton("Back");
             Hard_Problems.addActionListener(new ModeListener());
             Easy_Problems.addActionListener(new ModeListener());
             User_Problems.addActionListener(new ModeListener());
+            Back.addActionListener(new goBack2Listener());
             Hard_Problems.setPreferredSize(new Dimension(300, 40));
             Easy_Problems.setPreferredSize(new Dimension(300, 40));
             User_Problems.setPreferredSize(new Dimension(300, 40));
+            Back.setPreferredSize(new Dimension(300, 40));
             Easy_Problems.setFont(new Font("Serif", Font.PLAIN, 30));
             Hard_Problems.setFont(new Font("Serif", Font.PLAIN, 30));
             User_Problems.setFont(new Font("Serif", Font.PLAIN, 30));
+            Back.setFont(new Font("Serif", Font.PLAIN, 30));
             Dificulty.setLayout(new GridBagLayout());
             GridBagConstraints c = new GridBagConstraints();
             c.anchor = GridBagConstraints.CENTER;
@@ -82,6 +110,10 @@ public class ProblemPanel extends JPanel {
             c.gridx = 0;
             c.gridy = 2;
             Dificulty.add(User_Problems, c);
+            c.anchor = GridBagConstraints.CENTER;
+            c.gridx = 0;
+            c.gridy = 3;
+            Dificulty.add(Back, c);
             frame.getMiFrame().getContentPane().removeAll();
             frame.getMiFrame().setContentPane(Dificulty);
             frame.getMiFrame().revalidate();

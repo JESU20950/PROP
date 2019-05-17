@@ -59,10 +59,9 @@ public class Human extends Player {
             } else System.out.println("Wrong piece, try again!");
         }
     }
-     */
+    */
     public Cell[] move_piece(Game g){
         Cell[ ] c = null;
         return c;
     }
-
 }

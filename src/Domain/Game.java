@@ -39,7 +39,22 @@ public class Game {
     public boolean getPlayer_who_plays() {
         return player_who_plays;
     }
-
+    /*
+    public void graphic_move_and_internal_move(int i_origen, int j_origen, int i_destino, int j_destino){
+        if (!table.CorrectMove(i_origen, j_origen, i_destino, j_destino)) return;
+        gameInterface.getChessBoard()[i_destino][j_destino].setIcon(gameInterface.getChessBoard()[i_origen][j_origen].getIcon());
+        gameInterface.getChessBoard()[i_origen][j_origen].setIcon(null);
+        gameInterface.getChessBoard()[i_origen][j_origen].paint_cell();
+        player_who_plays = !player_who_plays;
+        number_of_play = number_of_play-1;
+        gameInterface.paint_info();
+        try {
+            endofgame();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    */
 
     public boolean getPlayer_who_has_to_win() {
         return player_who_has_to_win;
@@ -65,8 +80,13 @@ public class Game {
 
     public void setPlayer_who_plays(boolean player_who_plays) {
         this.player_who_plays = player_who_plays;
+        //gameInterface.setPlayer_who_plays_label(player_who_plays);
     }
-
+    /*
+    public void setGameInterface(GameInterface gameInterface) {
+        this.gameInterface = gameInterface;
+    }
+    */
     public void setPlayer_who_has_to_win(boolean player_who_has_to_win) {
         this.player_who_has_to_win = player_who_has_to_win;
     }
@@ -86,12 +106,10 @@ public class Game {
     public void setPlayer2(Player player2) {
         this.player2 = player2;
     }
-
     //revisar si funciona correctamente endofgame
     public boolean endofgame(){
         return number_of_play <= 0 ||table.checkmate(true,false) || table.checkmate(false,true);
     }
-
 
     public Player getPlayerwhoplays(){
         if (player_who_plays) return player1;

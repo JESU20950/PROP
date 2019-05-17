@@ -1,24 +1,22 @@
 
-
 /*
-
 import Domain.Game;
 import Domain.Player.Human;
 import Domain.Player.Machine1;
 import Domain.Player.Player;
 import Domain.Problem;
-import Interface.FrameProgram;
 
 import java.io.IOException;
-import java.util.List;
+
 import java.util.Scanner;
+import java.util.List;
+
 
 import static Domain.Problem.*;
+import static Domain.Problem.delete_problem_fromBD;
 import static java.lang.System.exit;
 
 public class Main {
-
-
     private static void error_choice() {
         System.out.println("Error, this option is not available");
         exit(1);
@@ -49,18 +47,18 @@ public class Main {
     }
     private static void feature_not_available(){
         System.out.println("Feature not available");
-        exit(0);
+        System.exit(0);
     }
-    private static void easy_problems_ranking() throws CloneNotSupportedException, IOException {
+    private static void easy_problems_ranking() throws IOException {
         List<String> l = Problem.load_problem_fromBD("BD_EASYMODE");
         load_problem_ranking(l);
     }
 
-    private static void hard_problems_ranking() throws CloneNotSupportedException, IOException {
+    private static void hard_problems_ranking() throws IOException {
         List<String> l = Problem.load_problem_fromBD("BD_HARDMODE");
         load_problem_ranking(l);
     }
-    private static void ranking() throws IOException, CloneNotSupportedException {
+    private static void ranking() throws IOException {
         System.out.println("Select your option by writting the number");
         System.out.println("1. Easy Problems");
         System.out.println("2. Hard Problems");
@@ -72,7 +70,7 @@ public class Main {
         exit(0);
     }
 
-    private static void handleEndGame(Game g) throws CloneNotSupportedException {
+    private static void handleEndGame(Game g) {
         g.getTable().print_table();
         if(g.getNumber_of_play() <= 0) System.out.println("Number of plays ended, GAME OVER.");
         if(g.getTable().checkmate(true,true) && g.getTable().checkmate(true,false) ) System.out.println("Check mate, White team won");
@@ -80,7 +78,7 @@ public class Main {
         System.out.println("GG WP");
     }
 
-    private static void player_vs_player(Game g) throws CloneNotSupportedException {
+    private static void player_vs_player(Game g) {
         Scanner sc = new Scanner(System.in);
         System.out.println("Select your option by writting the number");
         System.out.print("Enter Player1's name(will play white team): ");
@@ -113,7 +111,7 @@ public class Main {
             handleEndGame(g);
     }
 
-    private static void player_vs_CPUe(Game g) throws CloneNotSupportedException, IOException {
+    private static void player_vs_CPUe(Game g) {
         Scanner sc = new Scanner(System.in);
         System.out.println("Select your option by writting the number");
         System.out.print("Enter Player's name(will play white team): ");
@@ -145,7 +143,7 @@ public class Main {
         handleEndGame(g);
     }
 
-    private static void CPUe_vs_player(Game g) throws CloneNotSupportedException, IOException{
+    private static void CPUe_vs_player(Game g) {
         Scanner sc = new Scanner(System.in);
         System.out.println("Select your option by writting the number");
         System.out.print("Enter Player's name(will play black team): ");
@@ -177,11 +175,11 @@ public class Main {
         handleEndGame(g);
     }
 
-    private static void player_vs_CPUh(Game g) throws CloneNotSupportedException, IOException {
+    private static void player_vs_CPUh(Game g) {
         feature_not_available();
     }
 
-    private static void CPUe_vs_CPUe(Game g) throws CloneNotSupportedException, IOException {
+    private static void CPUe_vs_CPUe(Game g) {
         Scanner sc = new Scanner(System.in);
         System.out.println("Select your option by writting the number");
         Player p1 = new Machine1();
@@ -213,15 +211,15 @@ public class Main {
         handleEndGame(g);
     }
 
-    private static void CPUe_vs_CPUh(Game g) throws CloneNotSupportedException, IOException {
+    private static void CPUe_vs_CPUh(Game g) {
         feature_not_available();
     }
 
-    private static void CPUh_Vs_CPUh(Game g) throws CloneNotSupportedException, IOException {
+    private static void CPUh_Vs_CPUh(Game g) {
         feature_not_available();
     }
 
-    private static void handleGame(String s, boolean player_who_start, boolean player_who_has_to_win, int number_of_plays)  throws CloneNotSupportedException, IOException{
+    private static void handleGame(String s, boolean player_who_start, boolean player_who_has_to_win, int number_of_plays) {
         Scanner sc = new Scanner(System.in);
         Game g = new Game();
         g.prepareTablewithParameters(s, player_who_start, player_who_has_to_win, number_of_plays);
@@ -245,7 +243,7 @@ public class Main {
         else error_choice();
     }
 
-    private static void introduceFEN() throws CloneNotSupportedException, IOException {
+    private static void introduceFEN() throws IOException {
         Scanner sc = new Scanner(System.in);
         String s = sc.nextLine();
         boolean b = iscorrectFen(s);
@@ -284,24 +282,24 @@ public class Main {
     handleGame(s, player_who_start, player_who_has_to_win, number_of_plays);
     }
 
-    private static void easy_problems() throws CloneNotSupportedException, IOException {
+    private static void easy_problems() throws IOException {
         List<String> l = Problem.load_problem_fromBD("BD_EASYMODE");
         load_problem(l);
     }
 
-    private static void hard_problems() throws CloneNotSupportedException, IOException {
+    private static void hard_problems() throws IOException {
         List<String> l = Problem.load_problem_fromBD("BD_HARDMODE");
         load_problem(l);
     }
 
-    private static void load_problem(List<String> l) throws CloneNotSupportedException, IOException {
+    private static void load_problem(List<String> l) {
         for(int i = 0; i < l.size(); i++) {
             System.out.println(i + " : " +l.get(i));
         }
         Scanner sc = new Scanner(System.in);
         System.out.println("Select the problem by typing the number at the start of each one");
         int aux = sc.nextInt();
-        while(aux < 0 || aux > l.size()){
+        while(aux < 0 || aux >= l.size()){
             System.out.println("There is no problem there...");
             System.out.println("Select the problem by typing the number at the start of each one");
             aux = sc.nextInt();
@@ -319,7 +317,7 @@ public class Main {
         handleGame(FEN,whoStarts,whoWins,N);
     }
 
-    private static void selectFEN() throws CloneNotSupportedException, IOException {
+    private static void selectFEN() throws IOException {
         System.out.println("Select your option by writting the number");
         System.out.println("1. Easy Problems");
         System.out.println("2. Hard Problems");
@@ -330,7 +328,7 @@ public class Main {
         else error_choice();
     }
 
-    private static void start_game() throws CloneNotSupportedException, IOException {
+    private static void start_game() throws IOException {
         System.out.println("Select your option by writting the number");
         System.out.println("1. Introduce your own FEN");
         System.out.println("2. Select a FEN from the Database");
@@ -410,7 +408,7 @@ public class Main {
         }
         modificate_problem_fromBD(old_problem,convertParameterstoFEN(s,player_who_start,player_who_has_to_win,number_of_plays));
     }
-    private static void modificar_problema() throws IOException, CloneNotSupportedException {
+    private static void modificar_problema() throws IOException {
         Scanner sc = new Scanner(System.in);
         System.out.println("1. Introduce FEN");
         System.out.println("2. Eliminate FEN");
@@ -424,7 +422,7 @@ public class Main {
         else error_choice();
     }
 
-    private static void start_menu() throws CloneNotSupportedException, IOException {
+    private static void start_menu() throws IOException {
         System.out.println("Select your option by writting the number");
         System.out.println("1. Start a new game");
         System.out.println("2. See the ranking table");
@@ -439,13 +437,14 @@ public class Main {
         else error_choice();
     }
 
-    public static void main(String[] args) throws CloneNotSupportedException, IOException {
+    public static void main(String[] args) throws IOException {
         start_menu();
     }
 
-}
-*/
 
+
+}
+     */
 
 import Interface.FrameProgram;
 
@@ -454,9 +453,5 @@ import java.io.IOException;
 public class Main{
     public static void main(String[] args) throws CloneNotSupportedException, IOException {
         FrameProgram a = new FrameProgram();
-
     }
 }
-
-
-

@@ -14,6 +14,9 @@ import static java.lang.Math.*;
 
 
 public class Machine1 extends Player{
+    public Machine1() {
+        super.name = "Machine1";
+    }
 
     public boolean isMachine() {
         return true;

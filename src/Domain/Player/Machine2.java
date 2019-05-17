@@ -10,6 +10,7 @@ public class Machine2 extends Player{
         super.name = "Machine2";
     }
 
+
     public boolean isMachine() {
         return true;
     }

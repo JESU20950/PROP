@@ -24,16 +24,16 @@ public class ProblemPanel extends JPanel {
         frame = t;
         JButton loadButton = new JButton("Load Problem");
         JButton goBackButton = new JButton("Back");
-        //JButton introduceButton = new JButton("Introduce your Problem");
-        //introduceButton.addActionListener(new introduceListener());
+        JButton introduceButton = new JButton("Introduce your Problem");
+        introduceButton.addActionListener(new introduceListener());
         loadButton.addActionListener(new loadListener());
         goBackButton.addActionListener(new goBackListener());
         loadButton.setPreferredSize(new Dimension(400, 40));
         goBackButton.setPreferredSize(new Dimension(400, 40));
-        //introduceButton.setPreferredSize(new Dimension(400, 40));
+        introduceButton.setPreferredSize(new Dimension(400, 40));
         loadButton.setFont(new Font("Serif", Font.PLAIN, 30));
         goBackButton.setFont(new Font("Serif", Font.PLAIN, 30));
-        //introduceButton.setFont(new Font("Serif", Font.PLAIN, 30));
+        introduceButton.setFont(new Font("Serif", Font.PLAIN, 30));
         this.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
         c.anchor = GridBagConstraints.CENTER;
@@ -43,13 +43,13 @@ public class ProblemPanel extends JPanel {
         c.anchor = GridBagConstraints.CENTER;
         c.gridx = 0;
         c.gridy = 1;
-        //this.add(introduceButton, c);
+        this.add(introduceButton, c);
         c.anchor = GridBagConstraints.CENTER;
         c.gridx = 0;
-        c.gridy = 3;
+        c.gridy = 2;
         this.add(goBackButton, c);
     }
-/*
+
     public class introduceListener implements ActionListener {
         public void actionPerformed(ActionEvent evt) {
             IntroduceFENPanel panel = new IntroduceFENPanel(frame);
@@ -58,7 +58,7 @@ public class ProblemPanel extends JPanel {
             frame.getMiFrame().revalidate();
         }
     }
-*/
+
     private class goBackListener implements ActionListener {
         public void actionPerformed(ActionEvent evt) {
             PlayerPanel Panel = new PlayerPanel(frame);
@@ -180,8 +180,7 @@ public class ProblemPanel extends JPanel {
             }
         }
     }
-}
-/*
+
     private class IntroduceFENPanel extends JPanel {
         private FrameProgram frame;
         private JTextField FEN;
@@ -202,7 +201,7 @@ public class ProblemPanel extends JPanel {
             player_who_has_to_achive_the_check_mate.addItem("White");
             player_who_has_to_achive_the_check_mate.addItem("Black");
             JButton introduceProblem = new JButton("Introduce Problem");
-            introduceProblem.addMouseListener(new double_click());
+            introduceProblem.addMouseListener(new double_click2());
             FEN.setFont(new Font("Serif", Font.PLAIN, 20));
             player_who_starts.setFont(new Font("Serif", Font.PLAIN, 20));
             player_who_has_to_achive_the_check_mate.setFont(new Font("Serif", Font.PLAIN, 20));
@@ -255,9 +254,9 @@ public class ProblemPanel extends JPanel {
             c.gridx = 0;
             c.gridy = 6;
             this.add(label4,c);
-
         }
-        private class double_click extends MouseAdapter {
+
+        private class double_click2 extends MouseAdapter {
             public void mouseClicked(MouseEvent me){
                 if (me.getClickCount() == 1) {
                     if (!iscorrectFen(FEN.getText())) {
@@ -300,4 +299,3 @@ public class ProblemPanel extends JPanel {
     }
 }
 
-*/

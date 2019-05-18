@@ -43,14 +43,7 @@ public class Cover extends JPanel {
         this.add(botonQuit,c);
         frame.getMiFrame().setContentPane(this);
         botonPlayGame.addActionListener(new PlayGameListener());
-        botonRanking.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                RankingPanel Panel = new RankingPanel();
-                frame.getMiFrame().getContentPane().removeAll();
-                frame.getMiFrame().setContentPane(Panel);
-                frame.getMiFrame().revalidate();
-            }
-        });
+        botonRanking.addActionListener(new RankingListener());
         botonModificateProblem.addActionListener(new ModificateProblemListener());
         botonPlayGame.addActionListener(new PlayGameListener());
         botonQuit.addActionListener(new Quit());
@@ -73,6 +66,14 @@ public class Cover extends JPanel {
     private class ModificateProblemListener implements ActionListener {
         public void actionPerformed(ActionEvent evt) {
             ModificatePanel Panel= new ModificatePanel(frame);
+            frame.getMiFrame().getContentPane().removeAll();
+            frame.getMiFrame().setContentPane(Panel);
+            frame.getMiFrame().revalidate();
+        }
+    }
+    private class RankingListener implements ActionListener {
+        public void actionPerformed(ActionEvent evt) {
+            RankingPanel Panel= new RankingPanel(frame);
             frame.getMiFrame().getContentPane().removeAll();
             frame.getMiFrame().setContentPane(Panel);
             frame.getMiFrame().revalidate();

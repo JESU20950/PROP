@@ -50,13 +50,25 @@ public class MachinePanel extends JPanel implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == easy_problems) {
-
+            MultipleProblems Panel = new MultipleProblems(frame, 0);
+            frame.getMiFrame().getContentPane().removeAll();
+            frame.getMiFrame().setContentPane(Panel);
+            frame.getMiFrame().revalidate();
+            frame.getMiFrame().repaint();
         }
-        if (e.getSource() == easy_problems) {
-
+        if (e.getSource() == hard_problems) {
+            MultipleProblems Panel = new MultipleProblems(frame, 1);
+            frame.getMiFrame().getContentPane().removeAll();
+            frame.getMiFrame().setContentPane(Panel);
+            frame.getMiFrame().revalidate();
+            frame.getMiFrame().repaint();
         }
-        if (e.getSource() == easy_problems) {
-
+        if (e.getSource() == user_problems) {
+            MultipleProblems Panel = new MultipleProblems(frame, 2);
+            frame.getMiFrame().getContentPane().removeAll();
+            frame.getMiFrame().setContentPane(Panel);
+            frame.getMiFrame().revalidate();
+            frame.getMiFrame().repaint();
         }
         if (e.getSource() == back) {
             PlayerPanel Panel = new PlayerPanel(frame);

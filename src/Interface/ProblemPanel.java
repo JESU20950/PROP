@@ -289,7 +289,7 @@ public class ProblemPanel extends JPanel {
                     }
 
                     frame.getActual_game().prepareTablewithParameters(FENtext, player_who_start_bool, player_who_has_to_win, number_of_plays_int);
-                    PlayerPanel Panel = new PlayerPanel(frame);
+                    GameInterface Panel = new GameInterface(frame);
                     frame.getMiFrame().getContentPane().removeAll();
                     frame.getMiFrame().setContentPane(Panel);
                     frame.getMiFrame().revalidate();

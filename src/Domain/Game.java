@@ -108,7 +108,7 @@ public class Game {
     }
     //revisar si funciona correctamente endofgame
     public boolean endofgame(){
-        return number_of_play <= 0 ||table.checkmate(true,false) || table.checkmate(false,true);
+        return number_of_play <= 0 || table.king_position(true) == null || table.king_position(false) == null || table.checkmate(true,player_who_plays) || table.checkmate(false,player_who_plays);
     }
 
     public Player getPlayerwhoplays(){

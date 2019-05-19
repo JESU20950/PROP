@@ -200,7 +200,7 @@ public class GameInterface extends JPanel {
             duration = duration/1000;
             String duration_string = Long.toString(duration );
             timer.setText(duration_string + " SEGUNDOS");
-            while(!actual_game.endofgame()){
+            while(!actual_game.endofgame() || actual_game.getTable().king_position(true) != null || actual_game.getTable().king_position(false) != null){
                 duration = Duration.between(actual_game.getStart(), Instant.now()).toMillis();
                 duration = duration/1000;
                 duration_string = Long.toString(duration);
@@ -230,9 +230,11 @@ public class GameInterface extends JPanel {
                     chessBoard[iorigen][jorigen].setIcon(null);
                     actual_game.setPlayer_who_plays(!actual_game.getPlayer_who_plays());
                     actual_game.setNumber_of_play(actual_game.getNumber_of_play() - 1);
+                    actual_game.getTable().print_table();
                     paint_info();
                 }
             }
+            dialaog_end_of_game(); //Jesus aprende a programar
         }
     }
 

@@ -20,6 +20,14 @@ public class Machine2 extends Player{
         return true;
     }
 
+    private void update_good_movements(List<Cell> movement, Cell origen) {
+        for (int i = 0; i < movement.size(); ++i) {
+            if (movement.get(i).getPiece() != null && movement.get(i).getPiece().getColor() == origen.getPiece().getColor()) {
+                movement.remove(i);
+            }
+        }
+    }
+
     private int move_piece_machine(Table t, int depth, int n, boolean turn, Cell[] result, int alpha, int beta) {
         if (depth == 0) {
             return evaluate(t);
@@ -30,6 +38,7 @@ public class Machine2 extends Player{
                 int best = -9999;
                 for (int i = 0; i < pieces.size(); ++i) {
                     List<Cell> movement = pieces.get(i).getMovement();
+                    update_good_movements(movement, pieces.get(i).getPosition());
                     int io = pieces.get(i).getPosition().getI();
                     int jo = pieces.get(i).getPosition().getJ();
                     for (int j = 0; j < movement.size(); ++j) {
@@ -59,6 +68,7 @@ public class Machine2 extends Player{
                 int best = 9999;
                 for (int i = 0; i < pieces.size(); ++i) {
                     List<Cell> movement = pieces.get(i).getMovement();
+                    update_good_movements(movement, pieces.get(i).getPosition());
                     int io = pieces.get(i).getPosition().getI();
                     int jo = pieces.get(i).getPosition().getJ();
                     for (int j = 0; j < movement.size(); ++j) {

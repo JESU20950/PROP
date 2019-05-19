@@ -234,7 +234,7 @@ public class GameInterface extends JPanel {
                     paint_info();
                 }
             }
-            dialaog_end_of_game(); //Jesus aprende a programar
+            dialaog_end_of_game();
         }
     }
 

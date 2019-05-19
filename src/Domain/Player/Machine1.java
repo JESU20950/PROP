@@ -5,6 +5,7 @@ package Domain.Player;
 import Domain.Cell;
 import Domain.Game;
 import Domain.Pieces.Piece;
+import Domain.Problem;
 import Domain.Table;
 
 import java.util.ArrayList;
@@ -21,6 +22,15 @@ public class Machine1 extends Player{
     public boolean isMachine() {
         return true;
     }
+
+    private void update_good_movements(List<Cell> movement, Cell origen) {
+        for (int i = 0; i < movement.size(); ++i) {
+            if (movement.get(i).getPiece() != null && movement.get(i).getPiece().getColor() == origen.getPiece().getColor()) {
+                movement.remove(i);
+            }
+        }
+    }
+
     private int move_piece_machine(Table t, int depth, int n, boolean turn, Cell[] result) {
         if (depth == 0) {
             return evaluate(t);
@@ -31,6 +41,7 @@ public class Machine1 extends Player{
                 int best = -9999;
                 for (int i = 0; i < pieces.size(); ++i) {
                     List<Cell> movement = pieces.get(i).getMovement();
+                    update_good_movements(movement, pieces.get(i).getPosition());
                     int io = pieces.get(i).getPosition().getI();
                     int jo = pieces.get(i).getPosition().getJ();
                     for (int j = 0; j < movement.size(); ++j) {
@@ -58,6 +69,7 @@ public class Machine1 extends Player{
                 int best = 9999;
                 for (int i = 0; i < pieces.size(); ++i) {
                     List<Cell> movement = pieces.get(i).getMovement();
+                    update_good_movements(movement, pieces.get(i).getPosition());
                     int io = pieces.get(i).getPosition().getI();
                     int jo = pieces.get(i).getPosition().getJ();
                     for (int j = 0; j < movement.size(); ++j) {
@@ -83,7 +95,6 @@ public class Machine1 extends Player{
         int n = g.getNumber_of_play();
         Cell[] c = new Cell[2];
         for (int i  = 0; i<2 ; ++i) c[i] = new Cell();
-        int e = evaluate(g.getTable());
         //System.exit(0);
         int num = move_piece_machine(g.getTable(), min(n, 2), min(n, 2), g.getPlayer_who_plays(), c);
         g.getTable().MovePiece(c[0].getI(), c[0].getJ(), c[1].getI(), c[1].getJ());

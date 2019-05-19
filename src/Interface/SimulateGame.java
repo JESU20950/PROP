@@ -95,9 +95,14 @@ public class SimulateGame extends JPanel implements ActionListener {
                 actualGame.setPlayer1(p1);
                 actualGame.setPlayer2(p2);
                 while (!actualGame.endofgame()) {
-                    if (actualGame.getPlayer_who_plays()) actualGame.getPlayer1().move_piece(actualGame);
-                    else actualGame.getPlayer1().move_piece(actualGame);
+                    if (actualGame.getPlayer_who_plays()) {
+                        actualGame.getPlayer1().move_piece(actualGame);
+                    }
+                    else {
+                        actualGame.getPlayer2().move_piece(actualGame);
+                    }
                     actualGame.setNumber_of_play(actualGame.getNumber_of_play()-1);
+                    actualGame.setPlayer_who_plays(!actualGame.getPlayer_who_plays());
                 }
                 if (actualGame.getTable().checkmate(true, true) || actualGame.getTable().checkmate(true, false)) p1wins++;
                 else p2wins++;

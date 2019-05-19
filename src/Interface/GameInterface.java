@@ -216,7 +216,7 @@ public class GameInterface extends JPanel {
             while(!actual_game.endofgame()){
                 if (actual_game.getPlayerwhoplays().isMachine()){
                     try {
-                        Thread.sleep(10000);
+                        Thread.sleep(1000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }

@@ -238,6 +238,7 @@ public class Machine1 extends Player{
     private int evaluate(Table t){
         int M = evaluate_pieces(t.getPieces(super.color));
         int E = evaluate_pieces(t.getPieces(!super.color));
+        if (t.checkmate(super.color, true) || t.checkmate(super.color, false)) return 1000;
         return M - E;
     }
 }

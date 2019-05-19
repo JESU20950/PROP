@@ -18,7 +18,7 @@ public class IntroduceFEN extends JPanel {
     private JComboBox player_who_starts;
     private SampleGame table;
 
-    IntroduceFEN(FrameProgram t, boolean play, boolean multiple) {
+    IntroduceFEN(FrameProgram t, boolean multiple) {
         frame = t;
         FEN = new JTextField();
         FEN.addFocusListener(new changetext());

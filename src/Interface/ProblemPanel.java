@@ -12,8 +12,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static Domain.Problem.isCorrectProblem;
-import static Domain.Problem.iscorrectFen;
+import static Domain.Problem.*;
 
 public class ProblemPanel extends JPanel {
     private FrameProgram frame;
@@ -68,7 +67,7 @@ public class ProblemPanel extends JPanel {
         }
     }
 
-    private class goBack2Listener implements ActionListener {
+    private class goBackListener2 implements ActionListener {
         public void actionPerformed(ActionEvent evt) {
             ProblemPanel Panel = new ProblemPanel(frame);
             frame.getMiFrame().setContentPane(Panel);
@@ -87,7 +86,7 @@ public class ProblemPanel extends JPanel {
             Hard_Problems.addActionListener(new ModeListener());
             Easy_Problems.addActionListener(new ModeListener());
             User_Problems.addActionListener(new ModeListener());
-            Back.addActionListener(new goBack2Listener());
+            Back.addActionListener(new goBackListener2());
             Hard_Problems.setPreferredSize(new Dimension(300, 40));
             Easy_Problems.setPreferredSize(new Dimension(300, 40));
             User_Problems.setPreferredSize(new Dimension(300, 40));
@@ -151,7 +150,10 @@ public class ProblemPanel extends JPanel {
             panelgraphiclist.setSize(400, 400);
             panelgraphiclist.add(graphic_list);
             panel.add(graphic_list, BorderLayout.CENTER);
-
+            JButton Back = new JButton("Back");
+            Back.setFont(new Font("Serif", Font.PLAIN, 30));
+            Back.addActionListener(new loadListener());
+            panel.add(Back, BorderLayout.EAST);
 
             if (problem.get(0) != null) table = new SampleGame(problem.get(0));
             panel.add(table, BorderLayout.SOUTH);
@@ -181,6 +183,12 @@ public class ProblemPanel extends JPanel {
         }
     }
 
+    private class introduceFEN implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+
+        }
+    }
+
     private class IntroduceFENPanel extends JPanel {
         private FrameProgram frame;
         private JTextField FEN;
@@ -201,12 +209,15 @@ public class ProblemPanel extends JPanel {
             player_who_has_to_achive_the_check_mate.addItem("White");
             player_who_has_to_achive_the_check_mate.addItem("Black");
             JButton introduceProblem = new JButton("Introduce Problem");
+            JButton Back = new JButton("Back");
             introduceProblem.addMouseListener(new double_click2());
+            Back.addActionListener(new goBackListener2());
             FEN.setFont(new Font("Serif", Font.PLAIN, 20));
             player_who_starts.setFont(new Font("Serif", Font.PLAIN, 20));
             player_who_has_to_achive_the_check_mate.setFont(new Font("Serif", Font.PLAIN, 20));
             player_who_starts.setFont(new Font("Serif", Font.PLAIN, 20));
             introduceProblem.setFont(new Font("Serif", Font.PLAIN, 30));
+            Back.setFont(new Font("Serif", Font.PLAIN, 30));
             number_of_plays.setFont(new Font("Serif", Font.PLAIN, 20));
             JLabel label1 = new JLabel("FEN");
             JLabel label2 =new JLabel("Player who starts playings");
@@ -234,10 +245,14 @@ public class ProblemPanel extends JPanel {
             c.gridx = 0;
             c.gridy = 7;
             this.add(number_of_plays,c);
-            c.anchor = GridBagConstraints.CENTER;
+            c.anchor = GridBagConstraints.WEST;
             c.gridx = 0;
             c.gridy = 10;
             this.add(introduceProblem,c);
+            c.anchor = GridBagConstraints.EAST;
+            c.gridx = 0;
+            c.gridy = 10;
+            this.add(Back, c);
             c.anchor = GridBagConstraints.CENTER;
             c.gridx = 0;
             c.gridy = 0;

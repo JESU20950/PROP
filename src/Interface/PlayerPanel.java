@@ -22,7 +22,6 @@ public class PlayerPanel extends JPanel {
     private FrameProgram frame;
     private JComboBox<String> Player1;
     private JComboBox<String> Player2;
-    private java.awt.List graphic_list;
     private SampleGame table;
 
     public PlayerPanel(FrameProgram t){
@@ -80,27 +79,10 @@ public class PlayerPanel extends JPanel {
         }
     }
 
-    private class double_click extends MouseAdapter {
-        public void mouseClicked(MouseEvent me) {
-            if (me.getClickCount() == 2) {
-                frame.getActual_game().prepareTablewithFEN(graphic_list.getSelectedItem());
-                GameInterface Panel = new GameInterface(frame);
-                frame.getMiFrame().getContentPane().removeAll();
-                frame.getMiFrame().getContentPane().add(Panel);
-                frame.getMiFrame().revalidate();
-                frame.getMiFrame().repaint();
-            } else {
-                table = new SampleGame(graphic_list.getSelectedItem());
-                frame.getMiFrame().getContentPane().remove(2);
-                frame.getMiFrame().getContentPane().add(table, BorderLayout.SOUTH);
-                frame.getMiFrame().revalidate();
-                frame.getMiFrame().repaint();
-            }
-        }
-    }
-
-    private void machine_vs_machine() {
-        MachinePanel Panel = new MachinePanel(frame);
+    private void machine_vs_machine(int machine1, int machine2) {
+        boolean m1 = machine1 == 2;
+        boolean m2 = machine2 == 2;
+        MachinePanel Panel = new MachinePanel(frame, m1, m2);
         frame.getMiFrame().getContentPane().removeAll();
         frame.getMiFrame().setContentPane(Panel);
         frame.getMiFrame().revalidate();
@@ -110,29 +92,29 @@ public class PlayerPanel extends JPanel {
     private class playaction implements ActionListener {
         public void actionPerformed(ActionEvent evt) {
             ProblemPanel Panel = new ProblemPanel(frame);
-            boolean machine1 = false;
-            boolean machine2 = false;
+            int machine1 = 0;
+            int machine2 = 0;
             if (Player1.getSelectedItem().equals("Human")){
                 frame.getActual_game().setPlayer1(new Human());
             }else if(Player1.getSelectedItem().equals("Machine1")){
-                machine1 = true;
+                machine1 = 1;
                 frame.getActual_game().setPlayer1(new Machine1());
             }else if (Player1.getSelectedItem().equals("Machine2")){
-                machine1 = true;
+                machine1 = 2;
                 frame.getActual_game().setPlayer1(new Machine2());
             }
             if (Player2.getSelectedItem().equals("Human")){
                 frame.getActual_game().setPlayer2(new Human());
             }else if(Player2.getSelectedItem().equals("Machine1")){
-                machine2 = true;
+                machine2 = 1;
                 frame.getActual_game().setPlayer2(new Machine1());
             }else if (Player2.getSelectedItem().equals("Machine2")) {
-                machine2 = true;
+                machine2 = 2;
                 frame.getActual_game().setPlayer2(new Machine2());
             }
             frame.getActual_game().getPlayer1().setColor(true);
             frame.getActual_game().getPlayer2().setColor(false);
-            if (machine1 && machine2) machine_vs_machine();
+            if (machine1 != 0 && machine2 != 0) machine_vs_machine(machine1, machine2);
             else {
                 frame.getMiFrame().getContentPane().removeAll();
                 frame.getMiFrame().getContentPane().add(Panel);

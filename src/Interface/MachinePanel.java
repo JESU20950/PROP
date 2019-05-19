@@ -13,8 +13,12 @@ public class MachinePanel extends JPanel implements ActionListener {
     private JButton hard_problems;
     private JButton user_problems;
     private JButton back;
+    private boolean machine1;
+    private boolean machine2;
 
-    public MachinePanel(FrameProgram t) {
+    public MachinePanel(FrameProgram t, boolean CPU1, boolean CPU2) {
+        machine1 = CPU1;
+        machine2 = CPU2;
         frame = t;
         this.setLayout(new GridBagLayout());
         easy_problems = new JButton("Easy Problems");
@@ -49,22 +53,22 @@ public class MachinePanel extends JPanel implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == easy_problems) {
-            MultipleProblems Panel = new MultipleProblems(frame, 0);
+        if (e.getSource() == easy_problems ) {
+            MultipleProblems Panel = new MultipleProblems(frame, 0, machine1, machine2);
             frame.getMiFrame().getContentPane().removeAll();
             frame.getMiFrame().setContentPane(Panel);
             frame.getMiFrame().revalidate();
             frame.getMiFrame().repaint();
         }
         if (e.getSource() == hard_problems) {
-            MultipleProblems Panel = new MultipleProblems(frame, 1);
+            MultipleProblems Panel = new MultipleProblems(frame, 1, machine1, machine2);
             frame.getMiFrame().getContentPane().removeAll();
             frame.getMiFrame().setContentPane(Panel);
             frame.getMiFrame().revalidate();
             frame.getMiFrame().repaint();
         }
         if (e.getSource() == user_problems) {
-            MultipleProblems Panel = new MultipleProblems(frame, 2);
+            MultipleProblems Panel = new MultipleProblems(frame, 2, machine1, machine2);
             frame.getMiFrame().getContentPane().removeAll();
             frame.getMiFrame().setContentPane(Panel);
             frame.getMiFrame().revalidate();

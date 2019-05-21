@@ -59,7 +59,7 @@ public class ModificatePanel extends JPanel{
 
     private class introduceListener implements ActionListener {
         public void actionPerformed(ActionEvent evt) {
-            IntroduceFEN panel = new IntroduceFEN(frame, false);
+            IntroduceFEN panel = new IntroduceFEN(frame);
             frame.getMiFrame().getContentPane().removeAll();
             frame.getMiFrame().setContentPane(panel);
             frame.getMiFrame().revalidate();

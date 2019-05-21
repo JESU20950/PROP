@@ -54,4 +54,5 @@ public abstract class Piece {
         }
         return true;
     }
+
 }

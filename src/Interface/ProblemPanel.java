@@ -174,8 +174,8 @@ public class ProblemPanel extends JPanel {
                 frame.getMiFrame().revalidate();
                 frame.getMiFrame().repaint();
             } else {
+                frame.getMiFrame().getContentPane().remove(table);
                 table = new SampleGame(graphic_list.getSelectedItem());
-                frame.getMiFrame().getContentPane().remove(2);
                 frame.getMiFrame().getContentPane().add(table, BorderLayout.SOUTH);
                 frame.getMiFrame().revalidate();
                 frame.getMiFrame().repaint();

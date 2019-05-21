@@ -286,6 +286,7 @@ public class Problem {
 
     public static void introduce_user_result(String FEN, String username, Instant now, Instant end_of_game) throws IOException {
        long duration_of_game = Duration.between(now, end_of_game).toMillis();
+       duration_of_game = duration_of_game/1000;
        List <String> output = marks_of_problem(FEN);
        String s = getOS();
        String path;

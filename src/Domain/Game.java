@@ -18,15 +18,26 @@ public class Game {
     private Player player1;
     private Player player2;
     private Instant start;
+    private Instant end;
+    private String FEN;
     public Game () {
     }
+
+    public String getFEN() {
+        return FEN;
+    }
+
+
+
     public void prepareTablewithFEN(String FEN){
+        this.FEN = FEN;
         number_of_play = ConvertInputtonumber_of_play(FEN)*2;
         player_who_plays = ConvertInputtoplayer_who_start(FEN);
         table = new Table(FEN);
         player_who_has_to_win = ConvertInputtoplayer_who_has_to_win(FEN);
     }
     public void prepareTablewithParameters(String FEN, boolean player_who_start, boolean player_who_has_to_win, int number_of_play){
+        this.FEN = convertParameterstoFEN(FEN,player_who_start,player_who_has_to_win,number_of_play);
         table = new Table(FEN);
         player_who_plays = player_who_start;
         this.player_who_has_to_win = player_who_has_to_win;
@@ -121,5 +132,13 @@ public class Game {
 
     public Instant getStart() {
         return start;
+    }
+
+    public Instant getEnd() {
+        return end;
+    }
+
+    public void setEnd(Instant end) {
+        this.end = end;
     }
 }

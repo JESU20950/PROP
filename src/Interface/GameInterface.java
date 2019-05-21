@@ -11,10 +11,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.time.Duration;
 import java.time.Instant;
 
-import static java.lang.System.exit;
+import static Domain.Problem.introduce_user_result;
 
 
 public class GameInterface extends JPanel {
@@ -29,6 +30,8 @@ public class GameInterface extends JPanel {
     private JLabel Player_who_has_to_win;
     private JLabel Number_of_plays;
     private JLabel timer;
+    private Thread r;
+    private Thread s;
     GameInterface(FrameProgram t) {
         frame = t;
         actual_game = t.getActual_game();
@@ -45,14 +48,14 @@ public class GameInterface extends JPanel {
         infoPanel.add(Player_who_plays);
         infoPanel.add(Number_of_plays);
         Threadinfo threadinfo = new Threadinfo();
-        Thread r = new Thread(threadinfo);
+        r = new Thread(threadinfo);
         r.start();
         timer = new JLabel();
         timer.setFont(new java.awt.Font("Tahoma", 3, 60));
         this.add(timer,BorderLayout.SOUTH);
 
         ThreadMachine machine = new ThreadMachine();
-        Thread s = new Thread(machine);
+        s = new Thread(machine);
         s.start();
     }
     public void paint_info(){
@@ -90,6 +93,7 @@ public class GameInterface extends JPanel {
     }
 
     public void dialaog_end_of_game(){
+        r.stop();
         if (actual_game.getTable().checkmate(true, true) || actual_game.getTable().checkmate(true, false) )
             JOptionPane.showMessageDialog(frame.getMiFrame(),
                 "Congratulations white player",
@@ -100,6 +104,20 @@ public class GameInterface extends JPanel {
                     "Congratulations black player",
                     "CONGRATULATIONS",
                     JOptionPane.NO_OPTION);
+        }
+        long duration = Duration.between(actual_game.getStart(),actual_game.getEnd()).toMillis();
+        duration = duration/1000;
+        String duration_string = Long.toString(duration);
+        String username = (String)JOptionPane.showInputDialog(
+                frame,
+                "Your mark is: " + duration_string,
+                "Introduce User Name",
+                JOptionPane.PLAIN_MESSAGE
+                );
+        try {
+            introduce_user_result(actual_game.getFEN() ,username,actual_game.getStart(),actual_game.getEnd());
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         Cover Panel = new Cover(frame);
         frame.getMiFrame().setContentPane(Panel);
@@ -200,15 +218,14 @@ public class GameInterface extends JPanel {
             duration = duration/1000;
             String duration_string = Long.toString(duration );
             timer.setText(duration_string + " SEGUNDOS");
-            while(!actual_game.endofgame() || actual_game.getTable().king_position(true) != null || actual_game.getTable().king_position(false) != null){
+            while(true){
                 duration = Duration.between(actual_game.getStart(), Instant.now()).toMillis();
                 duration = duration/1000;
                 duration_string = Long.toString(duration);
                 timer.setText(duration_string + " SEGUNDOS");
                 repaint();
+                actual_game.setEnd(Instant.now());
             }
-            System.out.println(actual_game.endofgame());
-            dialaog_end_of_game();
         }
     }
     class ThreadMachine implements Runnable {
@@ -220,7 +237,6 @@ public class GameInterface extends JPanel {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    System.out.println(actual_game.endofgame());
                     Cell[] movement = actual_game.getPlayerwhoplays().move_piece(actual_game);
                     int iorigen = movement[0].getI();
                     int jorigen = movement[0].getJ();
@@ -230,10 +246,10 @@ public class GameInterface extends JPanel {
                     chessBoard[iorigen][jorigen].setIcon(null);
                     actual_game.setPlayer_who_plays(!actual_game.getPlayer_who_plays());
                     actual_game.setNumber_of_play(actual_game.getNumber_of_play() - 1);
-                    actual_game.getTable().print_table();
                     paint_info();
                 }
             }
+            System.out.println("hola2");
             dialaog_end_of_game();
         }
     }

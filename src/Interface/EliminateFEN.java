@@ -59,7 +59,19 @@ public class EliminateFEN extends JPanel{
         }
     }
 
-    private class double_click extends MouseAdapter {
+    public java.awt.List getGraphic_list() {
+        return graphic_list;
+    }
+
+    public SampleGame getTable() {
+        return table;
+    }
+
+    public void setTable(SampleGame table) {
+        this.table = table;
+    }
+
+    public class double_click extends MouseAdapter {
         public void mouseClicked(MouseEvent me) {
             if (me.getClickCount() == 2) {
                 try {
@@ -88,8 +100,8 @@ public class EliminateFEN extends JPanel{
                     e.printStackTrace();
                 }
             }else{
+                frame.getMiFrame().getContentPane().remove(table);
                 table = new SampleGame(graphic_list.getSelectedItem());
-                frame.getMiFrame().getContentPane().remove(2);
                 frame.getMiFrame().getContentPane().add(table,BorderLayout.SOUTH);
                 frame.getMiFrame().revalidate();
                 frame.getMiFrame().repaint();

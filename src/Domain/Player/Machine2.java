@@ -20,8 +20,9 @@ public class Machine2 extends Player{
         return true;
     }
 
-    private void update_good_movements(List<Cell> movement, Cell origen) {
+    private void update_good_movements(Table t, List<Cell> movement, Cell origen, boolean turn) {
         for (int i = 0; i < movement.size(); ++i) {
+
             if (movement.get(i).getPiece() != null && movement.get(i).getPiece().getColor() == origen.getPiece().getColor()) {
                 movement.remove(i);
             }
@@ -38,7 +39,7 @@ public class Machine2 extends Player{
                 int best = -9999;
                 for (int i = 0; i < pieces.size(); ++i) {
                     List<Cell> movement = pieces.get(i).getMovement();
-                    update_good_movements(movement, pieces.get(i).getPosition());
+                    update_good_movements(t, movement, pieces.get(i).getPosition(),turn);
                     int io = pieces.get(i).getPosition().getI();
                     int jo = pieces.get(i).getPosition().getJ();
                     for (int j = 0; j < movement.size(); ++j) {
@@ -68,7 +69,7 @@ public class Machine2 extends Player{
                 int best = 9999;
                 for (int i = 0; i < pieces.size(); ++i) {
                     List<Cell> movement = pieces.get(i).getMovement();
-                    update_good_movements(movement, pieces.get(i).getPosition());
+                    update_good_movements(t, movement, pieces.get(i).getPosition(),turn);
                     int io = pieces.get(i).getPosition().getI();
                     int jo = pieces.get(i).getPosition().getJ();
                     for (int j = 0; j < movement.size(); ++j) {
@@ -122,8 +123,8 @@ public class Machine2 extends Player{
     private int evaluate(Table t){
         int M = evaluate_pieces(t.getPieces(super.color));
         int E = evaluate_pieces(t.getPieces(!super.color));
-        if (t.checkmate(super.color, true) || t.checkmate(super.color, false)) return 1000;
-        if (t.checkmate(!super.color, true) || t.checkmate(!super.color, true)) return -1000;
+        //if (t.checkmate(super.color, true) || t.checkmate(super.color, false)) return 1000;
+        //if (t.checkmate(!super.color, true) || t.checkmate(!super.color, true)) return -1000;
         return M - E;
     }
 }

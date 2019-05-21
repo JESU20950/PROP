@@ -18,7 +18,7 @@ public class IntroduceFEN extends JPanel {
     private JComboBox player_who_starts;
     private SampleGame table;
 
-    IntroduceFEN(FrameProgram t, boolean multiple) {
+    IntroduceFEN(FrameProgram t) {
         frame = t;
         FEN = new JTextField();
         FEN.addFocusListener(new changetext());
@@ -124,7 +124,7 @@ public class IntroduceFEN extends JPanel {
                 String FENtext = FEN.getText();
                 boolean player_who_start_bool = player_who_starts.getSelectedItem() == "White";
                 boolean player_who_has_to_win = player_who_has_to_achive_the_check_mate.getSelectedItem() == "White";
-                boolean iscorrectproblem = false;
+                boolean iscorrectproblem;
                 int number_of_plays_int = (int) number_of_plays.getValue();
                 if (number_of_plays_int < 0) {
                     JOptionPane.showMessageDialog(frame.getMiFrame(),
@@ -133,8 +133,8 @@ public class IntroduceFEN extends JPanel {
                             JOptionPane.ERROR_MESSAGE);
                     return;
                 }
+                number_of_plays_int = number_of_plays_int*2;
                 iscorrectproblem = isCorrectProblem(FENtext, player_who_start_bool, player_who_has_to_win, number_of_plays_int);
-
                 if (!iscorrectproblem) {
                     JOptionPane.showMessageDialog(frame.getMiFrame(),
                             "Problem is incorrect.",
@@ -143,6 +143,7 @@ public class IntroduceFEN extends JPanel {
                     return;
                 }
                 try {
+                    number_of_plays_int = number_of_plays_int/2;
                     introduce_problem_toBD(FENtext, player_who_start_bool, player_who_has_to_win, number_of_plays_int);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -162,79 +163,17 @@ public class IntroduceFEN extends JPanel {
             c.gridx = 0;
             c.gridy = 20;
             if (iscorrectFen(FEN.getText())) {
+                frame.getMiFrame().getContentPane().remove(table);
                 table = new SampleGame(FEN.getText() + " w w 2");
-                frame.getMiFrame().getContentPane().remove(9);
                 frame.getMiFrame().getContentPane().add(table, c);
                 frame.getMiFrame().revalidate();
                 frame.getMiFrame().repaint();
             } else {
+                frame.getMiFrame().getContentPane().remove(table);
                 table = new SampleGame("8/8/8/8/8/8/8/8 w w 2");
-                frame.getMiFrame().getContentPane().remove(9);
                 frame.getMiFrame().getContentPane().add(table, c);
                 frame.getMiFrame().revalidate();
                 frame.getMiFrame().repaint();
-            }
-        }
-    }
-
-    public class EliminateFEN extends JPanel {
-        private FrameProgram frame;
-        private java.awt.List graphic_list;
-        private SampleGame table;
-
-        EliminateFEN(FrameProgram t) {
-            frame = t;
-            this.setLayout(new BorderLayout());
-            java.util.List<String> problem = new ArrayList<String>();
-            try {
-                problem = Problem.load_problem_fromBD("BD_USERPROBLEMS");
-            } catch (
-                    IOException e) {
-                e.printStackTrace();
-            }
-            graphic_list = new java.awt.List();
-            for (int i = 0; i < problem.size(); ++i) {
-                graphic_list.add(problem.get(i));
-            }
-            graphic_list.setFont(new Font("Serif", Font.PLAIN, 15));
-            graphic_list.setMultipleMode(false);
-            graphic_list.addMouseListener(new double_click());
-            JLabel label = new JLabel();
-            label.setText("FEN + Player who start playing + Player who has to achive checkmate + number of plays");
-            this.add(label, BorderLayout.BEFORE_FIRST_LINE);
-            JPanel panelgraphiclist = new JPanel();
-            panelgraphiclist.setSize(400, 400);
-            panelgraphiclist.add(graphic_list);
-            this.add(graphic_list, BorderLayout.CENTER);
-
-            if (problem.get(0) != null) table = new SampleGame(problem.get(0));
-            this.add(table, BorderLayout.SOUTH);
-        }
-
-        private class double_click extends MouseAdapter {
-            public void mouseClicked(MouseEvent me) {
-                if (me.getClickCount() == 2) {
-                    try {
-                        delete_problem_fromBD(graphic_list.getSelectedItem());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    JOptionPane.showMessageDialog(frame.getMiFrame(),
-                            "Problem eliminated",
-                            "",
-                            JOptionPane.INFORMATION_MESSAGE);
-                    Interface.EliminateFEN panel = new Interface.EliminateFEN(frame);
-                    frame.getMiFrame().getContentPane().removeAll();
-                    frame.getMiFrame().setContentPane(panel);
-                    frame.getMiFrame().revalidate();
-                } else {
-                    table = new SampleGame(graphic_list.getSelectedItem());
-                    frame.getMiFrame().getContentPane().remove(2);
-                    frame.getMiFrame().getContentPane().add(table, BorderLayout.SOUTH);
-                    frame.getMiFrame().revalidate();
-                    frame.getMiFrame().repaint();
-
-                }
             }
         }
     }

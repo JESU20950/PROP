@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="ChessGameUPC">
+    <output-path>$PROJECT_DIR$/out/artifacts/ChessGameUPC</output-path>
+    <root id="archive" name="PROP.jar">
+      <element id="module-output" name="PROP" />
+    </root>
+  </artifact>
+</component>

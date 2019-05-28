@@ -235,8 +235,8 @@ public class Problem {
     public static List<String> load_problem_fromBD(String name_of_file) throws IOException {
         String s = getOS();
         String path;
-        if (s.charAt(0) == 'w') path = "src\\Data\\";
-        else path = "src/Data/";
+        if (s.charAt(0) == 'w') path = "..\\FONTS\\src\\Data\\";
+        else path = "../FONTS/src/Data/";
         File file = new File(path + name_of_file);
         FileReader fr = new FileReader(file);
         BufferedReader br = new BufferedReader(fr);
@@ -252,8 +252,8 @@ public class Problem {
     public static List<String> marks_of_problem(String FEN) throws IOException {
         String s = getOS();
         String path;
-        if (s.charAt(0) == 'w') path = "src\\Data\\";
-        else path = "src/Data/";
+        if (s.charAt(0) == 'w') path = "..\\FONTS\\src\\Data\\";
+        else path = "../FONTS/src/Data/";
         File file = new File(path + create_file_name(FEN));
         List<String> result = new ArrayList<String>();
         if (file.exists()) {
@@ -290,8 +290,8 @@ public class Problem {
        List <String> output = marks_of_problem(FEN);
        String s = getOS();
        String path;
-       if (s.charAt(0) == 'w') path = "src\\Data\\";
-       else path = "src/Data/";
+       if (s.charAt(0) == 'w') path = "..\\FONTS\\src\\Data\\";
+       else path = "../FONTS/src/Data/";
        FileWriter file = new FileWriter(path + create_file_name(FEN));
        PrintWriter pw  = new PrintWriter (file);
        boolean added = false;
@@ -311,8 +311,8 @@ public class Problem {
         List <String> problems = load_problem_fromBD("BD_USERPROBLEMS");
         String s = getOS();
         String path;
-        if (s.charAt(0) == 'w') path = "src\\Data\\";
-        else path = "src/Data/";
+        if (s.charAt(0) == 'w') path = "..\\FONTS\\src\\Data\\";
+        else path = "../FONTS/src/Data/";
         FileWriter file = new FileWriter(path +"BD_USERPROBLEMS");
         PrintWriter pw  = new PrintWriter (file);
         String FEN_to_introduce = convertParameterstoFEN(FEN,player_who_start,player_who_has_to_win,number_of_play);
@@ -326,8 +326,8 @@ public class Problem {
         List <String> problems = load_problem_fromBD("BD_USERPROBLEMS");
         String s = getOS();
         String path;
-        if (s.charAt(0) == 'w') path = "src\\Data\\";
-        else path = "src/Data/";
+        if (s.charAt(0) == 'w') path = "..\\FONTS\\src\\Data\\";
+        else path = "../FONTS/src/Data/";
         FileWriter file = new FileWriter(path + "BD_USERPROBLEMS");
         PrintWriter pw  = new PrintWriter (file);
         for (int i = 0; i<problems.size(); ++i){
@@ -342,8 +342,8 @@ public class Problem {
         List <String> problems = load_problem_fromBD("BD_USERPROBLEMS");
         String s = getOS();
         String path;
-        if (s.charAt(0) == 'w') path = "src\\Data\\";
-        else path = "src/Data/";
+        if (s.charAt(0) == 'w') path = "..\\FONTS\\src\\Data\\";
+        else path = "../FONTS/src/Data/";
         FileWriter file = new FileWriter(path + "BD_USERPROBLEMS");
         PrintWriter pw  = new PrintWriter (file);
         for (int i = 0; i<problems.size(); ++i){

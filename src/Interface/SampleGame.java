@@ -5,6 +5,9 @@ import Domain.Game;
 import javax.swing.*;
 import java.awt.*;
 
+import static Domain.Problem.ConvertInputtonumber_of_play;
+import static Domain.Problem.ConvertInputtoplayer_who_has_to_win;
+
 public class SampleGame extends JPanel {
     private JPanel ChessBoardPanel;
     private ChessButton chessBoard[][];
@@ -17,7 +20,7 @@ public class SampleGame extends JPanel {
     }
     public void paint_table() {
         ChessBoardPanel = new JPanel();
-        this.add(ChessBoardPanel,BorderLayout.CENTER);
+        this.add(ChessBoardPanel,BorderLayout.NORTH);
         ChessBoardPanel.setLayout(new GridLayout(9, 9));
         ChessBoardPanel.setPreferredSize(new Dimension(7 * 80, 7 * 80));
         chessBoard = new ChessButton[8][8];

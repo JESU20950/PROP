@@ -92,32 +92,37 @@ public class GameInterface extends JPanel {
         return chessBoard;
     }
 
-    public void dialaog_end_of_game(){
+    public void dialaog_end_of_game() {
         r.stop();
-        if (actual_game.getTable().checkmate(true, true) || actual_game.getTable().checkmate(true, false) )
+        boolean player_who_wins;
+        if (actual_game.getTable().checkmate(true, true) || actual_game.getTable().checkmate(true, false)){
             JOptionPane.showMessageDialog(frame.getMiFrame(),
-                "Congratulations white player",
-                "CONGRATULATIONS",
-                JOptionPane.NO_OPTION);
-        else{
+                    "Congratulations white player",
+                    "CONGRATULATIONS",
+                    JOptionPane.NO_OPTION);
+        player_who_wins = true;
+        }else{
             JOptionPane.showMessageDialog(frame.getMiFrame(),
                     "Congratulations black player",
                     "CONGRATULATIONS",
                     JOptionPane.NO_OPTION);
+            player_who_wins = false;
         }
-        long duration = Duration.between(actual_game.getStart(),actual_game.getEnd()).toMillis();
-        duration = duration/1000;
-        String duration_string = Long.toString(duration);
-        String username = (String)JOptionPane.showInputDialog(
-                frame,
-                "Your mark is: " + duration_string,
-                "Introduce User Name",
-                JOptionPane.PLAIN_MESSAGE
-                );
-        try {
-            introduce_user_result(actual_game.getFEN() ,username,actual_game.getStart(),actual_game.getEnd());
-        } catch (IOException e) {
-            e.printStackTrace();
+        if ((player_who_wins && !actual_game.getPlayer1().isMachine()) || (!player_who_wins && !actual_game.getPlayer2().isMachine())) {
+            long duration = Duration.between(actual_game.getStart(), actual_game.getEnd()).toMillis();
+            duration = duration / 1000;
+            String duration_string = Long.toString(duration);
+            String username = (String) JOptionPane.showInputDialog(
+                    frame,
+                    "Your mark is: " + duration_string,
+                    "Introduce User Name",
+                    JOptionPane.PLAIN_MESSAGE
+            );
+            try {
+                introduce_user_result(actual_game.getFEN(), username, actual_game.getStart(), actual_game.getEnd());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         Cover Panel = new Cover(frame);
         frame.getMiFrame().setContentPane(Panel);

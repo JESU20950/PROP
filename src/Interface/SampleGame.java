@@ -1,6 +1,7 @@
 package Interface;
 
 import Domain.Game;
+import Domain.Problem;
 
 import javax.swing.*;
 import java.awt.*;
@@ -54,42 +55,46 @@ public class SampleGame extends JPanel {
                 this.setIcon(null);
             } else {
                 String c = sample_game.getTable().getTable()[i][j].getPiece().getName();
+                String str = Problem.getOS();
+                String path;
+                if (str.charAt(0) == 'w') path = "..\\FONTS\\src\\Data\\";
+                else path = "../FONTS/src/Data/";
                 switch (c) {
                     case "k":
-                        this.setIcon(new ImageIcon("src/Data/" + "blackking.png"));
+                        this.setIcon(new ImageIcon(path + "blackking.png"));
                         break;
                     case "q":
-                        this.setIcon(new ImageIcon("src/Data/" + "blackqueen.png"));
+                        this.setIcon(new ImageIcon(path + "blackqueen.png"));
                         break;
                     case "r":
-                        this.setIcon(new ImageIcon("src/Data/" + "blackrook.png"));
+                        this.setIcon(new ImageIcon(path + "blackrook.png"));
                         break;
                     case "b":
-                        this.setIcon(new ImageIcon("src/Data/" + "blackbishop.png"));
+                        this.setIcon(new ImageIcon(path + "blackbishop.png"));
                         break;
                     case "n":
-                        this.setIcon(new ImageIcon("src/Data/" + "blackknight.png"));
+                        this.setIcon(new ImageIcon(path + "blackknight.png"));
                         break;
                     case "p":
-                        this.setIcon(new ImageIcon("src/Data/" + "blackpawn.png"));
+                        this.setIcon(new ImageIcon(path + "blackpawn.png"));
                         break;
                     case "K":
-                        this.setIcon(new ImageIcon("src/Data/" + "whiteking.png"));
+                        this.setIcon(new ImageIcon(path + "whiteking.png"));
                         break;
                     case "Q":
-                        this.setIcon(new ImageIcon("src/Data/" + "whitequeen.png"));
+                        this.setIcon(new ImageIcon(path + "whitequeen.png"));
                         break;
                     case "R":
-                        this.setIcon(new ImageIcon("src/Data/" + "whiterook.png"));
+                        this.setIcon(new ImageIcon(path + "whiterook.png"));
                         break;
                     case "B":
-                        this.setIcon(new ImageIcon("src/Data/" + "whitebishop.png"));
+                        this.setIcon(new ImageIcon(path + "whitebishop.png"));
                         break;
                     case "N":
-                        this.setIcon(new ImageIcon("src/Data/" + "whiteknight.png"));
+                        this.setIcon(new ImageIcon(path + "whiteknight.png"));
                         break;
                     case "P":
-                        this.setIcon(new ImageIcon("src/Data/" + "whitepawn.png"));
+                        this.setIcon(new ImageIcon(path + "whitepawn.png"));
                         break;
                 }
             }
